@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isscollege.gdce.dao.INewsDao">
+
+    <insert id="addNews" parameterType="com.isscollege.gdce.domain.News" >
+			INSERT INTO tbl_news_info (id,name,title,type,reviewState,createDate,content,recordID,submitDate)
+			VALUES 
+				(#{id},#{name},#{title},#{type},#{reviewState},#{createDate},#{content},#{recordID},#{submitDate})
+	</insert>
+	
+	<delete id="deleteNews" parameterType="java.lang.String">
+	     DELETE  FROM  tbl_news_info 
+	     WHERE title=#{title}
+	</delete>
+	
+	<update id="updateNewsReviewState" parameterType="int">
+			UPDATE tbl_news_info 
+			SET reviewState=#{curStats} 
+			WHERE id=#{newsId}
+	</update>
+
+	<update id="updateNewsRecordID">
+			UPDATE tbl_news_info
+			SET recordID=#{recordID}
+			WHERE id=#{newsId}
+	</update>
+
+	<select id="queryNewsByID" resultType="com.isscollege.gdce.domain.News">
+		SELECT *
+		FROM tbl_news_info
+		WHERE id=#{id}
+	</select>
+	
+	<update id="updateNews" parameterType="com.isscollege.gdce.domain.News" >
+	        UPDATE tbl_news_info 
+	        SET title=#{title},content=#{content}, createDate=#{createDate}, reviewState=#{reviewState} 
+	        WHERE id=#{id}
+	</update> 
+	
+	<select id="getAllNews" resultType="com.isscollege.gdce.domain.News">
+	        SELECT * 
+	        FROM tbl_news_info 
+	        WHERE TYPE=#{type} LIMIT #{page} ,8 
+	</select>
+	
+	<select id = "queryNewsByReviewState" resultType ="com.isscollege.gdce.domain.News">
+			SELECT * 
+			FROM tbl_news_info 
+			WHERE reviewState = 0  or reviewState=1
+			LIMIT #{page},#{size}
+	</select>
+
+	<select id = "queryNewsByState" resultType ="com.isscollege.gdce.domain.News">
+		SELECT *
+		FROM tbl_news_info
+		WHERE reviewState =#{reviewState}
+		LIMIT #{page},#{size}
+	</select>
+
+	<select id="getNewsList" resultType="com.isscollege.gdce.domain.News">
+		SELECT *
+		FROM tbl_news_info
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+		LIMIT ${offset} ,${limit}
+	</select>
+
+	<select id="getNewsListTotal" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM tbl_news_info
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+	</select>
+	<select id = "queryNewsByReviewStatenotpass" resultType ="com.isscollege.gdce.domain.News">
+			SELECT *
+			FROM tbl_news_info
+			WHERE reviewState = 3
+			LIMIT #{page},#{size}
+	</select>
+	
+	<select id = "getNewsByType" resultType ="com.isscollege.gdce.domain.News"
+	           parameterType ="java.lang.String">
+			SELECT * 
+			FROM tbl_news_info 
+			WHERE TYPE = #{type}
+	</select>
+	
+	<select id = "count"  parameterType ="java.lang.String" resultType="java.lang.Integer">
+			SELECT count(*) 
+			FROM tbl_news_info 
+			WHERE TYPE = #{type} 
+	</select>
+	
+	<select id = "findPageBeanForNews" resultType ="com.isscollege.gdce.domain.News">
+			SELECT * 
+			FROM tbl_news_info 
+			WHERE TYPE = #{type} 
+			LIMIT #{index},#{currentCount}	
+	</select>
+	
+	<select id = "getNewsByTitle"  parameterType ="java.lang.String"  resultType ="com.isscollege.gdce.domain.News" >
+			SELECT * 
+			FROM tbl_news_info 
+			WHERE title = #{title}
+	</select>
+	
+	<select id = "newsDisplay"  parameterType ="java.lang.String" resultType ="com.isscollege.gdce.domain.News">
+			SELECT * 
+			FROM tbl_news_info 
+			WHERE title = #{title}
+	</select>
+	
+	<select id = "adminPageBeanForNews" resultType ="com.isscollege.gdce.domain.News">
+			SELECT * 
+			FROM tbl_news_info 
+			WHERE TYPE = #{type} LIMIT #{index},#{currentCount}
+	</select>
+
+	<select id="getAllNewsInfo" resultType="com.isscollege.gdce.domain.News">
+		SELECT *
+		FROM tbl_news_info
+		ORDER BY id ASC
+	</select>
+</mapper>

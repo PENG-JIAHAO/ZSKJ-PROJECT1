@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.IUserDao">
+	<select id="queryUserByName" resultType="com.isscollege.gdce.domain.User"
+		parameterType="java.lang.String">
+		SELECT *FROM system_users WHERE binary  NAME=#{name}
+	</select>
+
+	<select id="queryUserByUserName" resultType="com.isscollege.gdce.domain.User"
+		parameterType="java.lang.String">
+		SELECT * FROM system_users where binary  username =#{username}
+	</select>
+
+	<select id="queryUserByPhonenumber" resultType="com.isscollege.gdce.domain.User"
+		parameterType="java.lang.String">
+		SELECT * FROM system_users where phonenumber =
+		#{phonenumber}
+	</select>
+
+	<select id="queryUserByEmail" resultType="com.isscollege.gdce.domain.User"
+		parameterType="java.lang.String">
+		SELECT * FROM system_users where email = #{email}
+	</select>
+
+	<select id="queryUserByCompanyId" resultType="com.isscollege.gdce.domain.User"
+		parameterType="java.lang.String">
+		SELECT
+		id,NAME,PASSWORD,LEVEL,permission,companyId,isRemember,loginState,username,department,phonenumber,email
+		FROM system_users WHERE companyId LIKE concat('%',#{companyId},'%')
+	</select>
+
+	<insert id="insertUser" parameterType="com.isscollege.gdce.domain.User">
+		INSERT INTO
+		system_users(NAME,PASSWORD,permission,companyId,LEVEL,isRemember,loginState,username,department,phonenumber,email)
+		VALUES(#{name},#{password},#{permission},'','2', FALSE,
+		FALSE,'','','','')
+	</insert>
+
+	<insert id="insertCompany" parameterType="com.isscollege.gdce.domain.Company">
+		INSERT INTO
+		tbl_company_info(companyId,companyName,legalPerson,legalPersonId,accountantName,companyAddress,companyEmail,phoneNumber,companyFax,postalCode,registerMoney,openLicenseId,bussionLicense,taxRegisterId,openBank,bankAccount,goodsAddress,transportStyle,companyProfile,openLicensePath,taxRegisterCodePath,companyCodePath,bankAccountCodePath,legalPersonCodePath,bussionLicenseCodePath,reviewState,reviewAdvice)
+		VALUES(#{companyId},#{companyName},#{legalPerson},#{legalPersonId},#{accountantName},#{companyAddress},#{companyEmail},#{phoneNumber},#{companyFax},#{postalCode},#{registerMoney},#{openLicenseId},#{bussionLicense},#{taxRegisterId},#{openBank},#{bankAccount},#{goodsAddress},#{transportStyle},#{companyProfile},'','','','','','',0,'')
+	</insert>
+
+	<update id="updateCompany" parameterType="java.util.Map">
+		UPDATE tbl_company_info
+		SET
+		companyId=#{company.companyId},companyName=#{company.companyName},legalPerson=#{company.legalPerson},legalPersonId=#{company.legalPersonId},accountantName=#{company.accountantName},companyAddress=#{company.companyAddress},companyEmail=#{company.companyEmail},phoneNumber=#{company.phoneNumber},companyFax=#{company.companyFax},postalCode=#{company.postalCode},registerMoney=#{company.registerMoney},openLicenseId=#{company.openLicenseId},bussionLicense=#{company.bussionLicense},taxRegisterId=#{company.taxRegisterId},openBank=#{company.openBank},bankAccount=#{company.bankAccount},goodsAddress=#{company.goodsAddress},transportStyle=#{company.transportStyle},companyProfile=#{company.companyProfile},reviewState=#{company.reviewState},reviewAdvice=#{company.reviewAdvice}
+		where companyId = #{companyId}
+	</update>
+
+	<select id="queryCompanyByCompanyID" resultType="com.isscollege.gdce.domain.Company"
+		parameterType="java.lang.String">
+		SELECT * FROM tbl_company_info WHERE companyId =
+		#{companyId}
+	</select>
+
+	<update id="updateUserloginstateByName" parameterType="com.isscollege.gdce.domain.User">
+		update
+		system_users set
+		loginState=#{loginState},companyId=#{companyId} where
+		name=#{name}
+	</update>
+
+	<select id="queryManager" resultType="com.isscollege.gdce.domain.User">
+		select
+		id,NAME,PASSWORD,LEVEL,permission from system_users where level = 1
+	</select>
+
+	<insert id="addManager" parameterType="com.isscollege.gdce.domain.User">
+		INSERT INTO
+		system_users(NAME,
+		PASSWORD,level,permission,companyId,isRemember,loginState,username,department,phonenumber,email)
+		VALUES(#{name},#{password},1,#{permission}, '',FALSE,
+		FALSE,#{username},#{department},#{phonenumber},#{email})
+	</insert>
+
+	<delete id="deleteManager" parameterType="java.lang.String">
+		delete from
+		system_users where id = #{id}
+	</delete>
+
+	<select id="queryLevelById" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select level from system_users where id = #{id}
+	</select>
+
+	<update id="updateAccountant" parameterType="java.util.Map">
+		UPDATE
+		table_accountant_info SET
+		name=#{company.accountantName},phone=#{company.phone},email=#{company.email}
+		where name = #{accountantName}
+	</update>
+
+	<insert id="addAccountant" parameterType="com.isscollege.gdce.domain.Company">
+		INSERT INTO
+		table_accountant_info(name,phone,email)
+		VALUES(#{accountantName},#{phone},#{email})
+	</insert>
+
+
+    <!-- 卖家修改的信息 -->
+	<update id="saveEnterpriseQualification" parameterType="java.util.Map">
+		UPDATE
+		tbl_company_info SET
+		openLicensePath=#{company.openLicensePath},taxRegisterCodePath=#{company.taxRegisterCodePath},companyCodePath=#{company.companyCodePath},bankAccountCodePath=#{company.bankAccountCodePath},legalPersonCodePath=#{company.legalPersonCodePath},bussionLicenseCodePath=#{company.bussionLicenseCodePath}
+		where companyId=#{companyId}
+	</update>
+
+	<select id="queryAccountantByAccountantName" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.Company">
+		SELECT * FROM table_accountant_info WHERE NAME =
+		#{accountantName}
+	</select>
+
+     <!-- 登录用户名验证 -->
+	<select id="ajaxValidateLoginname" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.User">
+		SELECT * FROM system_users WHERE binary  NAME=#{name}
+	</select>
+
+	<select id="ajaxValidateUsername" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.User">
+		SELECT * FROM system_users where binary username = #{username}
+	</select>
+
+	<select id="ajaxValidatePhoneNumber" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.User">
+		SELECT * FROM system_users where phonenumber =
+		#{phonenumber}
+	</select>
+
+	<select id="ajaxValidateEmail" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.User">
+		SELECT * FROM system_users where email = #{email}
+	</select>
+
+	<select id="ajaxValidateCompanyId" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.Company">
+		SELECT
+		id,NAME,PASSWORD,LEVEL,permission,companyId,isRemember,loginState,username,department,phonenumber,email
+		FROM system_users WHERE companyId=#{companyId}
+	</select>
+
+
+    <!-- 登录用户名和密码验证-->
+	<select id="ajaxValidateLoginpassword" parameterType="java.util.Map"
+		resultType="com.isscollege.gdce.domain.User">
+		SELECT *FROM system_users WHERE binary  NAME=#{name} AND  PASSWORD=#{password}
+	</select>
+
+	<select id="ajaxValidateLoginState" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.User">
+		SELECT *FROM system_users WHERE  binary  NAME=#{name}
+	</select>
+	
+	<select id="findcompanyId" parameterType="java.lang.String"
+		resultType="com.isscollege.gdce.domain.Company">
+		SELECT * FROM tbl_company_info WHERE companyId=#{companyId}
+	</select>
+<!--http://localhost:8080/icollege_gdce/register/getdataMUser?sort=id&order=desc&limit=8&offset=0-->
+
+	<select id="queryUserByRemember" resultType="com.isscollege.gdce.domain.User"
+		>
+		SELECT *
+		FROM system_users
+		WHERE isRemember=1
+	</select>
+	<select id="getMUserInfoList" resultType="com.isscollege.gdce.domain.User">
+		SELECT *
+		FROM system_users
+		WHERE LEVEL=1
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+	<select id="getMUserInfoListTotal" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM system_users
+		WHERE LEVEL=1
+		ORDER By ${sort} ${order}
+	</select>
+</mapper>

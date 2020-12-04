@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.IAdvertisementDao">
+	
+	<insert id="addAdvertisement" parameterType="com.isscollege.gdce.domain.Advertisement">
+				INSERT INTO tbl_ads 
+					(companyId,position,email,adsImgPath,adsURL,releaseDate,endDate,note,price,reviewState,recordID,submitDate)
+				VALUES
+					(#{companyId},#{position},#{email},#{adsImgPath}, #{adsURL}, #{releaseDate}, #{endDate}, #{note},#{price},#{reviewState},#{recordID},#{submitDate})
+	</insert>
+	
+	<update id="updateAdvertisementReviewState" parameterType="java.lang.Integer" >
+				UPDATE tbl_ads
+				SET reviewState=#{state}
+				WHERE id=#{adId}
+	</update>
+
+	<update id="updateAdvertisementRecordId">
+				UPDATE tbl_ads
+				SET recordID=#{recordId}
+				WHERE id=#{adId}
+	</update>
+
+	<update id="updatemessage">
+		        UPDATE tbl_ads
+				SET companyId=#{companyId} ,position=#{position},email=#{email},adsImgPath=#{adsImgPath},adsURL=#{adsURL},releaseDate=#{releaseDate},endDate=#{endDate},note=#{note},price=#{price},reviewState=#{reviewState}
+				WHERE id=#{id}
+	</update>
+	
+	<select id="queryAdvertisementByReviewState" resultType="com.isscollege.gdce.domain.Advertisement">
+				SELECT * 
+				FROM tbl_ads 
+				WHERE reviewState=0 or reviewState=1
+				ORDER BY id ASC 
+				LIMIT #{page},#{size}
+	</select>
+
+	<select id="queryAdvertisementByReviewStatenotpass" resultType="com.isscollege.gdce.domain.Advertisement">
+				SELECT *
+				FROM tbl_ads
+				WHERE reviewState=3
+				ORDER BY id ASC
+				LIMIT #{page},#{size}
+	</select>
+
+	<select id="queryAdvertisementByState"  resultType="com.isscollege.gdce.domain.Advertisement">
+				SELECT * 
+				FROM tbl_ads 
+				WHERE reviewState=#{reviewState}
+				ORDER BY id asc  LIMIT #{page},#{size}
+	</select>
+	<select id="getAdsInfoList"  resultType="com.isscollege.gdce.domain.Advertisement">
+		SELECT *
+		FROM tbl_ads
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+
+	<select id="getAdsInfoListTotal" resultType="java.lang.Integer">
+		SELECT count(1) FROM tbl_ads
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+	</select>
+	<select id="getAllAdsInfo" resultType="com.isscollege.gdce.domain.Advertisement">
+		SELECT *
+		FROM tbl_ads
+		ORDER BY id ASC
+	</select>
+
+	<select id="getAdsInfo" resultType="com.isscollege.gdce.domain.Advertisement">
+		SELECT *
+		FROM tbl_ads
+		where id=#{id}
+	</select>
+
+	<delete id="deleteAdsInfo">
+		delete
+		FROM tbl_ads
+		where id=#{id}
+	</delete>
+
+	<select id="queryInfoByCompanyId" resultType="com.isscollege.gdce.domain.Advertisement">
+		SELECT *
+		FROM tbl_ads
+		where companyId=#{companyId}
+	</select>
+</mapper>

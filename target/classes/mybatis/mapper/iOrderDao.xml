@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.IOrderDao">
+	
+	<!-- 更新订单状态 -->
+	<update id="updateOrderStatus" >
+		UPDATE tbl_order_info 
+		SET orderState = #{orderState}
+		Where orderId = #{orderId}
+	</update>
+	<!-- 在数据库中插入成功生成的订单 -->
+	<insert id="insertOrder" parameterType="com.isscollege.gdce.domain.Order">
+		INSERT INTO tbl_order_info(orderId, tradePrice,productId,buyerCompanyId,
+		                           sellerCompanyId,orderState,receiptPath,
+		                           createDate,endDate) 
+	  	VALUES(#{orderId}, #{tradePrice},#{productId},
+			  	       #{buyerCompanyId},#{sellerCompanyId},#{orderState},
+			  	       #{receiptPath},#{createDate},#{endDate})
+	</insert>
+	
+	<insert id="insertWaybill" parameterType="com.isscollege.gdce.domain.WaybillInfo">
+		INSERT INTO tbl_waybill_info
+		  	(waybillId,waybillCompanyId,createTime,endTime,orderId,waybillState) 
+		VALUES 
+		 	(#{waybillId},#{waybillCompanyId},#{createTime},#{endTime},#{orderId},#{waybillState})
+	</insert>
+	
+	<update id="updateReceiptPath" parameterType="com.isscollege.gdce.domain.Order">
+		UPDATE tbl_order_info 
+		SET receiptPath = #{receiptPath},orderState = 1 
+		Where orderId = #{orderId}
+	</update>
+			
+	<!-- 使用orderId查询订单表，得到订单详情页所需的信息 -->
+	<select id="queryOrderByOrderId" parameterType="java.lang.String" resultType="com.isscollege.gdce.domain.Order">
+		 SELECT orderId, buyerCompanyId,sellerCompanyId,productId,tradePrice,orderState 
+		 FROM tbl_order_info 
+		 WHERE orderId = #{orderId}
+	</select>
+	
+	<!-- 使用productId查询产品表，得到订单详情页所需的信息 -->
+	<select id="queryProductByProductId" parameterType="com.isscollege.gdce.domain.Order" resultType="com.isscollege.gdce.domain.Product">
+		SELECT productId,price,quantity,srcAddress 
+		FROM tbl_product_info 
+		WHERE productId = #{productId}
+	</select>
+	
+	<!-- 使用CompanyId查询企业表，得到订单详情页所需的买方信息 -->
+	<select id="queryBuyerByCompanyId" parameterType="com.isscollege.gdce.domain.Order" resultType="com.isscollege.gdce.domain.Company">
+		SELECT companyName,phoneNumber 
+		FROM tbl_company_info 
+		WHERE companyId = #{buyerCompanyId}
+	</select>
+	
+	<!-- 使用CompanyId查询企业表，得到订单详情页所需的卖方信息 -->
+	<select id="querySellerByCompanyId" parameterType="com.isscollege.gdce.domain.Order" resultType="com.isscollege.gdce.domain.Company">
+		SELECT companyName,phoneNumber 
+		FROM tbl_company_info 
+		WHERE companyId = #{sellerCompanyId}
+	</select>
+
+	<!-- 查询当前用户的订单，存在分页，传入page参数以查看不同页 -->
+	<select id="queryOrderByPage" resultType="com.isscollege.gdce.domain.Order">
+		SELECT orderId,createDate,tradePrice,orderState 
+		FROM tbl_order_info 
+		WHERE buyerCompanyId = #{companyId} 
+		   		OR sellerCompanyId = #{companyId}  order by orderId desc LIMIT #{page},8
+
+	</select>
+		
+	<!--查询当前用户(买方或卖方)的所有订单  -->
+	<select id="queryOrder" resultType="com.isscollege.gdce.domain.Order">
+		SELECT orderId 
+		FROM tbl_order_info 
+		WHERE orderId LIKE '%${orderId}%' 
+	</select>	
+	
+	<!--  查询指定orderId的订单 -->
+	<select id="queryAppointedOrderByOrderId" resultType="com.isscollege.gdce.domain.Order">
+		SELECT orderId,createDate,tradePrice,orderState,buyerCompanyId 
+		FROM tbl_order_info 
+		WHERE orderId LIKE '%${orderId}%' 
+		 		AND (buyerCompanyId = #{companyId} 
+		  		OR  sellerCompanyId = #{companyId}) LIMIT #{page},8
+	</select>
+		
+	<!-- 查询CompanyId -->
+	<select id="queryCompanyIdByOrderId" parameterType="java.lang.String" resultType="com.isscollege.gdce.domain.Order">
+		SELECT orderId,buyerCompanyId,productId 
+		FROM tbl_order_info 
+		WHERE orderId = #{orderId}
+	</select>
+	
+	<!-- 使用productId查询产品表，得到订单详情页所需的产品信息 -->
+	<select id="queryProductByProductId1" parameterType="java.lang.Integer" resultType="com.isscollege.gdce.domain.Product">
+		SELECT productId,srcAddress,portAddress,price,quantity 
+		FROM tbl_product_info 
+		WHERE productId = #{productId}
+	</select>
+	
+	<!-- 使用companyId查询产品表，得到订单详情页所需的企业信息 -->
+	<select id="queryCompanyByCompanyId" parameterType="java.lang.String" resultType="com.isscollege.gdce.domain.Company">
+		SELECT * 
+		FROM tbl_company_info 
+		WHERE companyId = #{companyId}
+	</select>
+	
+    <!-- 	使用订单编号，查询数据库是否有该订单 -->
+	<select id="queryOrderIdById" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT orderId 
+		FROM tbl_waybill_info 
+		WHERE orderId = #{orderid}
+	</select>
+	
+</mapper>

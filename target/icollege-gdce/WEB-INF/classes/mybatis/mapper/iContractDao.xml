@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.IContractDao">
+
+    <insert id="addContract" parameterType="com.isscollege.gdce.domain.Contract">
+        INSERT INTO tbl_contract_info
+        (id, contractId, buyerCompanyId, sellerCompanyId, productId, buyerContractState, sellerContractState,
+         createDate, endDate)
+        VALUES (#{id}, #{contractId}, #{buyerCompanyId}, #{sellerCompanyId}, #{productId}, #{buyerContractState},
+                #{sellerContractState}, #{createDate}, #{endDate})
+    </insert>
+
+    <update id="updateState">
+        UPDATE tbl_contract_info
+        SET sellerContractState=1,
+            buyerContractState=#{constract.buyerContractState}
+        WHERE contractId = #{ID}
+    </update>
+
+    <update id="updateProductStatezero" parameterType="com.isscollege.gdce.domain.Product">
+        UPDATE tbl_product_info
+        SET productState = #{productState}
+        WHERE productId = #{productId}
+    </update>
+
+    <select id="querConstractById" parameterType="java.lang.String" resultType="com.isscollege.gdce.domain.Contract">
+        SELECT id,
+               contractId,
+               buyerCompanyId,
+               sellerCompanyId,
+               productId,
+               buyerContractState,
+               sellerContractState,
+               createDate,
+               endDate
+        FROM tbl_contract_info
+        WHERE sellerCompanyId = #{ID}
+           OR buyerCompanyId = #{ID}
+    </select>
+
+    <!--	查询指定的编号合同   -->
+    <select id="queryAppointedContract" parameterType="java.lang.Long"
+            resultType="com.isscollege.gdce.domain.Contract">
+        SELECT id,
+               contractId,
+               buyerCompanyId,
+               productId,
+               buyerContractState,
+               sellerContractState,
+               createDate,
+               endDate
+        FROM tbl_contract_info
+        WHERE contractId  LIKE '%${contractId}%'
+    </select>
+</mapper>

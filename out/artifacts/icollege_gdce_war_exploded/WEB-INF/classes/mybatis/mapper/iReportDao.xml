@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.IReportDao">
+
+	<select id="getReportInfo" parameterType="java.lang.String" resultType="com.isscollege.gdce.domain.CoalSalesReport">
+			SELECT SUM(tbl_product_info.quantity) AS sumquantity,SUM(tbl_order_info.tradePrice) AS sumprice 
+			FROM tbl_product_info 
+				INNER JOIN tbl_order_info 
+				ON tbl_product_info.productId = tbl_order_info.productId 
+			WHERE  tbl_product_info.productState = 1  
+			   AND tbl_order_info.endDate LIKE #{date}
+	 </select>	
+	 
+</mapper>

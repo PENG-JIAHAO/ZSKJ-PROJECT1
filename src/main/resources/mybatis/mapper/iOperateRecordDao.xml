@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isscollege.gdce.dao.IOperateRecordDao">
+
+    <insert id="addOperateRecord" parameterType="com.isscollege.gdce.domain.OperateRecord">
+        INSERT INTO tbl_operate_record
+            (recordID,userName,operateType,createDate,comment)
+        VALUES
+            (#{recordID},#{userName},#{operateType},#{createDate},#{comment})
+    </insert>
+
+    <select id="selectOperateRecordByID" resultType="com.isscollege.gdce.domain.OperateRecord">
+        SELECT *
+        FROM tbl_operate_record
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectOperateRecordByRecordID" resultType="com.isscollege.gdce.domain.OperateRecord">
+        SELECT *
+        FROM tbl_operate_record
+        WHERE RecordID=#{rid}
+    </select>
+
+    <select id="getRecordInfoListTotal" resultType="java.lang.Integer">
+        SELECT count(1)
+		FROM tbl_operate_record
+		WHERE recordId=#{recordId}
+		ORDER By ${sort} ${order}
+    </select>
+
+
+    <delete id="deleteOperateRecordByID">
+        DELETE FROM tbl_operate_record
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteOperateRecordByRecordID">
+        DELETE FROM tbl_operate_record
+        WHERE RecordID=#{rid}
+    </delete>
+</mapper>

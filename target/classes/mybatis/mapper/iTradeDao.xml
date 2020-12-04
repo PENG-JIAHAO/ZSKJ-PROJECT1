@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.ITradeDao">
+
+	<select id="getProductInfoById" parameterType ="java.lang.Integer" resultType="com.isscollege.gdce.domain.Product">
+			SELECT * FROM tbl_product_info WHERE productId = #{productId}		
+	</select>
+	
+	 <select id="getPhoneNumber" parameterType ="java.lang.Integer"  resultType="java.lang.String">
+			SELECT phoneNumber FROM tbl_company_info WHERE companyId = ( SELECT companyId FROM system_users 
+			WHERE NAME = ( SELECT userName FROM tbl_product_info WHERE productId = #{productId}))
+	</select> 
+	
+	<update id="updateProductState" parameterType ="java.lang.Integer" >
+			UPDATE tbl_product_info SET productState = 2 WHERE productId = #{productId}
+	</update>
+	
+	</mapper>
+	

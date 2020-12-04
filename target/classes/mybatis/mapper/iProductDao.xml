@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--映射文件配置 -->
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用：对sql进行分类化管理 -->
+<mapper namespace="com.isscollege.gdce.dao.IProductDao">
+
+	<insert id="insertProduct" parameterType="com.isscollege.gdce.domain.Product">
+		INSERT INTO tbl_product_info(quantity,lowPower,price,fullSulfur,srcAddress,
+									 carriage,volatiles,portAddress,dryPowder,fullMoisture,
+									 userName,productState,reviewState,productId,recordID,submitDate)
+		VALUES(#{quantity},#{lowPower},#{price},#{fullSulfur},#{srcAddress},#{carriage},
+			   #{volatiles},#{portAddress},#{dryPowder},#{fullMoisture},#{userName},
+			   #{productState},#{reviewState},#{productId},#{recordID},#{submitDate})
+	</insert>
+
+	<update id = "updateProduct" parameterType = "com.isscollege.gdce.domain.Product">
+		UPDATE tbl_product_info
+		SET  productId=#{productId},productState=#{productState},quantity=#{quantity},
+			 lowPower=#{lowPower},price=#{price},fullMoisture=#{fullMoisture},
+			 fullSulfur=#{fullSulfur},srcAddress=#{srcAddress},volatiles=#{volatiles},
+			 userName=#{userName},reviewState=#{reviewState},carriage=#{carriage},
+			 portAddress=#{portAddress},dryPowder=#{dryPowder}
+		WHERE id=#{id}
+	</update>
+
+	<update id = "updateProductReviewState" parameterType="java.util.Map" >
+		UPDATE tbl_product_info
+		SET productState=#{productState},reviewState=#{reviewState}
+		WHERE productId=#{productId}
+	</update>
+
+	<select id="getIndexProductInfo" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE productState != 1  ORDER By id DESC
+	</select>
+
+	<select id="getAllProductInfo" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info ORDER By id ASC
+	</select>
+
+	<select id="getProductInfoByName" resultType="com.isscollege.gdce.domain.Product">
+		SELECT * FROM tbl_product_info WHERE userName=#{username} ORDER By id DESC
+	</select>
+
+	<select id="getPublishedProductInfo" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE productState = 0 and reviewState = 1 ORDER By id DESC
+	</select>
+
+	<select id="getAuditingProductInfo" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE productState = 1 and reviewState = 0 ORDER By id DESC
+	</select>
+
+	<select id="getUnderProductInfo" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE productState = 1 and reviewState = 1 ORDER By id DESC
+	</select>
+
+	<select id="getNotPassProductInfo" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE productState = 1 and reviewState = 2 ORDER By id DESC
+	</select>
+
+	<select id="queryProductByReviewState" parameterType="java.util.Map" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE reviewState=0 or reviewState=1
+		ORDER BY id DESC LIMIT #{page},#{size}
+	</select>
+
+	<select id="queryProductByState" parameterType="java.util.Map" resultType="com.isscollege.gdce.domain.Product" >
+		SELECT *
+		FROM tbl_product_info
+		WHERE reviewState=#{reviewState}
+		ORDER BY id DESC LIMIT #{page},#{size}
+	</select>
+
+	<select id = "getMaxProductId" resultType="com.isscollege.gdce.domain.Product">
+		SELECT max(productId) AS productId
+		FROM tbl_product_info
+	</select>
+
+	<select id="queryProductByReviewStatenotpass" parameterType="java.util.Map" resultType="com.isscollege.gdce.domain.Product" >
+			SELECT *
+			FROM tbl_product_info
+			WHERE reviewState=3
+			ORDER BY id DESC LIMIT #{page},#{size}
+	</select>
+	<select id="getProductInfoList" resultType="com.isscollege.gdce.domain.Product">
+			SELECT *
+			FROM tbl_product_info
+			ORDER By ${sort} ${order}
+			limit  ${offset} ,${limit}
+	</select>
+
+	<select id="getProductList" resultType="com.isscollege.gdce.domain.Product">
+		SELECT *
+		FROM tbl_product_info
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+
+	<select id="getProductInfoListTotal" resultType="java.lang.Integer">
+			SELECT count(1)
+			FROM tbl_product_info
+			WHERE reviewState=#{reviewState}
+			<if test="reviewState==2">
+				OR reviewState=3
+			</if>
+			ORDER By ${sort} ${order}
+	</select>
+
+	<select id="getProductListTotal" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM tbl_product_info
+		ORDER By ${sort} ${order}
+	</select>
+
+
+	<select id="getProductRecordIdByProductId" resultType="java.lang.String">
+	SELECT recordID
+	FROM tbl_product_info
+	WHERE productId=#{productId}
+	</select>
+
+
+	<select id="addInfo" >
+	       UPDATE tbl_product_info
+			SET  OffProductInfo=#{arg1}
+			where  id=#{arg0}
+	</select>
+
+	<!--将产品Rid录入数据库-->
+	<update id="updateProductRecordID" >
+		UPDATE tbl_product_info
+		SET recordID = #{recordID}
+		WHERE productId=#{productId}
+	</update>
+
+
+
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isscollege.gdce.dao.ICompanyDao">
+
+	<insert id="save" parameterType="com.isscollege.gdce.domain.Company">
+		INSERT INTO tbl_company_info
+		(companyId,companyName,legalPerson,phoneNumber,bankAccount, openLicenseId, openLicensePath,taxRegisterId,reviewState)
+		VALUES
+		(#{companyId},#{companyName},#{legalPerson},#{phoneNumber},#{bankAccount}, #{openLicenseId}, #{openLicensePath}, #{taxRegisterId}, #{reviewState})
+	</insert>
+
+	<update id="update" parameterType="com.isscollege.gdce.domain.Company">
+		UPDATE tbl_company_info
+		SET companyName =#{companyName}, legalPerson =#{legalPerson}, phoneNumber =#{phoneNumber}, bankAccount =#{bankAccount}, openLicenseId =#{openLicenseId}, openLicensePath =#{openLicensePath}, taxRegisterId =#{taxRegisterId}, reviewState =#{reviewState}
+		WHERE  companyId= #{companyId}
+	</update>
+
+	<!-- 审核公司的状态 -->
+	<update id="updateCompanyReviewState" >
+		UPDATE tbl_company_info
+		SET reviewAdvice = #{reviewAdvice},reviewState = #{curStats}
+		WHERE companyId=#{companyId}
+	</update>
+
+	<!-- 通过审核状态查询公司 -->
+	<select id="queryCompanyByReviewState" resultType="com.isscollege.gdce.domain.Company" >
+		SELECT *
+		FROM tbl_company_info
+		WHERE reviewState=0
+		ORDER BY companyId ASC LIMIT #{page},#{size}
+	</select>
+
+	<select id="getCompanyInfoList" resultType="com.isscollege.gdce.domain.Company">
+		SELECT *
+		FROM tbl_company_info
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+	<select id="getCompanyInfoListTotal" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM tbl_company_info
+		WHERE reviewState=#{reviewState}
+		<if test="reviewState==2">
+			OR reviewState=3
+		</if>
+		ORDER By ${sort} ${order}
+	</select>
+	<select id="queryCompanyByState" resultType="com.isscollege.gdce.domain.Company" >
+		SELECT *
+		FROM tbl_company_info
+		WHERE reviewState=#{reviewState}
+		ORDER BY companyId ASC LIMIT #{page},#{size}
+	</select>
+	<!-- 查询公司详情 -->
+	<select id="queryCompanyByCompanyID" parameterType="java.lang.String" resultType="com.isscollege.gdce.domain.Company" >
+		SELECT *
+		FROM tbl_company_info
+		WHERE companyId=#{companyId}
+	</select>
+
+	<select id="getAllCompanyInfo" resultType="com.isscollege.gdce.domain.Company">
+		SELECT *
+		FROM tbl_company_info
+		ORDER BY id ASC
+	</select>
+</mapper>
