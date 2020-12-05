@@ -242,11 +242,8 @@
                             </div>
                         </c:if>
                         <c:if test="${per.indexOf('6')!=-1}">
-                            <div  id = "btn0" class="panel-body" data-src="${context }/register/querymanager?currentPage=1">
+                            <div  id = "btn0" class="panel-body" data-src="${context }/review/manufacturers3">
                                 <a href="#" class="guide" >运营商管理</a>
-                            </div>
-                            <div class="panel-body" data-src="${context}/jsp/review/insertOperator.jsp">
-                                <a href="#" class="guide">新增运营商</a>
                             </div>
                         </c:if>
                     </div>

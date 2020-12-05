@@ -1,15 +1,17 @@
 ﻿<%@ page pageEncoding="UTF-8" import="java.util.*"
 	import="com.isscollege.gdce.domain.User"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
 <%@ include file="/jsp/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <script type="text/javascript" src="${context }/js/user/regist.js"></script>
+
 <link rel="stylesheet" type="text/css" href="${context }/js/user/regist.css">
 
 <script type="text/javascript">
 $(function () {
 	var perm = ${currentUser.permission };
-
 	if(perm==2){
 		document.getElementById("productsend").removeAttribute("disabled");
 		document.getElementById("productselect").removeAttribute("disabled");
@@ -267,9 +269,9 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<c:if test="${empty currentUser}">
+<%--	<c:if test="${empty currentUser}">
 		<c:redirect url="/jsp/user/login.jsp"></c:redirect>
-	</c:if>
+	</c:if>--%>
 	<div class="modal fade" id="modal-container-204152" role="dialog"
 		aria-hidden="true" aria-labelledby="myModalLabel">
 		<div class="modal-dialog">
@@ -288,150 +290,147 @@ $(function(){
 	</div>
 
 <!-- 点击新增运营商页面 -->
-<div class="container">
-	<div class="container" style="margin-top: 40px;">
+<div class="tabs-contents">
+	<div class="tab-content" style="margin-top: 10px;">
 			<div class="row">
-				<div class="span12">
-					<div class="container">
-					    <form action="${context}/product/insert" method="post" onSubmit="return validProduct()">
-							<div class="row" style="height: 40px;">
-							   <div class="col-md-9" align="right" >
-								   <b>运营商（统一简称）:</b>
-								   <input class="inputClass" type="text"  name=operatorName id="inputOperatorName" size="17" style="width: 40%" />
-							  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							   </div>
-							   <div class="" class="col-md-9" align="left" >
-							       <label class="errorClass" id="inputOperatorNameError" ></label>
-							   </div>
-							 </div>
-						  							  
-							<div class="row" style="height: 40px;">
-							      <div class="col-md-9" align="right">
-								     <b>运营编号：</b>
-								     <input class="inputClass" type="text"  name="operatorId" id="inputOperatorId" size="17"style="width: 40%">
-							  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							      </div>
-							      <div class="" class="col-md-9" align="left" >
-							         <label class="errorClass" id="inputOperatorIdError" ></label>
-							      </div>
-							  </div>
+				<form action="${context}/product/insert" method="post" onSubmit="return validProduct()">
+					<div class="row" style="height: 40px;">
+					   <div class="col-md-9" align="right" >
+						   <b>运营商（统一简称）:</b>
+						   <input class="inputClass" type="text"  name=operatorName id="inputOperatorName" size="17" style="width: 40%" />
+					  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+					   </div>
+					   <div class="" class="col-md-9" align="left" >
+						   <label class="errorClass" id="inputOperatorNameError" ></label>
+					   </div>
+					 </div>
 
-							<div class="row" style="height: 40px;">
-							   <div class="col-md-9" align="right" >
-								  <b>联系人：</b>
-								   <input class="inputClass" type="text" name="contacter" id="inputContacter" size="17"style="width: 40%">
-							     <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							    <div class="" class="col-md-9" align="left" >
-							      	 <label class = "errorClass" id="inputContacterError"></label>
-							    </div>
-							  </div>
-							  
-							<div class="row" style="height: 40px;">
-							    <div class="col-md-9" align="right">
-								     <b>电话:</b>
-								     <input class="inputClass" type="text"  name="telephone" id="inputTelephone" size="17"style="width: 40%">
-							     <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							    <div  class = "" class="col-md-9" align="left">
-							         <label class="errorClass" id ="inputTelephoneError"></label>
-							    </div>
-							  </div>
-
-							<div class="row" style="height: 40px;">
-							   <div class="col-md-9" align="right" >
-								  <b>地址：</b>
-								   <input class = "inputClass" type="text"  name="address" id="inputAddress" size="17"style="width: 40%">
-							      <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							    <div class ="" class="col-md-9" align="left" >
-							      	 <label class="errorClass" id="inputAddressError"></label>
-							    </div>
-							 </div>
-					<%--
-							<div class="row" style="height: 40px;">
-							    <div class="col-md-9" align="right">
-								     <b>运费单价(元/吨)：</b> 
-								     <input class="inputClass" type="text" name="carriage" id="inputCarriage" size="17"style="width: 40%">
-							  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							    
-							    <div class="" class="col-md-9" align="left">
-							         <label class="errorClass"  id="inputCarriageError"></label>
-							    </div>
-							  </div>
-
-							<div class="row" style="height:40px">
-							   <div class="col-md-9" align="right" >
-								  <b>挥发份(%)：</b> 
-								   <input class="inputClass" type="text"  name="volatiles" id="inputVolatiles" size="17"style="width: 40%">
-							    <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							    
-							    <div class="" class="col-md-9" align="left" >
-							      	 <label class="errorClass" id="inputVolatilesError"></label>
-							    </div>
-							  </div>
-							  
-							<div class="row" style="height:40px">
-							    <div class="col-md-9" align="right">
-								     <b>发站(发货港口)：</b> 
-								     <input class="inputClass" type="text" name="portAddress" id="inputPortAddress" size="17"style="width: 40%">
-							      <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							 
-							    <div class="" class="col-md-9" align="left">
-							         <label class="errorClass" id="inputPortAddressError"></label> 
-							    </div>
-							  </div>
-
-							<div class="row" style="height: 40px;">
-							   <div class="col-md-9" align="right" >
-								  <b>空干基灰分：</b> 
-								   <input class="inputClass" type="text"  name="dryPowder" id="inputDryPowder" size="17"style="width: 40%">
-							    <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							   
-							    <div class="" class="col-md-9" align="left" >
-							      	 <label class="errorClass" id="inputDryPowderError"></label>
-							    </div>
-							  </div>
-							  
-							<div class="row" style="height: 40px;">
-							    <div class="col-md-9" align="right">
-								     <b>全水分(%)≤：</b> 
-								     <input class="inputClass" type="text"  name="fullMoisture" id="inputFullMoisture" size="17"style="width: 40%">
-							   <span style="color:red ;font-size: 20px" title="必填项" >*</span>
-							    </div>
-							    
-							    <div class="" class="col-md-9" align="left">
-							         <label class="errorClass" id="inputFullMoistureError"></label>
-							    </div>
-							  </div>--%>
-
-							<div class="row" style="height: 30px">
-								<div class="col-md-4" >
-									<div class="container">
-										<div class="row clearfix">
-										</div>
-									</div>
-								</div><!-- href="#modal-container-954264" -->
-							<div style="position: absolute;left:50%;top:950px">
-								<a id="next"
-									role="button" class="btn btn-primary"
-									onclick="return validateIsNull()">下一步</a>
-							</div>
-							<div class="col-md-4" style="position: absolute;left:50%;top:950px" >
-								<input type="hidden" class="btn btn-primary" value="发布" id="inputPublish" hidden="true" ></input>
-							</div>
-							  <div  style="position: absolute;left:57%;top:950px">
-								<button type="button" class="btn btn-primary"
-									onclick="window.location.href ='${context }/jsp/product/insertProduct.jsp'">返回</button>
-							 </div>
+					<div class="row" style="height: 40px;">
+						  <div class="col-md-9" align="right">
+							 <b>运营编号：</b>
+							 <input class="inputClass" type="text"  name="operatorId" id="inputOperatorId" size="17"style="width: 40%">
+					  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
 						  </div>
-						</form>
+						  <div class="" class="col-md-9" align="left" >
+							 <label class="errorClass" id="inputOperatorIdError" ></label>
+						  </div>
+					  </div>
+
+					<div class="row" style="height: 40px;">
+					   <div class="col-md-9" align="right" >
+						  <b>联系人：</b>
+						   <input class="inputClass" type="text" name="contacter" id="inputContacter" size="17"style="width: 40%">
+						 <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+						<div class="" class="col-md-9" align="left" >
+							 <label class = "errorClass" id="inputContacterError"></label>
+						</div>
+					  </div>
+
+					<div class="row" style="height: 40px;">
+						<div class="col-md-9" align="right">
+							 <b>电话:</b>
+							 <input class="inputClass" type="text"  name="telephone" id="inputTelephone" size="17"style="width: 40%">
+						 <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+						<div  class = "" class="col-md-9" align="left">
+							 <label class="errorClass" id ="inputTelephoneError"></label>
+						</div>
+					  </div>
+
+					<div class="row" style="height: 40px;">
+					   <div class="col-md-9" align="right" >
+						  <b>地址：</b>
+						   <input class = "inputClass" type="text"  name="address" id="inputAddress" size="17"style="width: 40%">
+						  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+						<div class ="" class="col-md-9" align="left" >
+							 <label class="errorClass" id="inputAddressError"></label>
+						</div>
+					 </div>
+
+					<%--
+					<div class="row" style="height: 40px;">
+						<div class="col-md-9" align="right">
+							 <b>运费单价(元/吨)：</b>
+							 <input class="inputClass" type="text" name="carriage" id="inputCarriage" size="17"style="width: 40%">
+					  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+
+						<div class="" class="col-md-9" align="left">
+							 <label class="errorClass"  id="inputCarriageError"></label>
+						</div>
+					  </div>
+
+					<div class="row" style="height:40px">
+					   <div class="col-md-9" align="right" >
+						  <b>挥发份(%)：</b>
+						   <input class="inputClass" type="text"  name="volatiles" id="inputVolatiles" size="17"style="width: 40%">
+						<span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+
+						<div class="" class="col-md-9" align="left" >
+							 <label class="errorClass" id="inputVolatilesError"></label>
+						</div>
+					  </div>
+
+					<div class="row" style="height:40px">
+						<div class="col-md-9" align="right">
+							 <b>发站(发货港口)：</b>
+							 <input class="inputClass" type="text" name="portAddress" id="inputPortAddress" size="17"style="width: 40%">
+						  <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+
+						<div class="" class="col-md-9" align="left">
+							 <label class="errorClass" id="inputPortAddressError"></label>
+						</div>
+					  </div>
+
+					<div class="row" style="height: 40px;">
+					   <div class="col-md-9" align="right" >
+						  <b>空干基灰分：</b>
+						   <input class="inputClass" type="text"  name="dryPowder" id="inputDryPowder" size="17"style="width: 40%">
+						<span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+
+						<div class="" class="col-md-9" align="left" >
+							 <label class="errorClass" id="inputDryPowderError"></label>
+						</div>
+					  </div>
+
+					<div class="row" style="height: 40px;">
+						<div class="col-md-9" align="right">
+							 <b>全水分(%)≤：</b>
+							 <input class="inputClass" type="text"  name="fullMoisture" id="inputFullMoisture" size="17"style="width: 40%">
+					   <span style="color:red ;font-size: 20px" title="必填项" >*</span>
+						</div>
+
+						<div class="" class="col-md-9" align="left">
+							 <label class="errorClass" id="inputFullMoistureError"></label>
+						</div>
+					  </div>--%>
+
+					<div class="row" style="height: 30px">
+						<div class="col-md-4" >
+							<div class="container">
+								<div class="row clearfix">
+								</div>
+							</div>
+						</div><!-- href="#modal-container-954264" -->
+					<div style="position: absolute;left:50%;top:950px">
+						<a id="next"
+							role="button" class="btn btn-primary"
+							onclick="return validateIsNull()">下一步</a>
 					</div>
-				</div>
+					<div class="col-md-4" style="position: absolute;left:50%;top:950px" >
+						<input type="hidden" class="btn btn-primary" value="发布" id="inputPublish" hidden="true" ></input>
+					</div>
+					  <div  style="position: absolute;left:57%;top:950px">
+						<button type="button" class="btn btn-primary"
+							onclick="window.location.href ='${context }/jsp/product/insertProduct.jsp'">返回</button>
+					 </div>
+				  </div>
+				</form>
 			</div>
 		</div>
 </div>
@@ -460,6 +459,6 @@ $(function(){
 			</div>
 		</div>
 </div>
-</script>
+
 </body>
 </html>

@@ -318,6 +318,37 @@ public class ReviewController
         return "review/manufacturers2";
     }
 
+    @RequestMapping("/manufacturers3")
+    public String manufacturers3(Model model, HttpServletRequest request) throws ServletException, IOException
+    {
+        page = 1;
+        size = 6;
+        if (request.getParameter("page") != null)
+        {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        request.setAttribute("page", page);
+
+        List<Advertisement> advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+        if (advertisements.size() == 0 && page != 1)
+        {
+            page--;
+            model.addAttribute("page", page);
+            advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+
+        }
+        if (request.getAttribute("totalPage") == null)
+        {
+            int totalSize = reviewModel.queryAdvertisementByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 6 == 0 ? totalSize / 6 : totalSize / 6 + 1);
+        }
+        model.addAttribute("manufacturers2", advertisements);
+        model.addAttribute("pageShow", "manufacturers2");
+
+        return "review/manufacturers3";
+    }
+
+
     @RequestMapping("/advertisementReviewnotpass")
     public String advertisementReviewnopass(Model model, HttpServletRequest request) throws ServletException, IOException
     {
