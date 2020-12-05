@@ -75,7 +75,7 @@
 <!-- 运营商管理主界面  -->
 </br>
 <div class="tabs-contents">
-    <div class="tab-content" id="tabContent1" style="margin-top: 30px">
+    <div class="tab-content" id="tabContent1" style="margin:-10px 10px 5px">
         <table class="table table-hover" id="mftTab1">
         </table>
     </div>
@@ -88,6 +88,8 @@
         </table>
     </div>--%>
 </div>
+
+<%--详情查看模态框--%>
 <div class="modal fade" id="operatorInfoTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 700px">
         <div class="modal-content">
@@ -252,7 +254,7 @@
                 valign: 'middle',
                 align: 'center'
             },{
-                field:'companyName',
+                field:'reviewState',
                 title:'状态',
                 sortable: true,
                 order:'asc',
@@ -267,8 +269,8 @@
                     var id = row.id;
                     var path = row.adsImgPath;
                     if (row.reviewState === 1) {
-                        return ' <button type="button" class="btn btn-default" onclick=ComDetails(912202011,245116621)>详情查看</button>\n' +
-                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>设备</button>' +
+                        return ' <button type="button" class="btn btn-default" onclick=ComDetails(912202011,245116621)>设备信息</button>\n' +
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>操作</button>' +
                             ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
                             '       <div class="modal-content">\n' +
@@ -302,7 +304,8 @@
             showLoading: true,
             search:true,
             searchOnEnterKey:false,
-            strictSearch:true,
+            strictSearch:false,
+            showRefresh:true,
             sidePagination:'server',
             sortName:'id',
             sortOrder:'asc',
@@ -381,7 +384,7 @@
                     var id=row.id;
                     var path=row.adsImgPath;
                     if (row.reviewState===1){
-                        return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">详情查看</button>\n'+
+                        return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
                             '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
                             ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +

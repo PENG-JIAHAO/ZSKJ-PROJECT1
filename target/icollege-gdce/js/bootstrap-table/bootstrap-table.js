@@ -275,8 +275,8 @@
         paginationPreText: '&lsaquo;',
         paginationNextText: '&rsaquo;',
         paginationLastText: '&raquo;',
-        search: true,
-        strictSearch: true,
+        search: false,
+        strictSearch: false,
         searchAlign: 'right',
         selectItemName: 'btSelectItem',
         showHeader: true,
@@ -2558,6 +2558,8 @@
             }
         }
     };
+
+
 
     // BOOTSTRAP TABLE PLUGIN DEFINITION
     // =======================

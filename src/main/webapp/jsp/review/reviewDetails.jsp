@@ -26,60 +26,46 @@ $("#buttonbeasemessage").click(function(){
 <body>
 <c:set var="company" target="${Company }" value="${company}"></c:set>
 <c:set var="clientuser" target="${User }" value="${requestScope.user}"></c:set>
-
 	<hr/>
+
 <div class="container" border="1px" style="width: 890px; height: 800px ; box-shadow:5px 5px 20px #aaa ">
 <ul class="nav nav-tabs">
-<li class="active"><a data-toggle="tab" >
-<span style="font-size:14px;color:black; font-family:微软雅黑">运营商基本信息</span>
- </a>
+    <li class="active"><a data-toggle="tab" >
+    <span style="font-size:14px;color:black; font-family:微软雅黑">设备基本信息</span>
+     </a>
 </ul>
-<div id="beasemessage">
+<div id="baseMessage">
 <table  class="table table-hover table-condensed" align="center" style="text-align: center">
 <tr>
     <td width="10%"></td>
-    <td width="40%" align="right">编号:</td>
+    <td width="40%" align="right">设备编号:</td>
     <td align="left">${clientuser.name}</td>
   </tr>
   <tr>
     <td width="10%"></td>
-    <td width="40%" align="right">经销商:</td>
+    <td width="40%" align="right">设备状态:</td>
     <td align="left">${company.companyName}</td>
   </tr>
   <tr>
     <td></td>
-    <td width="40%" align="right">联系人:</td>
+    <td width="40%" align="right">是否锁机:</td>
     <td align="left">${company.legalPerson}</td>
   </tr>
   <tr>
     <td></td>
-    <td width="40%" align="right">地址:</td>
+    <td width="40%" align="right">累计使用天数:</td>
     <td align="left" >${company.companyAddress}</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td width="40%" align="right">联系电话:</td>
-    <td align="left">${company.phoneNumber}</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td width="40%" align="right">传真:</td>
-    <td align="left">${company.companyFax}</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td width="40%" align="right">邮箱:</td>
-    <td align="left">${company.companyEmail}</td>
   </tr>
 </table>
 </div>
+
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" >
     <span style="font-size:14px;color:black; font-family :微软雅黑">使用统计</span>
     </a>
     </li>
 </ul> 
-<div id="mainmessage">
+<div id="useMessage">
 <table width="730px" class="table table-hover table-condensed" align=center style="table-layout: fixed">
     <tr>
         <td width="80px" align="right">未结算次数:</td>
@@ -113,11 +99,66 @@ $("#buttonbeasemessage").click(function(){
     </tr>
 </table>
 </div>
- <ul class="nav nav-tabs">
- <li class="active"><a data-toggle="tab" >
- <span style="font-size:14px;color:black; font-family:微软雅黑">自动催缴设置</span>
- </a>
- </li>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" >
+        <span style="font-size:14px;color:black; font-family :微软雅黑">维护统计</span>
+    </a>
+    </li>
+</ul>
+<div id="maintainMessage">
+    <table width="730px" class="table table-hover table-condensed" align=center style="table-layout: fixed" style="text-align: center">
+        <tr>
+            <td width="200px" align="right">干燥过滤器剩余:</td>
+            <td width="80px" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">Kg</td>
+            <td width="200" align="right">干燥过滤器更换:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">次</td>
+        </tr>
+        <tr>
+            <td width="200" align="right">真空泵剩余:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">Kg</td>
+            <td width="200" align="right">真空泵保养:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">次</td>
+        </tr>
+        <tr>
+            <td width="200" align="right">制冷剂累计补充:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">Kg</td>
+            <td width="200" align="right">累计次数:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">次</td>
+        </tr>
+        <tr>
+            <td width="200px" align="right">压缩机累计:</td>
+            <td width="80px" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">次</td>
+            <td width="200" align="right">时间:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">小时</td>
+        </tr>
+        <tr>
+            <td width="150px" align="right">保养功能累计:</td>
+            <td width="80px" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">次</td>
+            <td width="150" align="right">时间:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">h</td>
+            <td width="150" align="right">保养记录:</td>
+            <td width="80" align="left">${company.legalPerson}</td>
+            <td width="10px" align="left">次</td>
+        </tr>
+    </table>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" >
+    <span style="font-size:14px;color:black; font-family:微软雅黑">自动催缴设置</span>
+    </a>
+    </li>
 </ul>
 <from>
 <table class="table table-hover table-condensed" align="center"

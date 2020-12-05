@@ -131,7 +131,7 @@
 <!-- 广告位申请 选项卡-->
     </br>
     <div class="tabs-contents">
-        <div class="tab-content" id="tabContent1">
+        <div class="tab-content" id="tabContent1" style="margin:-10px 10px 5px">
             <table class="table table-hover" id="adsTab1">
             </table>
         </div>

@@ -4,7 +4,6 @@
 <%@ include file="/jsp/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="${context }/js/user/regist.js"></script>
-
 <link rel="stylesheet" type="text/css" href="${context }/js/user/regist.css">
 
 <script type="text/javascript">

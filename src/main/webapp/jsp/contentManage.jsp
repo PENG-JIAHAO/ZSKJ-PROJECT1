@@ -232,7 +232,6 @@
                         </a>
                     </div>
 
-
                     <div id="panel-element-622685" class="panel-collapse collapse">
                         <c:if test="${per.indexOf('0')!=-1}">
                             <div  id = "btn0" class="panel-body" data-src="${context }/register/querymanager?currentPage=1">
@@ -242,7 +241,17 @@
                                 <a href="#" class="guide">新增管理员</a>
                             </div>
                         </c:if>
+                        <c:if test="${per.indexOf('6')!=-1}">
+                            <div  id = "btn0" class="panel-body" data-src="${context }/register/querymanager?currentPage=1">
+                                <a href="#" class="guide" >运营商管理</a>
+                            </div>
+                            <div class="panel-body" data-src="${context}/jsp/review/insertOperator.jsp">
+                                <a href="#" class="guide">新增运营商</a>
+                            </div>
+                        </c:if>
                     </div>
+
+
                 </div>
 
                 <div class="panel panel-default">
