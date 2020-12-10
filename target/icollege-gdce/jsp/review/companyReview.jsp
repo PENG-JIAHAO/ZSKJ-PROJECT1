@@ -14,7 +14,7 @@
 
     function tabDefault() {
         $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
-        x(1,1);
+        mftTable(1,1);
     }
 
     function tabChange(){
@@ -23,13 +23,13 @@
             $('.tabs-contents').find('#'+_id).addClass('active').siblings().removeClass('active');
             switch (_id) {
                 case "tabContent1":
-                    x(1,1);
+                    mftTable(1,1);
                     break;
                 case  "tabContent2":
-                    x(0,2);
+                    mftTable(0,2);
                     break;
                 case "tabContent3":
-                    x(2,3);
+                    mftTable(2,3);
                     break;
             }
         });
@@ -68,8 +68,8 @@
 
 <ul id="checktab" class="nav nav-pills">
     <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">运营商分组1</a></li>
-<%--    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >待审核</a></li>
-    <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">未通过</a></li>--%>
+    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >运营商分组2</a></li>
+    <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">运营商分组3</a></li>
 </ul>
 
 <!-- 运营商管理主界面  -->
@@ -79,14 +79,14 @@
         <table class="table table-hover" id="mftTab1">
         </table>
     </div>
-<%--    <div class="tab-content" id="tabContent2">
+    <div class="tab-content" id="tabContent2">
         <table class="table table-hover" id="mftTab2">
         </table>
     </div>
     <div class="tab-content" id="tabContent3">
         <table class="table table-hover" id="mftTab3">
         </table>
-    </div>--%>
+    </div>
 </div>
 
 <%--详情查看模态框--%>
@@ -295,7 +295,7 @@
 
     }
 
-    function x(reviewState,tabNum){
+    function mftTable(reviewState,tabNum){
         $("#mftTab"+tabNum).bootstrapTable({
             url:'${context}/review/getDataCompany?reviewState='+reviewState,
             striped: true,
@@ -401,30 +401,47 @@
                             '           </div>\n' +
                             '       </div><!-- /.modal-contxent -->\n' +
                             '   </div><!-- /.modal-dialog -->\n' +
-                            '</div>\n';;
-                    }else if (row.reviewState===0){
-                        return ' <button type="button" class="btn btn-default" onclick="changeAdv('+id+',1)">通过</button>\n' +
-                            '<button type="button" class="btn btn-default" onclick="changeAdv('+id+',2)">不通过</button>\n\r'+
-                            '<button type="button" class="btn btn-default"><a href="${context}/companyQualificationDown?&path='+path+'">下载</a></button>';
-                    }else {
-                        return '<button type="button" class="btn btn-default"><a href="${context}/companyQualificationDown?&path='+path+'">下载</a></button>\n'+
-                            '<button  type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo2" onclick=info('+id+',2)>记录</button>' +
-                            ' <div class="modal fade" id="ShowReviewInfo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '</div>\n';
+                    }
+                    else if (row.reviewState===0){
+                        return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
                             '       <div class="modal-content">\n' +
                             '           <div class="modal-header">\n' +
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">记录信息如下：</p>\n' +
+                            '               <p style="float:left;">运营商设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                            '               <table class="table table-hover" id="reviewProductTabInfo2">\n' +
+                            '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
                             '               </table>\n' +
                             '           </div>\n' +
-                            '       </div><!-- /.modal-content -->\n' +
+                            '       </div><!-- /.modal-contxent -->\n' +
                             '   </div><!-- /.modal-dialog -->\n' +
-                            '</div>\n';;
+                            '</div>\n';
+                    }
+                    else {
+                        return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '   <div class="modal-dialog">\n' +
+                            '       <div class="modal-content">\n' +
+                            '           <div class="modal-header">\n' +
+                            '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
+                            '                   &times;\n' +
+                            '               </button>\n' +
+                            '               <p style="float:left;">运营商设备：</p>\n' +
+                            '           </div>\n' +
+                            '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
+                            '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                            '               </table>\n' +
+                            '           </div>\n' +
+                            '       </div><!-- /.modal-contxent -->\n' +
+                            '   </div><!-- /.modal-dialog -->\n' +
+                            '</div>\n';
                     }
                 }
             }]

@@ -73,8 +73,8 @@
 
 <ul id="checktab" class="nav nav-pills">
     <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">设备使用商分组1</a></li>
-    <%--    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >待审核</a></li>
-        <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">未通过</a></li>--%>
+    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >设备使用商分组2</a></li>
+        <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">设备使用商分组3</a></li>
 </ul>
 
 <!-- 运营商管理主界面  -->
@@ -84,14 +84,14 @@
         <table class="table table-hover" id="mftTab1">
         </table>
     </div>
-    <%--    <div class="tab-content" id="tabContent2">
+    <div class="tab-content" id="tabContent2">
             <table class="table table-hover" id="mftTab2">
             </table>
         </div>
         <div class="tab-content" id="tabContent3">
             <table class="table table-hover" id="mftTab3">
             </table>
-        </div>--%>
+        </div>
 </div>
 
 <%--详情查看模态框--%>
@@ -103,11 +103,13 @@
                     &times;
                 </button>
             </div>
+
             <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" >
-                        <span style="font-size:14px;color:black; font-family:微软雅黑">设备使用商基本信息</span>
+                    <li class="active"><a data-toggle="tab">
+                        <span style="font-size:14px;color:black; font-family:微软雅黑">设备使用商基本信息 </span>
                     </a>
+                    </li>
                 </ul>
                 <table  class="table table-hover table-condensed" align="center" style="text-align: center">
                     <tr>
@@ -115,36 +117,89 @@
                         <td align="left">${clientuser.name}</td>
                     </tr>
                     <tr>
-
                         <td width="30%" align="right">经销商:</td>
                         <td align="left">${company.companyName}</td>
                     </tr>
                     <tr>
-
                         <td width="30%" align="right">联系人:</td>
                         <td align="left">${company.legalPerson}</td>
                     </tr>
                     <tr>
-
                         <td width="30%" align="right">地址:</td>
                         <td align="left" >${company.companyAddress}</td>
                     </tr>
                     <tr>
-
                         <td width="30%" align="right">联系电话:</td>
                         <td align="left">${company.phoneNumber}</td>
-                    </tr>
+                    </tr>>
                     <tr>
-
-                        <td width="30%" align="right">传真:</td>
-                        <td align="left">${company.companyFax}</td>
-                    </tr>
-                    <tr>
-
                         <td width="30%" align="right">邮箱:</td>
                         <td align="left">${company.companyEmail}</td>
                     </tr>
                 </table>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" >
+                        <span style="font-size:14px;color:black; font-family:微软雅黑">设备基本信息</span>
+                    </a>
+                    </li>
+                </ul>
+                <table  class="table table-hover table-condensed" align="center" style="text-align: center">
+                    <tr>
+                        <td width="30%" align="right">序列号:</td>
+                        <td align="left">${clientuser.name}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">设备大类编码:</td>
+                        <td align="left">${company.companyName}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">设备编码:</td>
+                        <td align="left">${company.legalPerson}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">设备组别:</td>
+                        <td align="left" >${company.companyAddress}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">组别负责人:</td>
+                        <td align="left">${company.phoneNumber}</td>
+                    </tr>>
+                    <tr>
+                        <td width="30%" align="right">联系电话:</td>
+                        <td align="left">${company.companyEmail}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">初始使用时间:</td>
+                        <td align="left">${company.companyEmail}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">最近一次使用时间:</td>
+                        <td align="left">${company.companyEmail}</td>
+                    </tr>
+                </table>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" >
+                        <span style="font-size:14px;color:black; font-family:微软雅黑">设备使用情况</span>
+                    </a>
+                    </li>
+                </ul>
+                <table  class="table table-hover table-condensed" align="center" style="text-align: center">
+                    <tr>
+                        <td width="30%" align="right">设备在线状态:</td>
+                        <td align="left">${clientuser.name}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">设备锁机状态:</td>
+                        <td align="left">${company.companyName}</td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">设备累计使用天数:</td>
+                        <td align="left">${company.legalPerson}</td>
+                    </tr>
+                </table>
+
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" >
                         <span style="font-size:14px;color:black; font-family :微软雅黑">使用统计</span>
@@ -406,30 +461,47 @@
                             '           </div>\n' +
                             '       </div><!-- /.modal-contxent -->\n' +
                             '   </div><!-- /.modal-dialog -->\n' +
-                            '</div>\n';;
-                    }else if (row.reviewState===0){
-                        return ' <button type="button" class="btn btn-default" onclick="changeAdv('+id+',1)">通过</button>\n' +
-                            '<button type="button" class="btn btn-default" onclick="changeAdv('+id+',2)">不通过</button>\n\r'+
-                            '<button type="button" class="btn btn-default"><a href="${context}/companyQualificationDown?&path='+path+'">下载</a></button>';
-                    }else {
-                        return '<button type="button" class="btn btn-default"><a href="${context}/companyQualificationDown?&path='+path+'">下载</a></button>\n'+
-                            '<button  type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo2" onclick=info('+id+',2)>记录</button>' +
-                            ' <div class="modal fade" id="ShowReviewInfo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '</div>\n';
+                    }
+                    else if (row.reviewState===0){
+                        return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
                             '       <div class="modal-content">\n' +
                             '           <div class="modal-header">\n' +
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">记录信息如下：</p>\n' +
+                            '               <p style="float:left;">设备使用商设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
                             '               <table class="table table-hover" id="reviewProductTabInfo2">\n' +
                             '               </table>\n' +
                             '           </div>\n' +
-                            '       </div><!-- /.modal-content -->\n' +
+                            '       </div><!-- /.modal-contxent -->\n' +
                             '   </div><!-- /.modal-dialog -->\n' +
-                            '</div>\n';;
+                            '</div>\n';
+                    }
+                    else{
+                        return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '   <div class="modal-dialog">\n' +
+                            '       <div class="modal-content">\n' +
+                            '           <div class="modal-header">\n' +
+                            '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
+                            '                   &times;\n' +
+                            '               </button>\n' +
+                            '               <p style="float:left;">设备使用商设备：</p>\n' +
+                            '           </div>\n' +
+                            '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
+                            '               <table class="table table-hover" id="reviewProductTabInfo3">\n' +
+                            '               </table>\n' +
+                            '           </div>\n' +
+                            '       </div><!-- /.modal-contxent -->\n' +
+                            '   </div><!-- /.modal-dialog -->\n' +
+                            '</div>\n';
                     }
                 }
             }]

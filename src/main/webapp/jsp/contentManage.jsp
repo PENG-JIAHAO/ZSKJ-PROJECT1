@@ -202,19 +202,13 @@
 
                         <c:if test="${per.indexOf('6')!=-1}">
                         <div id="btn7" class="panel-body" data-src="${context}/review/companyReview">
-                            <a href="#" class="guide">运营商分组1</a>
-                        </div>
-                        <div id="btn7" class="panel-body" data-src="${context}/review/manufacturers2">
-                            <a href="#" class="guide">运营商分组2</a>
+                            <a href="#" class="guide">运营商</a>
                         </div>
                         </c:if>
 
                         <c:if test="${per.indexOf('7')!=-1}">
                             <div id="btn7" class="panel-body" data-src="${context}/review/operator1">
-                                <a href="#" class="guide">设备使用商分组1</a>
-                            </div>
-                            <div id="btn7" class="panel-body" data-src="${context}/review/operator2">
-                                <a href="#" class="guide">设备使用商分组2</a>
+                                <a href="#" class="guide">设备使用商</a>
                             </div>
                         </c:if>
 
