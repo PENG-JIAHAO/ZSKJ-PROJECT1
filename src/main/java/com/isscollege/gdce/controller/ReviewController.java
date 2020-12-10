@@ -39,8 +39,8 @@ public class ReviewController
     private int page = 1;
     private int size = 15;
 
-    @RequestMapping("/operator1")
-    private String operator1(Model model, HttpServletRequest request) throws ServletException, IOException
+    @RequestMapping("/operators")
+    private String operators(Model model, HttpServletRequest request) throws ServletException, IOException
     {
         // 管理员审核页面，从数据库获取每页（数据库分页查询）用户公司的信息，
         // 详情点不了是因为第一次点的时候公司和id和用户的主外键没有关联上,关联上就好了
@@ -68,11 +68,11 @@ public class ReviewController
         }
         model.addAttribute("companys", companys);
         model.addAttribute("pageShow", "company");
-        return "review/operator1";
+        return "review/operators";
     }
 
-    @RequestMapping("/operator3")
-    public String operator3(Model model, HttpServletRequest request) throws ServletException, IOException
+    @RequestMapping("/operatorManage")
+    public String operatorManage(Model model, HttpServletRequest request) throws ServletException, IOException
     {
         page = 1;
         size = 6;
@@ -98,7 +98,7 @@ public class ReviewController
         model.addAttribute("operator3", advertisements);
         model.addAttribute("pageShow", "operator3");
 
-        return "review/operator3";
+        return "review/operatorManage";
     }
 
     @RequestMapping("/queryReviewnotpass")
@@ -190,8 +190,8 @@ public class ReviewController
         }
     }
 
-    @RequestMapping("/companyReview")
-    private String companyReview(Model model, HttpServletRequest request) throws ServletException, IOException
+    @RequestMapping("/manufacturers")
+    private String manufacturers(Model model, HttpServletRequest request) throws ServletException, IOException
     {
         // 管理员审核页面，从数据库获取每页（数据库分页查询）用户公司的信息，
         // 详情点不了是因为第一次点的时候公司和id和用户的主外键没有关联上,关联上就好了
@@ -219,7 +219,7 @@ public class ReviewController
         }
         model.addAttribute("companys", companys);
         model.addAttribute("pageShow", "company");
-        return "review/companyReview";
+        return "review/manufacturers";
     }
 
     @RequestMapping("/getdatarecordcompany")
@@ -316,8 +316,8 @@ public class ReviewController
 		reviewModel.addOperateRecord(operateRecord);
 	}
 
-    @RequestMapping("/manufacturers3")
-    public String manufacturers3(Model model, HttpServletRequest request) throws ServletException, IOException
+    @RequestMapping("/manufacturersManage")
+    public String manufacturersManage(Model model, HttpServletRequest request) throws ServletException, IOException
     {
         page = 1;
         size = 6;
@@ -343,7 +343,7 @@ public class ReviewController
         model.addAttribute("manufacturers2", advertisements);
         model.addAttribute("pageShow", "manufacturers2");
 
-        return "review/manufacturers3";
+        return "review/manufacturersManage";
     }
 
 

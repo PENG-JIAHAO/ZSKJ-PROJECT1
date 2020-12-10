@@ -67,9 +67,9 @@
 <%--<c:set var="clientuser" target="${User }" value="${requestScope.user}"></c:set>--%>
 
 <ul id="checktab" class="nav nav-pills">
-    <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">运营商分组1</a></li>
-    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >运营商分组2</a></li>
-    <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">运营商分组3</a></li>
+    <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">经销商分组1</a></li>
+    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >经销商分组2</a></li>
+    <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">经销商分组3</a></li>
 </ul>
 
 <!-- 运营商管理主界面  -->
