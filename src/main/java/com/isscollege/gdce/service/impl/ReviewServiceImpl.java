@@ -224,7 +224,7 @@ public class ReviewServiceImpl implements IReviewService
 
 	@Override
 	public List<Company> getCompanyList(int reviewState, int offset, int limit, String sort, String order) {
-		return companyDao.getCompanyInfoList(reviewState, offset, limit, sort, order);
+		return companyDao.getCompanyList(reviewState, offset, limit, sort, order);
 	}
 
 	@Override

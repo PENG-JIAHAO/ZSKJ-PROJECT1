@@ -188,7 +188,7 @@
 
                         <div class="img-left"><img src="${context }/imgs/check.png" alt="" height="30px"></div>
                         <a class="panel-title click" data-toggle="collapse" data-parent="#panel-203847"
-                           href="#panel-element-122542" id="checkManage">运营商浏览
+                           href="#panel-element-122542" id="checkManage">账户浏览
                             <div class="img-right"><img src="${context }/imgs/down.png" alt="" height="20px"></div>
                         </a>
                     </div>
@@ -210,8 +210,11 @@
                         </c:if>
 
                         <c:if test="${per.indexOf('7')!=-1}">
-                                <div id="btn7" class="panel-body" data-src="${context}/review/queryReview">
-                                <a href="#" class="guide">交易审核</a>
+                            <div id="btn7" class="panel-body" data-src="${context}/review/operator1">
+                                <a href="#" class="guide">设备使用商分组1</a>
+                            </div>
+                            <div id="btn7" class="panel-body" data-src="${context}/review/operator2">
+                                <a href="#" class="guide">设备使用商分组2</a>
                             </div>
                         </c:if>
 
@@ -244,6 +247,12 @@
                         <c:if test="${per.indexOf('6')!=-1}">
                             <div  id = "btn0" class="panel-body" data-src="${context }/review/manufacturers3">
                                 <a href="#" class="guide" >运营商管理</a>
+                            </div>
+                        </c:if>
+
+                        <c:if test="${per.indexOf('7')!=-1}">
+                            <div  id = "btn0" class="panel-body" data-src="${context }/review/operator3">
+                                <a href="#" class="guide" >设备使用商管理</a>
                             </div>
                         </c:if>
                     </div>

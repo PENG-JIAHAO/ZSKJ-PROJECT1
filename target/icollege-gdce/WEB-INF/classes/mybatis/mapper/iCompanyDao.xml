@@ -37,7 +37,7 @@
 		ORDER BY companyId ASC LIMIT #{page},#{size}
 	</select>
 
-	<select id="getCompanyInfoList" resultType="com.isscollege.gdce.domain.Company">
+	<select id="getCompanyList" resultType="com.isscollege.gdce.domain.Company">
 		SELECT *
 		FROM tbl_company_info
 		WHERE reviewState=#{reviewState}
@@ -47,6 +47,8 @@
 		ORDER By ${sort} ${order}
 		limit ${offset} ,${limit}
 	</select>
+
+
 	<select id="getCompanyInfoListTotal" resultType="java.lang.Integer">
 		SELECT count(1)
 		FROM tbl_company_info

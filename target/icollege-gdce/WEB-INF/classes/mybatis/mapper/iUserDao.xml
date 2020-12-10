@@ -5,6 +5,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace命名空间，作用：对sql进行分类化管理 -->
 <mapper namespace="com.isscollege.gdce.dao.IUserDao">
+
 	<select id="queryUserByName" resultType="com.isscollege.gdce.domain.User"
 		parameterType="java.lang.String">
 		SELECT *FROM system_users WHERE binary  NAME=#{name}

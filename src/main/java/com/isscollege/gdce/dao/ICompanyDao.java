@@ -22,7 +22,7 @@ public interface ICompanyDao
 
 	Company queryCompanyByCompanyID(String companyId);
 
-	List<Company> getCompanyInfoList(@Param("reviewState")int reviewState,@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
+	List<Company> getCompanyList(@Param("reviewState")int reviewState,@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
 
 	int getCompanyInfoListTotal(@Param("reviewState")int reviewState,@Param("sort")String sort,@Param("order")String order);
 

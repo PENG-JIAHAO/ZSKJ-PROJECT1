@@ -39,39 +39,96 @@ public class ReviewController
     private int page = 1;
     private int size = 15;
 
-    @RequestMapping("/queryReview")
-    public String queryReview(Model model, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+    @RequestMapping("/operator1")
+    private String operator1(Model model, HttpServletRequest request) throws ServletException, IOException
     {
-        size = 10;
-        if (request.getParameter("size") != null)
-        {
-            size = Integer.parseInt(request.getParameter("size"));
-        }
+        // 管理员审核页面，从数据库获取每页（数据库分页查询）用户公司的信息，
+        // 详情点不了是因为第一次点的时候公司和id和用户的主外键没有关联上,关联上就好了
+        page = 1;
+        size = 0x7fffffff;
+
         if (request.getParameter("page") != null)
         {
             page = Integer.parseInt(request.getParameter("page"));
         }
         model.addAttribute("page", page);
-        // 管理员审核页面，从数据库获取每页（数据库分页查询）商品信息
-        List<Product> products = reviewModel.queryProductByReviewState((page - 1) * 10, size);
-        // 判断如果某一页没有剩余商品信息
-        if (products.size() == 0 && page != 1)
+
+        List<Company> companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+        if (companys.size() == 0 && page != 1)
         {
             page--;
-            request.setAttribute("page", page);
-            products = reviewModel.queryProductByReviewState((page - 1) * 10, size);
+            model.addAttribute("page", page);
+            companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+
         }
         if (request.getAttribute("totalPage") == null)
         {
-            int totalSize = reviewModel.queryProductByReviewState(0, 10000).size();
+            int totalSize = reviewModel.queryCompanyByReviewState(0, 10000).size();
             model.addAttribute("totalPage", totalSize % 10 == 0 ? totalSize / 10 : totalSize / 10 + 1);
         }
-        model.addAttribute("products", products);
-        model.addAttribute("pageShow", "product");
-        return "review/queryReview";
+        model.addAttribute("companys", companys);
+        model.addAttribute("pageShow", "company");
+        return "review/operator1";
     }
 
+    @RequestMapping("/operator2")
+    public String operator2(Model model, HttpServletRequest request) throws ServletException, IOException
+    {
+        page = 1;
+        size = 6;
+        if (request.getParameter("page") != null)
+        {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        request.setAttribute("page", page);
+
+        List<Advertisement> advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+        if (advertisements.size() == 0 && page != 1)
+        {
+            page--;
+            model.addAttribute("page", page);
+            advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+
+        }
+        if (request.getAttribute("totalPage") == null)
+        {
+            int totalSize = reviewModel.queryAdvertisementByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 6 == 0 ? totalSize / 6 : totalSize / 6 + 1);
+        }
+        model.addAttribute("operator2", advertisements);
+        model.addAttribute("pageShow", "operator2");
+        return "review/operator2";
+    }
+
+    @RequestMapping("/operator3")
+    public String operator3(Model model, HttpServletRequest request) throws ServletException, IOException
+    {
+        page = 1;
+        size = 6;
+        if (request.getParameter("page") != null)
+        {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        request.setAttribute("page", page);
+
+        List<Advertisement> advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+        if (advertisements.size() == 0 && page != 1)
+        {
+            page--;
+            model.addAttribute("page", page);
+            advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+
+        }
+        if (request.getAttribute("totalPage") == null)
+        {
+            int totalSize = reviewModel.queryAdvertisementByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 6 == 0 ? totalSize / 6 : totalSize / 6 + 1);
+        }
+        model.addAttribute("operator3", advertisements);
+        model.addAttribute("pageShow", "operator3");
+
+        return "review/operator3";
+    }
 
     @RequestMapping("/queryReviewnotpass")
     private String queryReviewnotpass(Model model, HttpServletRequest request, HttpServletResponse response)
@@ -289,7 +346,7 @@ public class ReviewController
 	}
 
     @RequestMapping("/manufacturers2")
-    public String advertisementReview(Model model, HttpServletRequest request) throws ServletException, IOException
+    public String manufacturers2(Model model, HttpServletRequest request) throws ServletException, IOException
     {
         page = 1;
         size = 6;
@@ -629,7 +686,7 @@ public class ReviewController
     public Map<String, Object> getCompanyAjax(@RequestParam(value = "reviewState", defaultValue = "0") Integer reviewState, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
     {
         Map<String, Object> map = new HashMap<>();
-        map.put("rows", reviewModel.getCompanyList(reviewState, offset, limit, sort, order));
+        map.put("rows", reviewModel.getCompanyList(reviewState,offset, limit, sort, order));
         map.put("total", reviewModel.getCompanyListTotal(reviewState, sort, order));
         return map;
     }
@@ -660,7 +717,7 @@ public class ReviewController
         String offProductInfo = checker + reasonName + OffProductInfo;
         productModel.addInfo(id, offProductInfo);  //添加下架原因
         reviewModel.updateProductReviewState(id, 1, 1); //更改商品状态
-        return "review/queryReview";
+        return "operator1";
     }
 
 	//找公司审核记录
