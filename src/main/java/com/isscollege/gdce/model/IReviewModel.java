@@ -77,10 +77,14 @@ public interface IReviewModel
 
 	List<Company> getCompanyList(int reviewState,int offset, int limit, String sort, String order);
 
+	List<Company> getAllCompanyList(int offset, int limit, String sort, String order);
+
 	int getCompanyListTotal(int reviewState,String sort,String order);
 
 	int addOperateRecord(OperateRecord vr);
 
 	News queryNewsByID(int Id);
+
+	boolean deleteSelect(String companyId);
 
 }

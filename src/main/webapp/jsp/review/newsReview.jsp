@@ -267,7 +267,7 @@
         });
     }
     function c(x) {
-        var r = confirm("是否确认撤销审核通过");
+        var r = confirm("是否确认撤销"+x+"审核通过");
         if (r === true) {
             changeNew(x, 3);
         }

@@ -123,7 +123,7 @@
 </head>
 <body onload="tabDefault()">
 <ul id="checktab" class="nav nav-pills">
-    <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">运营商管理</a></li>
+    <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">经销商管理</a></li>
     <%--        <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >离线</a></li>
             <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">欠费</a></li>--%>
 </ul>

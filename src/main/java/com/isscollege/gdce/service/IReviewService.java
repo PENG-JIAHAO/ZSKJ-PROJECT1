@@ -71,6 +71,8 @@ public interface IReviewService
 
 	List<Company> getCompanyList(int reviewState,int offset, int limit, String sort, String order);
 
+	List<Company> getAllCompanyList(int offset, int limit, String sort, String order);
+
 	int getCompanyListTotal(int reviewState,String sort,String order);
 
 	//获取记录信息
@@ -85,5 +87,7 @@ public interface IReviewService
 	int addOperateRecord(OperateRecord vr);
 
 	News queryNewsByID(int Id);
+
+	boolean deleteSelect(String companyId);
 
 }

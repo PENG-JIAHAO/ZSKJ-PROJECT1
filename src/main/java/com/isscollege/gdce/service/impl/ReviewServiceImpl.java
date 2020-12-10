@@ -228,6 +228,11 @@ public class ReviewServiceImpl implements IReviewService
 	}
 
 	@Override
+	public List<Company> getAllCompanyList(int offset, int limit, String sort, String order) {
+		return companyDao.getAllCompanyList(offset, limit, sort, order);
+	}
+
+	@Override
 	public int getCompanyListTotal(int reviewState, String sort, String order) {
 		return companyDao.getCompanyInfoListTotal(reviewState, sort, order);
 	}
@@ -270,5 +275,12 @@ public class ReviewServiceImpl implements IReviewService
 	public News queryNewsByID(int Id)
 	{
 		return newsDao.queryNewsByID(Id);
+	}
+
+
+	@Override
+	public  boolean deleteSelect(String companyId)
+	{
+		return true;
 	}
 }

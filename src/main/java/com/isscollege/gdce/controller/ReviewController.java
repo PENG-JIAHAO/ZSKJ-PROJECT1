@@ -402,8 +402,8 @@ public class ReviewController
     }
 
     // 查询company对象方法
-    @RequestMapping("/ComDetails")
-    private String ComDetails(String beforeId, String afterId, Model model, HttpServletRequest request)
+    @RequestMapping("/equipmentDetails")
+    private String equipmentDetails(String beforeId, String afterId, Model model, HttpServletRequest request)
             throws ServletException, IOException
     {
         String id = beforeId + afterId;
@@ -412,7 +412,7 @@ public class ReviewController
         User user = reviewModel.queryUserByCompanyId(id);
         model.addAttribute("company", company);
         model.addAttribute("user", user);
-        return "review/reviewDetails";
+        return "review/equipmentDetails";
     }
 
     // 查询company对象方法
@@ -632,6 +632,17 @@ public class ReviewController
         return map;
     }
 
+    @RequestMapping("/getAllDataCompany")
+    @ResponseBody
+    public Map<String, Object> getAllCompanyAjax(@RequestParam(value = "reviewState", defaultValue = "0") Integer reviewState, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getAllCompanyList(offset, limit, sort, order));
+        map.put("total", reviewModel.getCompanyListTotal(reviewState, sort, order));
+        return map;
+    }
+
+
     @RequestMapping("/getdataNews")
     @ResponseBody
     public Map<String, Object> getNewsAjax(@RequestParam(value = "reviewState", defaultValue = "0") Integer reviewState, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
@@ -678,4 +689,14 @@ public class ReviewController
 	}
 
 
+    @RequestMapping("/deleteSelect")
+    public void deleteSelect(HttpServletRequest request, HttpServletResponse response)
+    {
+        String companyId = request.getParameter("companyId");
+        String msg = "";
+        boolean result = reviewModel.deleteSelect(companyId);
+        msg += result ? "成功删除" : "删除失败";
+        request.setAttribute("msg", msg);
+
+    }
 }

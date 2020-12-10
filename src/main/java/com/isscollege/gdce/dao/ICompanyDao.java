@@ -24,10 +24,15 @@ public interface ICompanyDao
 
 	List<Company> getCompanyList(@Param("reviewState")int reviewState,@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
 
+	List<Company> getAllCompanyList(@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
+
 	int getCompanyInfoListTotal(@Param("reviewState")int reviewState,@Param("sort")String sort,@Param("order")String order);
 
 	public boolean save(Company company);
 
 	public boolean update(Company company);
+
 	String getCompanyRecordIdByCompanyId(String companyId);
+
+	int deleteSelect(String companyId);
 }

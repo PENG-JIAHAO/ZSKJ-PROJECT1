@@ -48,6 +48,12 @@
 		limit ${offset} ,${limit}
 	</select>
 
+	<select id="getAllCompanyList" resultType="com.isscollege.gdce.domain.Company">
+		SELECT *
+		FROM tbl_company_info
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
 
 	<select id="getCompanyInfoListTotal" resultType="java.lang.Integer">
 		SELECT count(1)
@@ -82,4 +88,12 @@
   		FROM tbl_company_info
   		WHERE companyId=#{companyId}
  	</select>
+
+	<delete id="deleteSelect" parameterType="java.lang.String">
+		DELETE *
+		FROM tbl_company_info
+		WHERE companyId = #{companyId}
+	</delete>
+
+
 </mapper>

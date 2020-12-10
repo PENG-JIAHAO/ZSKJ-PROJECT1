@@ -193,6 +193,11 @@ public class ReviewModelImpl implements IReviewModel
 	}
 
 	@Override
+	public List<Company> getAllCompanyList(int offset, int limit, String sort, String order) {
+		return service.getAllCompanyList(offset, limit, sort, order);
+	}
+
+	@Override
 	public int getCompanyListTotal(int reviewState, String sort, String order) {
 		return service.getCompanyListTotal(reviewState, sort, order);
 	}
@@ -233,4 +238,9 @@ public class ReviewModelImpl implements IReviewModel
 		return service.queryNewsByID(Id);
 	}
 
+	@Override
+	public boolean deleteSelect(String companyId)
+	{
+		return service.deleteSelect(companyId);
+	}
 }
