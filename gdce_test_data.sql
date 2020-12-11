@@ -1,13 +1,10 @@
 CREATE DATABASE `gdce`;
-
 USE `gdce`;
-
-/*Table structure for table `system_users` */
 
 DROP TABLE IF EXISTS `system_users`;
 
 CREATE TABLE `system_users` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `NAME` varchar(20) NOT NULL COMMENT '用户名称',
   `PASSWORD` varchar(20) NOT NULL COMMENT '密码',
   `LEVEL` int(2) NOT NULL COMMENT '0-超管 1-管理员 2-会员',
@@ -20,7 +17,7 @@ CREATE TABLE `system_users` (
   `phonenumber` varchar(20) NOT NULL COMMENT '管理员联系电话',
   `email` varchar(30) NOT NULL COMMENT '管理员邮箱',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `system_users` */
 
@@ -28,16 +25,15 @@ insert  into `system_users`(`id`,`NAME`,`PASSWORD`,`LEVEL`,`permission`,`company
 (1,'admin','123456',0,'0','',0,0,'','','',''),
 (2,'logistics','123',2,'3','91130302MA07RJW223',0,0,'','','',''),
 (3,'buyer1','123',2,'1','911308037825919000',0,0,'','','',''),
-(4,'buyer2','123',2,'1','912202011245116621',0,0,'','','',''),
-(5,'buyer3','123',2,'1','912311811316773000',0,0,' ',' ',' ',' '),
-(6,'seller1','123',2,'2','914113306672048026',0,0,' ',' ',' ',' '),
-(7,'seller2','123',2,'2','916402210275456045',0,0,' ',' ',' ',' '),
-(8,'seller3','123',2,'2','916501053331276241',0,0,' ',' ',' ',' '),
-(11,'news_editer','123',1,'4','',0,0,'郝芬','资讯编辑','15291753256','hf@163.com'),
-(12,'news_review','123',1,'5','',0,0,'高敏','资讯审核','18291567652','gm@163.com'),
-(13,'regist_review','123',1,'6','',0,0,'刘芳','注册审核','15192546310','lf@163.com'),
-(14,'trade_review','123',1,'7','',0,0,'王向东','交易审核','15398546321','lxd@qq.com'),
-(16,'ads_review','123',1,'8','',0,0,'张超','广告位审核','15296325610','zc@163.com');
+(4,'seller1','123',2,'2','914113306672048026',0,0,' ',' ',' ',' '),
+(5,'news_editer','123',1,'4','',0,0,'郝芬','资讯编辑','15291753256','hf@163.com'),
+(6,'news_review','123',1,'5','',0,0,'高敏','资讯审核','18291567652','gm@163.com'),
+(7,'regist_review','123',1,'6','',0,0,'刘芳','注册审核','15192546310','lf@163.com'),
+(8,'trade_review','123',1,'7','',0,0,'王向东','交易审核','15398546321','lxd@qq.com'),
+(9,'ads_review','123',1,'8','',0,0,'张超','广告位审核','15296325610','zc@163.com'),
+(10,'mft1','123',1,'6','',0,0,'张超','广告位审核','15296325610','zc@163.com'),
+(11,'opt1','123',1,'7','',0,0,'张超','广告位审核','15296325610','zc@163.com');
+
 
 /*Table structure for table `table_accountant_info` */
 
@@ -98,7 +94,7 @@ insert  into `tbl_ads`(`id`,`companyId`,`POSITION`,`email`,`adsImgPath`,`adsURL`
 DROP TABLE IF EXISTS `tbl_company_info`;
 
 CREATE TABLE `tbl_company_info` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `companyId` varchar(30) NOT NULL COMMENT '企业机构代码',
   `companyName` varchar(30) NOT NULL COMMENT '企业名称',
   `legalPerson` varchar(10) NOT NULL COMMENT '法人',
@@ -139,7 +135,12 @@ insert  into `tbl_company_info`(`id`,`companyId`,`companyName`,`legalPerson`,`le
 (4,'914113306672048026','桐柏巨能矿业有限公司','路春祥','610321198606056015','吴中天','桐柏县朱庄乡','lftbyk@sing.com','18348458467','45812481','878510',46512.00,'6418715445154','184125462164562','2544121545104','浦发银行','620451215715753576','内蒙','火车','矿业资源开发管理、矿产品购销、产品售后服务、矿业技术咨询、服务。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg',1,'AR202010181145140810','2020-10-18'),
 (5,'916402210275456045','平罗县兴兴煤业有限公司','唐超','536115194308275233','白薇','平罗县崇岗工业园区','1031354913@qq.com','13995169962','54623132','545010',78112.00,'8415102156411','162657412120074','4584102146540','农业银行','623897462154598452','山西','火车','煤炭加工洗选、销售。(依法须经批准的项目，经相关部门批准后方可开展经营活动)','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg',1,'AR202010191145140893','2020-10-19'),
 (6,'916501053331276241','新疆雪峰双兴商贸有限责任公司','冯立柱','438115194207104628','昌文','乌鲁木齐市水磨沟区','53236542@qq.com','15398155965','54416510','479845',46131.00,'3546543414561','156126585123000','9582132524612','建设银行','621749814231464685','新疆','火车','销售：矿产品，建材，机械设备，五金交电，煤炭，日用百货，文化用品，体育用品，金属材料，塑料制品等。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg',1,'AR202010201145140893','2020-10-20'),
-(7,'91130302MA07RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',1,'AR202010211145140893','2020-10-21');
+(7,'91130302MA07RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',1,'AR202010211145140893','2020-10-21'),
+(8,'91130314141242W223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',1,'AR202010211145140893','2020-10-21'),
+(9,'9113030232432RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',0,'AR202010211145140893','2020-10-21'),
+(10,'9113030289768W223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',0,'AR202010211145140893','2020-10-21'),
+(11,'9113078987865RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',0,'AR202010211145140893','2020-10-21');
+
 
 /*Table structure for table `tbl_contract_info` */
 

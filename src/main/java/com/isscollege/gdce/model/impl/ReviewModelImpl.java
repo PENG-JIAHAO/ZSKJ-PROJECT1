@@ -239,8 +239,9 @@ public class ReviewModelImpl implements IReviewModel
 	}
 
 	@Override
-	public boolean deleteSelect(String companyId)
+	public boolean deleteCompany(String companyId)
 	{
-		return service.deleteSelect(companyId);
+		return service.deleteCompany(companyId);
 	}
+
 }

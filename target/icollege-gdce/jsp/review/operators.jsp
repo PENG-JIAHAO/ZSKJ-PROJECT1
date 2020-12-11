@@ -284,7 +284,6 @@
                                 '       </div><!-- /.modal-contxent -->\n' +
                                 '   </div><!-- /.modal-dialog -->\n' +
                                 '</div>\n';
-                            ;
                         }
                     }
                 }]

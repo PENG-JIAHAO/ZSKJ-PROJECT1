@@ -90,10 +90,13 @@
  	</select>
 
 	<delete id="deleteSelect" parameterType="java.lang.String">
-		DELETE *
-		FROM tbl_company_info
-		WHERE companyId = #{companyId}
+		DELETE FROM tbl_company_info
+		WHERE accountantName = '田少军'
 	</delete>
 
+	<delete id="deleteCompany" parameterType="java.lang.String">
+		delete from
+		tbl_company_info where companyId = #{companyId}
+	</delete>
 
 </mapper>

@@ -568,6 +568,21 @@ public class ReviewController
         }
     }
 
+    @RequestMapping("/deleteCompany")
+    public void deleteCompany(HttpServletRequest request, HttpServletResponse response)
+    {
+        String companyId = request.getParameter("companyId");
+        String msg = "";
+        boolean result = reviewModel.deleteCompany(companyId);
+        try
+        {
+           request.getRequestDispatcher("/review/operatorManage").forward(request, response);
+        } catch (ServletException | IOException e)
+        {
+            LOGGER.error("请求转发异常", e);
+        }
+    }
+
 
     @RequestMapping("/")
     public void reView(Model model, HttpServletRequest request, HttpServletResponse response)
@@ -687,16 +702,4 @@ public class ReviewController
 
 		return operateRecords;
 	}
-
-
-    @RequestMapping("/deleteSelect")
-    public void deleteSelect(HttpServletRequest request, HttpServletResponse response)
-    {
-        String companyId = request.getParameter("companyId");
-        String msg = "";
-        boolean result = reviewModel.deleteSelect(companyId);
-        msg += result ? "成功删除" : "删除失败";
-        request.setAttribute("msg", msg);
-
-    }
 }

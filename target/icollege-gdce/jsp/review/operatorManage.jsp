@@ -26,17 +26,17 @@
 
             function deleteSelects()
             {
-                var r=confirm("是否确认删除");
-                if (r===true){
+                var r=confirm("是否确认删除？");
+                if(r==true){
                     var obj=$('#allEquipmentListTab');
-                    var ids = $.map(obj.bootstrapTable('getSelections'), function (row) {
+                    var companyId = $.map(obj.bootstrapTable('getSelections'), function (row) {
                         return row.companyId;
                     });
-                    obj.bootstrapTable('remove', {field: 'companyId',values: ids });
-                    href="${context}/review/deleteSelect?companyId+"+ids;
-                    var a=confirm("删除成功");
+                    for(var i=0; i<companyId.length; i++)
+                    {
+                        window.location.href="${context}/review/deleteCompany?companyId="+companyId[i];
+                    }
                 }
-
             }
         </script>
         <script src="${context}/js/jquery/jq.js"></script>
@@ -46,7 +46,7 @@
 
     <body onload="tabDefault()">
         <ul id="checktab" class="nav nav-pills">
-            <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">设备商管理</a></li>
+            <li class="active" data-id="tabContent1"><a href="#" onclick="tabChange()" data-toggle="tab">设备商管理</a></li>
         </ul>
 
         </br>
@@ -119,13 +119,13 @@
                 valign: 'middle',
                 align: 'center'
             },{
-                field: 'phoneNumber',
-                title: '电话',
+                field: 'accountantName',
+                title: '联系人',
                 valign: 'middle',
                 align: 'center'
             }, {
                 field: 'legalPerson',
-                title: '联系人',
+                title: '法人',
                 valign: 'middle',
                 align:'center'
             },{
@@ -144,7 +144,16 @@
                         return '离线'
                     }
                 }
-            }]
+            }/*{
+                field: 'operate',
+                title: '操作',
+                valign: 'middle',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    var id=row.companyId;
+                    return ' <button type="button" class="btn btn-default" onclick="deleteSelects()">删除</button>'
+                }
+            }*/]
         });
     }
 

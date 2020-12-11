@@ -151,7 +151,7 @@
 				valign: 'middle',
 				align: 'center',
 				formatter: function (value, row, index) {
-						return '<a href="${context}/register/deletemanager?id='+row.id+'"onclick="isDelete()">Delete</a>'
+						return '<a onclick="isDelete()" href="${context}/register/deletemanager?id='+row.id+'" >Delete</a>'
 				}
 			}
 		]

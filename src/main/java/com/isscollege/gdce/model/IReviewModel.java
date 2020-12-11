@@ -85,6 +85,6 @@ public interface IReviewModel
 
 	News queryNewsByID(int Id);
 
-	boolean deleteSelect(String companyId);
+	boolean deleteCompany(String companyId);
 
 }

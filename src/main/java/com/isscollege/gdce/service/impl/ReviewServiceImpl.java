@@ -279,8 +279,12 @@ public class ReviewServiceImpl implements IReviewService
 
 
 	@Override
-	public  boolean deleteSelect(String companyId)
+	public boolean deleteCompany(String companyId)
 	{
-		return true;
+		boolean result = false;
+		result = (companyDao.deleteCompany(companyId) != 0);
+		return result;
 	}
+
+
 }

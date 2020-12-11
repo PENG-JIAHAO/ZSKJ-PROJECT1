@@ -34,5 +34,5 @@ public interface ICompanyDao
 
 	String getCompanyRecordIdByCompanyId(String companyId);
 
-	int deleteSelect(String companyId);
+	int deleteCompany(String companyId);
 }
