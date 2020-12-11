@@ -26,15 +26,17 @@
 
             function deleteSelects()
             {
-                var r=confirm("是否确认删除？");
-                if(r==true){
-                    var obj=$('#allEquipmentListTab');
-                    var companyId = $.map(obj.bootstrapTable('getSelections'), function (row) {
-                        return row.companyId;
-                    });
-                    for(var i=0; i<companyId.length; i++)
-                    {
-                        window.location.href="${context}/review/deleteCompany?companyId="+companyId[i];
+                var obj=$('#allEquipmentListTab');
+                var companyId = $.map(obj.bootstrapTable('getSelections'), function (row) {
+                    return row.companyId;
+                });
+                if(companyId.length==0)
+                {
+                    alert("请选择删除项");
+                }else{
+                    var r=confirm("是否确认删除？");
+                    if(r==true){
+                        window.location.href="${context}/review/deleteCompany?companyId="+companyId;
                     }
                 }
             }

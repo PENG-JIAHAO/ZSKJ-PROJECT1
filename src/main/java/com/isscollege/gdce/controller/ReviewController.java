@@ -571,9 +571,13 @@ public class ReviewController
     @RequestMapping("/deleteCompany")
     public void deleteCompany(HttpServletRequest request, HttpServletResponse response)
     {
+
         String companyId = request.getParameter("companyId");
-        String msg = "";
-        boolean result = reviewModel.deleteCompany(companyId);
+        String[] array = companyId.split(",");
+        for(int i=0;i<array.length;i++)
+        {
+            boolean result = reviewModel.deleteCompany(array[i]);
+        }
         try
         {
            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
