@@ -240,7 +240,7 @@
                         </c:if>
                         <c:if test="${per.indexOf('6')!=-1}">
                             <div  id = "btn0" class="panel-body" data-src="${context }/review/manufacturersManage">
-                                <a href="#" class="guide" >运营商管理</a>
+                                <a href="#" class="guide" >经销商管理</a>
                             </div>
                         </c:if>
 

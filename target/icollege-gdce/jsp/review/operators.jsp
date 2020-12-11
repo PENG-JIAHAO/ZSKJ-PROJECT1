@@ -302,6 +302,7 @@
                 searchOnEnterKey:false,
                 strictSearch:false,
                 showRefresh:true,
+                detailView: true,  //是否显示父子表
                 sidePagination:'server',
                 sortName:'id',
                 sortOrder:'asc',
@@ -440,8 +441,87 @@
                                 '</div>\n';
                         }
                     }
-                }]
+                }],
+                onExpandRow: function (index, row, $detail) {
+                    ExpandRow(index, row, $detail);
+                }
             });
+        }
+
+        function ExpandRow(index, row, $detail) {
+            var id = row.id;
+            var childname = "plan_" + id;
+            var equipmentListTab = $detail.html('<table id="' + childname + '"></table>').find('table');
+            $(equipmentListTab).bootstrapTable('destroy');
+            $(equipmentListTab).bootstrapTable({
+                url:'${context}/review/getDataCompany?reviewState='+1,
+                striped: true,
+                sortable: true,
+                pagination: true,
+                showLoading: true,
+                sidePagination: "server",
+                sortName: "RecordId",
+                sortOrder: "desc",
+                pageNumber: 1,
+                pageSize: 7,
+                pageList:[7,14],
+                queryParamsType: 'limit',
+                queryParams: function (params) {
+                    return params;
+                },
+                onSort: function (name, order) {
+
+                },
+                onLoadSuccess: function (data) {
+
+                },
+                onLoadError: function (status) {
+
+                },
+                columns: [{
+                    field: 'companyId',
+                    title: '设备编号',
+                    valign: 'middle',
+                    align: 'center'
+                },{
+                    field:'reviewState',
+                    title:'状态',
+                    sortable: true,
+                    order:'asc',
+                    valign: 'middle',
+                    align: 'center'
+                },{
+                    field: 'operate',
+                    title: '操作',
+                    valign: 'middle',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var id = row.id;
+                        var path = row.adsImgPath;
+                        if (row.reviewState === 1) {
+                            return ' <button type="button" class="btn btn-default" onclick=equipmentDetails(912202011,245116621)>设备信息</button>\n' +
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>操作</button>' +
+                                ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                                '   <div class="modal-dialog">\n' +
+                                '       <div class="modal-content">\n' +
+                                '           <div class="modal-header">\n' +
+                                '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
+                                '                   &times;\n' +
+                                '               </button>\n' +
+                                '               <p style="float:left;">店铺设备：</p>\n' +
+                                '           </div>\n' +
+                                '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
+                                '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                                '               </table>\n' +
+                                '           </div>\n' +
+                                '       </div><!-- /.modal-contxent -->\n' +
+                                '   </div><!-- /.modal-dialog -->\n' +
+                                '</div>\n';
+                        }
+                    }
+                }]
+            })
+
         }
     </script>
 </html>
