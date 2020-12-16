@@ -105,41 +105,24 @@ CREATE TABLE `tbl_company_info` (
   `phoneNumber` varchar(20) NOT NULL COMMENT '联系方式',
   `companyFax` varchar(10) NOT NULL COMMENT '传真',
   `postalCode` varchar(8) NOT NULL COMMENT '邮政编码',
-  `registerMoney` float(12,2) NULL COMMENT '注册资金',
-  `openLicenseId` varchar(30) NULL COMMENT '营业执照',
-  `bussionLicense` varchar(30) NULL COMMENT '经营许可证',
-  `taxRegisterId` varchar(30) NULL COMMENT '税务登记号',
-  `openBank` varchar(20) NULL COMMENT '开户银行',
-  `bankAccount` varchar(30) NULL COMMENT '银行账户',
-  `goodsAddress` varchar(40) NULL COMMENT '煤源存放地',
-  `transportStyle` varchar(15) NULL COMMENT '运输方式保证能力',
-  `companyProfile` varchar(300) NULL COMMENT '公司简介',
-  `openLicensePath` varchar(60)  NULL COMMENT '营业执照存放路径（/imgs/openLicense/营业执照+时间戳）',
-  `taxRegisterCodePath` varchar(60) NULL COMMENT '税务登记证照片存放路径（/imgs/taxRegisterCode/税务登记证+时间戳）',
-  `companyCodePath` varchar(60) NULL COMMENT '组织机构代码照片存放路径（/imgs/companyCode/企业机构代码+时间戳）',
-  `bankAccountCodePath` varchar(60) NULL COMMENT '开户银行许可证照片存放路径（/imgs/bankAccountCode/开户银行许可证+时间戳）',
-  `legalPersonCodePath` varchar(60) NULL COMMENT '法人身份证照片存放路径（/imgs/legalPersonCode/法人身份证+时间戳）',
-  `bussionLicenseCodePath` varchar(60) NULL COMMENT '经营许可证照片存放路径（/imgs/bussionLicenseCode/经营许可证+时间戳）',
   `reviewState` int(3) NOT NULL COMMENT '0-待审核 1-通过 2-未通过',
-  `recordID` varchar(20) NULL COMMENT '记录编号',
-  `submitDate` varchar(20) NULL COMMENT '提交审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbl_company_info` */
 
-insert  into `tbl_company_info`(`id`,`companyId`,`companyName`,`legalPerson`,`legalPersonId`,`accountantName`,`companyAddress`,`companyEmail`,`phoneNumber`,`companyFax`,`postalCode`,`registerMoney`,`openLicenseId`,`bussionLicense`,`taxRegisterId`,`openBank`,`bankAccount`,`goodsAddress`,`transportStyle`,`companyProfile`,`openLicensePath`,`taxRegisterCodePath`,`companyCodePath`,`bankAccountCodePath`,`legalPersonCodePath`,`bussionLicenseCodePath`,`reviewState`,`recordID`,`submitDate`) values 
-(1,'911308037825919000','国电承德热电有限公司','郝剑宇','612321198701215000','张伟','承德双滦区滦河镇滦河电厂院内','hbcdrd@cgdc.com.cn','15291207899','32561002','721300',56102.00,'3621522001132','156669894512014','3621522001132','招商银行','621483292342368012','山西','汽车','火力发电、供热服务；电力设备检修维护服务。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\1.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\1.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\1.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\1.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\1.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\1.jpg',1,'AR202010151145140810','2020-10-15'),
-(2,'912202011245116621','吉林热电总公司','张芃','610321198706215012','李刚','吉林市龙潭区徐州路二号','1072349216@qq.com','18292743924','56123145','698542',32145.00,'6548897121541','141541102484201','6548897121541','建设银行','621457411574515671','内蒙','火车','吉林热电厂多种经营总公司成立于1992年11月04日，主要经营范围为对下属企业实施经营管理等。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\2.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\2.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\2.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\2.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\2.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\2.jpg',0,'AR202010161145140810','2020-10-16'),
-(3,'912311811316773000','国电北安热电有限公司','杨映川','321451198503241650','袁飞宇','黑龙江省黑河市北安市','baqxb@163.com','18289455645','47013655','654655',89851.00,'7974151541151','189546589161541','8451251212112','建设银行','624145245841515410','山西','火车','国电北安热电有限公司，位于黑龙江省北安市区东南端，是集团公司内最北部的电厂，厂区占地面积13公顷。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\3.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\3.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\3.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\3.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\3.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\3.jpg',1,'AR202010171145140810','2020-10-17'),
-(4,'914113306672048026','桐柏巨能矿业有限公司','路春祥','610321198606056015','吴中天','桐柏县朱庄乡','lftbyk@sing.com','18348458467','45812481','878510',46512.00,'6418715445154','184125462164562','2544121545104','浦发银行','620451215715753576','内蒙','火车','矿业资源开发管理、矿产品购销、产品售后服务、矿业技术咨询、服务。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\01.jpg',1,'AR202010181145140810','2020-10-18'),
-(5,'916402210275456045','平罗县兴兴煤业有限公司','唐超','536115194308275233','白薇','平罗县崇岗工业园区','1031354913@qq.com','13995169962','54623132','545010',78112.00,'8415102156411','162657412120074','4584102146540','农业银行','623897462154598452','山西','火车','煤炭加工洗选、销售。(依法须经批准的项目，经相关部门批准后方可开展经营活动)','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\02.jpg',1,'AR202010191145140893','2020-10-19'),
-(6,'916501053331276241','新疆雪峰双兴商贸有限责任公司','冯立柱','438115194207104628','昌文','乌鲁木齐市水磨沟区','53236542@qq.com','15398155965','54416510','479845',46131.00,'3546543414561','156126585123000','9582132524612','建设银行','621749814231464685','新疆','火车','销售：矿产品，建材，机械设备，五金交电，煤炭，日用百货，文化用品，体育用品，金属材料，塑料制品等。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\03.jpg',1,'AR202010201145140893','2020-10-20'),
-(7,'91130302MA07RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',1,'AR202010211145140893','2020-10-21'),
-(8,'91130314141242W223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',1,'AR202010211145140893','2020-10-21'),
-(9,'9113030232432RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',0,'AR202010211145140893','2020-10-21'),
-(10,'9113030289768W223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',0,'AR202010211145140893','2020-10-21'),
-(11,'9113078987865RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',3533.00,'3020040437821','130302004043782','1303020040437','建设银行','634800435461097653',' 无','海运、铁路','普通货运；仓储服务（危险品除外）；国际货运代理；国内水运货运代理；陆路货运代理。','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg','D:\\\\gdce\\\\temp\\\\user\\\\userName\\\\11.jpg',0,'AR202010211145140893','2020-10-21');
+insert  into `tbl_company_info`(`id`,`companyId`,`companyName`,`legalPerson`,`legalPersonId`,`accountantName`,`companyAddress`,`companyEmail`,`phoneNumber`,`companyFax`,`postalCode`,`reviewState`) values
+(1,'911308037825919000','国电承德热电有限公司','郝剑宇','612321198701215000','张伟','承德双滦区滦河镇滦河电厂院内','hbcdrd@cgdc.com.cn','15291207899','32561002','721300',0),
+(2,'912202011245116621','吉林热电总公司','张芃','610321198706215012','李刚','吉林市龙潭区徐州路二号','1072349216@qq.com','18292743924','56123145','698542',0),
+(3,'912311811316773000','国电北安热电有限公司','杨映川','321451198503241650','袁飞宇','黑龙江省黑河市北安市','baqxb@163.com','18289455645','47013655','654655',0),
+(4,'914113306672048026','桐柏巨能矿业有限公司','路春祥','610321198606056015','吴中天','桐柏县朱庄乡','lftbyk@sing.com','18348458467','45812481','878510',0),
+(5,'916402210275456045','平罗县兴兴煤业有限公司','唐超','536115194308275233','白薇','平罗县崇岗工业园区','1031354913@qq.com','13995169962','54623132','545010',1),
+(6,'916501053331276241','新疆雪峰双兴商贸有限责任公司','冯立柱','438115194207104628','昌文','乌鲁木齐市水磨沟区','53236542@qq.com','15398155965','54416510','479845',1),
+(7,'91130302MA07RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',1),
+(8,'91130314141242W223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',1),
+(9,'9113030232432RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',2),
+(10,'9113030289768W223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',2),
+(11,'9113078987865RJW223','中外运秦皇岛物流有限公司','杨海英','421222197508231038','田少军','河北省秦皇岛市海港区','1065584353@qq.com','15829350485','48416111','894551',2);
 
 
 /*Table structure for table `tbl_contract_info` */

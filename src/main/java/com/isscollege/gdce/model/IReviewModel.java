@@ -87,4 +87,5 @@ public interface IReviewModel
 
 	boolean deleteCompany(String companyId);
 
+	boolean addNewCompany(Company newcompany);
 }

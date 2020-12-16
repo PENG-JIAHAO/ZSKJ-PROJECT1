@@ -13,10 +13,6 @@
             window.location.href = "${context}/review/equipmentDetails?beforeId=" + beforeId+"&afterId="+afterId ;
         }
 
-        function changCom(companyId,state){
-            window.location.href = "${context}/review/changeCom?companyId=" +companyId+ "&state=" +state+ "&page=${page}";
-        }
-
         function tabDefault() {
             $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
             optTable(1,1);
@@ -69,7 +65,6 @@
     <body onload="tabDefault()" onunload="window.opener.location.reload()">
     <%--<c:set var="company" target="${Company }" value="${company}"></c:set>--%>
     <%--<c:set var="clientuser" target="${User }" value="${requestScope.user}"></c:set>--%>
-
         <%--分组按钮--%>
         <ul id="checktab" class="nav nav-pills">
             <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">设备使用商分组1</a></li>
@@ -214,6 +209,7 @@
 </body>
 
     <script>
+
         <%--点击设备按钮--%>
         function getEquipment(reviewState,tabNum) {
             $('#equipmentListTab'+tabNum).bootstrapTable('destroy');
@@ -227,7 +223,7 @@
                 searchOnEnterKey:false,
                 strictSearch:true,
                 sidePagination: "server",
-                sortName: "RecordId",
+                sortName: "id",
                 sortOrder: "desc",
                 pageNumber: 1,
                 pageSize: 7,
@@ -290,7 +286,8 @@
             })
 
         }
-        <%--点击信息按钮--%>
+
+        <%--主页面--%>
         function optTable(reviewState,tabNum){
             $("#mftTab"+tabNum).bootstrapTable({
                 url:'${context}/review/getDataCompany?reviewState='+reviewState,
@@ -447,7 +444,7 @@
                 }
             });
         }
-
+        //父子表(子表)
         function ExpandRow(index, row, $detail) {
             var id = row.id;
             var childname = "plan_" + id;
@@ -460,7 +457,7 @@
                 pagination: true,
                 showLoading: true,
                 sidePagination: "server",
-                sortName: "RecordId",
+                sortName: "id",
                 sortOrder: "desc",
                 pageNumber: 1,
                 pageSize: 7,

@@ -286,5 +286,11 @@ public class ReviewServiceImpl implements IReviewService
 		return result;
 	}
 
-
+	@Override
+	public boolean addNewCompany(Company newcompany)
+	{
+		boolean result = false;
+		result = (companyDao.addNewCompany(newcompany) != 0);
+		return result;
+	}
 }

@@ -2,6 +2,7 @@ package com.isscollege.gdce.dao;
 
 import java.util.List;
 
+import com.isscollege.gdce.domain.User;
 import org.apache.ibatis.annotations.Param;
 
 import com.isscollege.gdce.domain.Company;
@@ -35,4 +36,6 @@ public interface ICompanyDao
 	String getCompanyRecordIdByCompanyId(String companyId);
 
 	int deleteCompany(String companyId);
+
+	int addNewCompany(Company newcompany);
 }

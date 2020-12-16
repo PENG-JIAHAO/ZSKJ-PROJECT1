@@ -62,15 +62,15 @@ $(function () {
 						href="${context }/register/doqualification">会员中心</a></li>
 				</ul>
 				<h3 class="text-muted">
-					<a href="${context }"><img alt="logo" src="${context }/imgs/logo.png"></a>
+					<a href="${context }"><img alt="logo" src="${context }/imgs/ZSKJlogo.png"></a>
 				</h3>
 			</nav>
 		</div>
 	</div>
 
 	<div class="box" ; align="center">
-		<img alt="分割图" src="${context }/imgs/banner004.png" style="width: 1140px;height: 160px">
-	</div>
+        <img alt="分割图" src="${context }/imgs/banner004.png" style="width: 1140px;height: 160px">
+    </div>
 	<div class="container">
 
 		<div class="row clearfix" >
@@ -89,12 +89,6 @@ $(function () {
 				</div>
 
 				<div class="panel-body" style="display: inline-block">
-					<a href="${context }/contract/querylist?a=1" target="_self">
-						<button style="width: 90px; height: 40px" class="btn btn-default "
-								type="button" onClick="showReport1()">合同查询</button></a>
-				</div>
-
-				<div class="panel-body" style="display: inline-block">
 					<a href="${context}/getuserproduct" target="_self"><button
 							style="width: 90px; height: 40px" class="btn btn-default " id="productselect"
 							disabled="true"	type="button" onClick="showReport1()">商品查询</button></a>
@@ -104,31 +98,6 @@ $(function () {
 							style="width: 90px; height: 40px" class="btn btn-default " id="productsend"
 							disabled="true"	type="button" onClick="showReport1()">商品发布</button></a>
 				</div>
-
-				<div class="panel-body" style="display: inline-block">
-					<a href="${context }/jsp/ad/management.jsp" target="_self">
-						<button style="width: 90px; height: 40px" class="btn btn-default "
-								type="button" onClick="showReport1()">广告中心</button></a>
-				</div>
-
-				<c:set var="per" value="${user.getPermission()}"></c:set>
-				<c:if test="${per.indexOf('3') != -1}">
-					<div class="panel-body"  style="display: inline-block">
-						<a href="${context }/logistics/query?state=0&page=1"target="_self">
-							<button style="width: 90px; height: 40px"
-									class="btn btn-default " type="button" onClick="showReport1()">物流中心</button></a>
-					</div>
-				</c:if>
-				<c:if test="${per.indexOf('1') != -1 || per.indexOf('2') != -1}">
-					<div class="panel-body" style="display: inline-block">
-						<a href="${context }/logistics/queryorder?page=1" target="_self">
-								<%--							 <a href="${context}/logistics/queryorder?page=1"--%>
-								<%--									target="_self">--%>
-							<button style="width: 90px; height: 40px"
-									class="btn btn-default " type="button" onclick="showReport1()" >物流查询</button></a>
-							<%--	</a>--%>
-					</div>
-				</c:if>
 			</div>
 			<div style="display: inline-block;height: auto;width:420px;float: right;position:relative;top: -9px;left: 40px;">
 				<form role="form" style=" display: inline-block;"

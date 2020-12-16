@@ -1,5 +1,4 @@
 package com.isscollege.gdce.controller;
-
 import java.io.IOException;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -7,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.isscollege.gdce.domain.*;
 import com.isscollege.gdce.model.IAdvertisementModel;
 import com.isscollege.gdce.model.INewsModel;
@@ -38,7 +36,7 @@ public class ReviewController
     private IAdvertisementModel advertisementModel;
     private int page = 1;
     private int size = 15;
-
+    private String msg = "";
     @RequestMapping("/operators")
     private String operators(Model model, HttpServletRequest request) throws ServletException, IOException
     {
@@ -101,39 +99,6 @@ public class ReviewController
         return "review/operatorManage";
     }
 
-    @RequestMapping("/queryReviewnotpass")
-    private String queryReviewnotpass(Model model, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        if (request.getParameter("size") != null)
-        {
-            size = Integer.parseInt(request.getParameter("size"));
-        }
-        if (request.getParameter("page") != null)
-        {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-        model.addAttribute("page", page);
-
-        // 管理员审核页面，从数据库获取每页（数据库分页查询）商品信息
-        List<Product> products = reviewModel.queryProductByReviewStatenotpass((page - 1) * 15, size);
-        // 判断如果某一页没有剩余商品信息
-        if (products.size() == 0 && page != 1)
-        {
-            page--;
-            request.setAttribute("page", page);
-            products = reviewModel.queryProductByReviewStatenotpass((page - 1) * 15, size);
-        }
-        if (request.getAttribute("totalPage") == null)
-        {
-            int totalSize = reviewModel.queryProductByReviewStatenotpass(0, 10000).size();
-            model.addAttribute("totalPage", totalSize % 15 == 0 ? totalSize / 15 : totalSize / 15 + 1);
-        }
-        model.addAttribute("products", products);
-        model.addAttribute("pageShow", "product");
-
-        return "review/review";
-    }
 
     @RequestMapping("/productReview")
     private void productReview(Model model, HttpServletRequest request, HttpServletResponse response)
@@ -347,36 +312,6 @@ public class ReviewController
     }
 
 
-    @RequestMapping("/advertisementReviewnotpass")
-    public String advertisementReviewnopass(Model model, HttpServletRequest request) throws ServletException, IOException
-    {
-        page = 1;
-        size = 6;
-        if (request.getParameter("page") != null)
-        {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-        request.setAttribute("page", page);
-
-        List<Advertisement> advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
-        if (advertisements.size() == 0 && page != 1)
-        {
-            page--;
-            model.addAttribute("page", page);
-            advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
-
-        }
-        if (request.getAttribute("totalPage") == null)
-        {
-            int totalSize = reviewModel.queryAdvertisementByReviewState(0, 10000).size();
-            model.addAttribute("totalPage", totalSize % 6 == 0 ? totalSize / 6 : totalSize / 6 + 1);
-        }
-        model.addAttribute("advertisements", advertisements);
-        model.addAttribute("pageShow", "advertisement");
-
-        return "manufacturers2";
-    }
-
     @RequestMapping("/changeAdv")
     public void changeAdv(@RequestParam("adId") int adId, @RequestParam("state") int state, HttpServletResponse response, HttpServletRequest request, HttpSession session)
     {
@@ -428,6 +363,7 @@ public class ReviewController
         model.addAttribute("user", user);
         return "review/operatorInfo";
     }
+
     public Company checkUrl(Company company)
     {
 
@@ -587,7 +523,6 @@ public class ReviewController
         }
     }
 
-
     @RequestMapping("/")
     public void reView(Model model, HttpServletRequest request, HttpServletResponse response)
     {
@@ -630,16 +565,6 @@ public class ReviewController
         return map;
     }
 
-
-    @RequestMapping("/getdataAds")
-    @ResponseBody
-    public Map<String, Object> getAdsAjax(@RequestParam(value = "reviewState", defaultValue = "0") Integer reviewState, int offset, int limit, String sort, String order)
-    {
-        Map<String, Object> map = new HashMap<>();
-        map.put("rows", reviewModel.getAdsInfoList(reviewState, offset, limit, sort, order));
-        map.put("total", reviewModel.getAdsInfoListTotal(reviewState, sort, order));
-        return map;
-    }
 
     @RequestMapping("/getDataCompany")
     @ResponseBody
@@ -706,4 +631,55 @@ public class ReviewController
 
 		return operateRecords;
 	}
+
+    public Company getCompanyInfo(HttpServletRequest request, HttpServletResponse response)
+    {
+        String companyId = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyId"), "未填 ");
+        String companyName = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyName"), "未填 ");
+        String legalPerson = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("legalPerson"), "未填 ");
+        String legalPersonId = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("legalPersonId"), "未填 ");
+        String companyEmail = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyEmail"), "未填 ");
+        String phoneNumber = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("phoneNumber"), "未填 ");
+        String companyFax = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyFax"), "未填 ");
+        String postalCode = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("postalCode"), "未填 ");
+        Company newcompany = new Company();
+        newcompany.setCompanyId(companyId);
+        newcompany.setCompanyName(companyName);
+        newcompany.setLegalPerson(legalPerson);
+        newcompany.setLegalPersonId(legalPersonId);
+        newcompany.setCompanyEmail(companyEmail);
+        newcompany.setPhoneNumber(phoneNumber);
+        newcompany.setCompanyFax(companyFax);
+        newcompany.setPostalCode(postalCode);
+        return newcompany;
+    }
+
+
+    @RequestMapping("/addCompany")
+    public void addCompany(HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            Company newcompany = getCompanyInfo(request, response);
+            boolean addResult = reviewModel.addNewCompany(newcompany);
+            msg += addResult ? "成功创建" : "创建失败";
+            request.setAttribute("msg", msg);
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().print("<script language='javascript'>alert('管理员添加成功！')</script>");
+        } catch (IOException e)
+        {
+            LOGGER.error("页面写出异常", e);
+        }
+       // response.setHeader("refresh", "0;" + request.getContextPath() + "/review/operatorManage");
+        try
+        {
+            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
+        } catch (ServletException | IOException e)
+        {
+            LOGGER.error("请求转发异常", e);
+        }
+    }
+
+
+
 }

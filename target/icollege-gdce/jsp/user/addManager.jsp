@@ -85,7 +85,7 @@
                               <td>用户名：</td>
                               <td width="168"><input name="name" type="text" class="inputClass" id="loginname" value="${requestScope.form.loginname}"></td>
                               <td class="tdError">
-         						 <label class="errorClass" id="loginpassError">${requestScope.form.loginname}</label>      						  </td>
+         						 <label class="errorClass" id="loginpassError">${requestScope.form.loginname}</label></td>
                             </tr>
                             <tr>
                               <td>密码：</td>

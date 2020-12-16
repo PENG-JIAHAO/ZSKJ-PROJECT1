@@ -75,6 +75,7 @@
         <%--新增按钮模态框--%>
         <div class="modal fade" id="addOperator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="width: 800px">
+                <form action="${context}/review/addCompany" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -85,7 +86,7 @@
                     <div class="modal-body" style="margin-bottom:20px;margin-top:10px" id="reviewTabContent" >
                         <div class="row clearfisx" align="center">
                             <div class='tab-pane' id='add'>
-                                <form action="${context }/register/addmanager" method="post" onsubmit="return ckShopAddForm()">
+<%--                               <form action="${context }/review/addCompany" method="post" onsubmit="return ckShopAddForm()">--%>
                                     <table class="child2" >
                                         <tr>
                                             <td><input type="hidden" name="forward" value="addmanager"></td>
@@ -130,7 +131,7 @@
                                         </tr>
                                         <tr></tr>
                                     </table>
-                                </form>
+<%--                                </form>--%>
                             </div>
                         </div>
                     </div><!-- /.modal-body -->
@@ -152,9 +153,14 @@
                         </div>
                     </div><!-- /.modal-footer -->
                 </div><!-- /.modal-contxent -->
+                </form>
             </div><!-- /.modal-dialog -->
         </div>
 
+        <c:set var="msgs" value="${requestScope.msg}"/>
+        <c:if test="${msgs!=null && msgs.equals('成功创建')}">
+            <c:out value="<script language='javascript'>alert('添加成功！')</script>"/>
+        </c:if>
     </body>
 
     <script>

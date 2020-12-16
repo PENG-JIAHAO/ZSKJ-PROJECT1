@@ -244,4 +244,9 @@ public class ReviewModelImpl implements IReviewModel
 		return service.deleteCompany(companyId);
 	}
 
+	@Override
+	public boolean addNewCompany(Company newcompany)
+	{
+		return service.addNewCompany(newcompany);
+	}
 }

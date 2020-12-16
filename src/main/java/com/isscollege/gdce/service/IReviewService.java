@@ -90,4 +90,6 @@ public interface IReviewService
 
 	boolean deleteCompany(String companyId);
 
+	boolean addNewCompany(Company newcompany);
+
 }

@@ -226,7 +226,7 @@
 						href="${context}/jsp/user/com_qualification.jsp">会员中心</a></li>
 				</ul>
 				<h3 class="text-muted">
-					<a href="${context}"><img alt="logo" src="${context}/imgs/logo.png"></a>
+					<a href="${context}"><img alt="logo" src="${context}/imgs/ZSKJlogo.png"></a>
 				</h3>
 				</nav>
 			</div>
