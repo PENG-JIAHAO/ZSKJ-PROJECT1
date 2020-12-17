@@ -53,7 +53,7 @@
         </br>
         <div class="tabs-contents">
             <div id="toolbar" class="btn">
-                <button id="btn_add" type="button" class="btn btn-default">新增</button>
+                <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addOperator">新增</button>
                 <button type="button" class="btn btn-default" onclick="deleteSelects()">删除</button>
             </div>
             <div class="tab-content" id="tabContent1" style="margin:-10px 10px 5px">
@@ -61,6 +61,81 @@
                 </table>
             </div>
         </div>
+
+        <%--新增按钮模态框--%>
+        <div class="modal fade" id="addOperator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width: 800px">
+                <form action="${context}/review/addCompany" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <p>填写基础信息:</p>
+                        </div>
+                        <div class="modal-body" style="margin-bottom:20px;margin-top:10px" id="reviewTabContent" >
+                            <div class="row clearfisx" align="center">
+                                <div class='tab-pane' id='add'>
+                                    <form action="${context }/review/addCompany" method="post">
+                                    <table class="child2" >
+                                        <tr>
+                                            <td><input type="hidden" name="forward" value="addmanager"></td>
+                                        </tr>
+                                        <tr>
+                                            <td >经销商编号:</td>
+                                            <td><input name="company_Id" placeholder="输入经销商编号" type="text" class="inputClass" id="company_Id" onBlur="ajaxsubmit()"></td>
+                                            <td class="tdError"><label class="errorClass" id="companyIdError">${requestScope.errors.loginname}</label></td>
+                                            <td style="margin-left: 10px">经销商名称：</td>
+                                            <td ><input name="company_name" placeholder="输入经销商名称" type="text" id="company_name" class="inputClass" onBlur="ajaxemail()"></td>
+                                            <td class="tdError"> <label class="errorClassTwo" id="companyNameError" >${requestScope.errors.email}</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系人:</td>
+                                            <td><input class="inputClass" placeholder="输入联系人姓名" type="text"
+                                                       name="person_name" id="person_name" oncopy="return false" onpaste="return false"></td>
+                                            <td class="tdError"><label class="errorClass" id="legalPersonError">${requestScope.errors.password }</label>
+                                            <td style="margin-left: 10px">经销商地址:</td>
+                                            <td ><input name="company_address" placeholder="输入经销商地址" type="text" class="inputClass" id="company_address" onBlur="ajaxsubmit()"></td>
+                                            <td class="tdError"> <label class="errorClassTwo" id="legalPersonIdError" >${requestScope.errors.email}</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系人邮箱:</td>
+                                            <td> <input name="person_email" placeholder="输入联系人邮箱" type="text"
+                                                        id="person_email" class="inputClass" onBlur="ajaxusername()"></td>
+                                            <td class="tdError"> <label class="errorClass" id="companyEmailError" >${requestScope.errors.username}</label>
+                                            </td>
+                                            <td style="margin-left: 10px">联系人电话:</td>
+                                            <td ><input name="person_phone" placeholder="输入联系人电话" type="text" id="person_phone" class="inputClass" onBlur="ajaxusername()"></td>
+                                            <td class="tdError"> <label class="errorClassTwo" id="phoneNumberError" >${requestScope.errors.email}</label></td>
+                                        </tr>
+                                    </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-body -->
+                        <div class="modal-footer">
+                            <div align="center">
+                                <tr>
+                                    <td align="center" class="child2-button" >
+                                        <label>
+                                            <input name="submit" id = "btnSubmit" class="btn btn-default" type="submit" value="提交">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </label>
+                                    </td>
+                                    <td></td>
+                                    <td align="center" class="child2-button" >
+                                        <label>
+                                            <input name="reset" id = "btnReset" class="btn btn-default" data-dismiss="modal" type="reset" value="返回">&nbsp;&nbsp;&nbsp;
+                                        </label>
+                                    </td>
+                                </tr>
+                            </div>
+                        </div><!-- /.modal-footer -->
+                    </div><!-- /.modal-contxent -->
+                </form>
+            </div><!-- /.modal-dialog -->
+        </div>
+
+
     </body>
 
     <script>

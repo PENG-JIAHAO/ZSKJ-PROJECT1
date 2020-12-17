@@ -208,6 +208,39 @@ public class ReviewController
             LOGGER.error("请求转发异常", e);
         }
     }
+    //新增经销商
+    public Company getCompanyInfo(HttpServletRequest request, HttpServletResponse response)
+    {
+        String Company_Id = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("CompanyId"), "未填 ");
+        String Company_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyName"), "未填 ");
+        String Person_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonName"), "未填 ");
+        String Company_address = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("CompanyAddress"), "未填 ");
+        String Person_email = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonEmail"), "未填 ");
+        String Person_phone = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonPhone"), "未填 ");
+        Company newcompany = new Company();
+        newcompany.setCompany_Id(Company_Id);
+        newcompany.setCompany_name(Company_name);
+        newcompany.setPerson_name(Person_name);
+        newcompany.setCompany_address(Company_address);
+        newcompany.setPerson_email(Person_email);
+        newcompany.setPerson_phone(Person_phone);
+        return newcompany;
+    }
+    @RequestMapping("/addCompany")
+    public void addCompany(HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            Company newcompany = getCompanyInfo(request, response);
+            boolean addResult = reviewModel.addNewCompany(newcompany);
+            msg += addResult ? "成功创建" : "创建失败";
+            request.setAttribute("msg", msg);
+            request.getRequestDispatcher("/review/manufacturersManage").forward(request, response);
+        } catch (IOException | ServletException e)
+        {
+            LOGGER.error("页面写出异常", e);
+        }
+    }
 
 
     @RequestMapping("/productReview")
@@ -597,40 +630,7 @@ public class ReviewController
     }
 
 
-    public Company getCompanyInfo(HttpServletRequest request, HttpServletResponse response)
-    {
-        String Company_Id = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("CompanyId"), "未填 ");
-        String Company_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyName"), "未填 ");
-        String Person_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonName"), "未填 ");
-        String Company_address = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("CompanyAddress"), "未填 ");
-        String Person_email = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonEmail"), "未填 ");
-        String Person_phone = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonPhone"), "未填 ");
-        Company newcompany = new Company();
-        newcompany.setCompany_Id(Company_Id);
-        newcompany.setCompany_name(Company_name);
-        newcompany.setPerson_name(Person_name);
-        newcompany.setCompany_address(Company_address);
-        newcompany.setPerson_email(Person_email);
-        newcompany.setPerson_phone(Person_phone);
-        return newcompany;
-    }
 
-
-    @RequestMapping("/addCompany")
-    public void addCompany(HttpServletRequest request, HttpServletResponse response)
-    {
-        try
-        {
-            Company newcompany = getCompanyInfo(request, response);
-            boolean addResult = reviewModel.addNewCompany(newcompany);
-            msg += addResult ? "成功创建" : "创建失败";
-            request.setAttribute("msg", msg);
-            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
-        } catch (IOException | ServletException e)
-        {
-            LOGGER.error("页面写出异常", e);
-        }
-    }
 
 
 }

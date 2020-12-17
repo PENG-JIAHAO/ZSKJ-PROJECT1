@@ -71,7 +71,13 @@
 		delete from
 		company_info where company_Id = #{company_Id}
 	</delete>
-
+	<!--新增经销商-->
+	<insert id="addNewCompany" parameterType="com.isscollege.gdce.domain.Company">
+		insert into
+		company_info(company_Id,company_name,company_address,person_name,person_phone,person_email,groupNum,auto_urged_state,auto_lock_state,auto_urged_times,auto_lock_times)
+		values
+ 		(#{company_Id},#{company_name},#{company_address},#{person_name},#{person_phone}, #{person_email},0,0,0,99,99)
+	</insert>
 
 	<select id="queryCompanyByState" resultType="com.isscollege.gdce.domain.Company" >
 		SELECT *
@@ -98,10 +104,5 @@
   		WHERE companyId=#{companyId}
  	</select>
 
-	<insert id="addNewCompany" parameterType="com.isscollege.gdce.domain.Company">
-		insert into
-		tbl_company_info(companyId,companyName,legalPerson,legalPersonId,companyEmail,phoneNumber,companyFax,postalCode,reviewState)
-		values
- 		(#{companyId},#{companyName},#{legalPerson},#{legalPersonId},#{companyEmail}, #{phoneNumber}, #{companyFax}, #{postalCode},0)
-	</insert>
+
 </mapper>
