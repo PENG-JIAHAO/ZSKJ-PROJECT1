@@ -24,7 +24,7 @@
                 var company_Id = $.map(obj.bootstrapTable('getSelections'), function (row) {
                     return row.company_Id;
                 });
-                if(companyId.length==0)
+                if(company_Id.length==0)
                 {
                     alert("请选择删除项");
                 }else{
@@ -64,9 +64,9 @@
     </body>
 
     <script>
-        function allCompanyListTab(reviewState){
+        function allCompanyListTab(){
             $("#allCompanyListTab").bootstrapTable({
-                url:'${context}/review/getAllCompanyInfo?reviewState='+reviewState,
+                url:'${context}/review/getAllCompanyInfo',
                 striped: true,
                 sortable: true,
                 pagination: true,

@@ -190,8 +190,24 @@ public class ReviewController
         return map;
     }
 
-
-
+    //删除经销商
+    @RequestMapping("/deleteCompany")
+    public void deleteCompany(HttpServletRequest request, HttpServletResponse response)
+    {
+        String company_Id = request.getParameter("company_Id");
+        String[] array = company_Id.split(",");
+        for(int i=0;i<array.length;i++)
+        {
+            boolean result = reviewModel.deleteCompany(array[i]);
+        }
+        try
+        {
+            request.getRequestDispatcher("/review/manufacturersManage").forward(request, response);
+        } catch (ServletException | IOException e)
+        {
+            LOGGER.error("请求转发异常", e);
+        }
+    }
 
 
     @RequestMapping("/productReview")
@@ -518,23 +534,7 @@ public class ReviewController
         }
     }
 
-    @RequestMapping("/deleteCompany")
-    public void deleteCompany(HttpServletRequest request, HttpServletResponse response)
-    {
-        String companyId = request.getParameter("companyId");
-        String[] array = companyId.split(",");
-        for(int i=0;i<array.length;i++)
-        {
-            boolean result = reviewModel.deleteCompany(array[i]);
-        }
-        try
-        {
-           request.getRequestDispatcher("/review/manufacturersManage").forward(request, response);
-        } catch (ServletException | IOException e)
-        {
-            LOGGER.error("请求转发异常", e);
-        }
-    }
+
 
     @RequestMapping("/")
     public void reView(Model model, HttpServletRequest request, HttpServletResponse response)

@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `gdce`;
 CREATE DATABASE `gdce`;
 USE `gdce`;
 
@@ -54,9 +55,8 @@ CREATE TABLE IF NOT EXISTS `equipment_protect_info` (
   `shop_id` VARCHAR(20) NOT NULL COMMENT '店铺编号',
   `company_Id` VARCHAR(20) NOT NULL COMMENT '公司（经销商）编号',
   PRIMARY KEY (`equipment_id`),
-  UNIQUE INDEX(`id`),
-  FOREIGN KEY (`shop_id`) REFERENCES `shop_info` (`shop_id`),
-  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+  UNIQUE INDEX(`id`)
+)
 ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 insert  into `equipment_protect_info`(`id`,`company_Id`,`dry_remain`,`dry_replaced_times`,`pump_remain`,`pump_maintain_times`,`refrigerant_add`,`equipment_id`,`shop_id`,
@@ -73,9 +73,8 @@ insert  into `equipment_protect_info`(`id`,`company_Id`,`dry_remain`,`dry_replac
 -- -----------------------------------------------------
 -- Table `ZSKJ-PROJECT1-DB-TEST`.`[经销商]company_info`
 -- -----------------------------------------------------
-SET foreign_key_checks = 0;
+
 DROP TABLE IF EXISTS `company_info`;
-SET foreign_key_checks = 1;
 CREATE TABLE IF NOT EXISTS `company_info` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `company_Id` VARCHAR(40) NOT NULL COMMENT '公司（经销商）编号',
@@ -105,6 +104,7 @@ insert  into `company_info`(`id`,`company_Id`,`company_name`,`company_address`,`
 (7,'7576664674','谷歌网络有限公司','广东省东莞市东城区旗峰公园','EEE','12345678910','123456@163.com',0,0,0,0,0),
 (8,'8845575714','小米科技有限公司','广东省东莞市东城区旗峰公园','FFF','12345678910','123456@163.com',0,0,0,0,0);
 
+delete from company_info where company_Id=8845575714;
 
 
 /*Table structure for table `tbl_company_info` */
@@ -399,8 +399,7 @@ CREATE TABLE IF NOT EXISTS `shop_info` (
   PRIMARY KEY (`shop_id`),
   UNIQUE INDEX (`shop_name`),
   UNIQUE INDEX (`shop_id`),
-  UNIQUE INDEX (`id`),
-  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+  UNIQUE INDEX (`id`))
 ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 insert  into `shop_info`(`id`,`company_Id`,`shop_name`,`shop_address`,`person_name`,`person_phone`,`person_email`,`auto_urged_state`,`auto_lock_state`,`auto_urged_times`,`auto_lock_times`,`shop_id`) values
@@ -430,9 +429,7 @@ CREATE TABLE IF NOT EXISTS `equipment_info` (
   UNIQUE INDEX(`id`),
   UNIQUE INDEX(`equipment_serialnum`),
   PRIMARY KEY (`equipment_id`),
-  UNIQUE INDEX (`equipment_id`),
-  FOREIGN KEY (`shop_id`) REFERENCES `shop_info` (`shop_id`),
-  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+  UNIQUE INDEX (`equipment_id`))
 ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 insert  into `equipment_info`(`id`,`company_Id`,`equipment_serialnum`,`equipment_typecode`,`equipment_major`,`person_name`,`person_phone`,`equipment_id`,`shop_id`) values
