@@ -23,11 +23,14 @@ public interface ICompanyDao
 
 	Company queryCompanyByCompanyID(String companyId);
 
-	List<Company> getCompanyList(@Param("reviewState")int reviewState,@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
-
-	List<Company> getAllCompanyList(@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
-
-	int getCompanyInfoListTotal(@Param("reviewState")int reviewState,@Param("sort")String sort,@Param("order")String order);
+	//浏览经销商表
+	List<Company> getCompanyInfo(@Param("groupNum")int groupNum,@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
+	//浏览所有经销商表
+	List<Company> getAllCompanyInfo(@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") String order);
+	//浏览经销商表总数
+	int getCompanyInfoListTotal(@Param("groupNum")int groupNum,@Param("sort")String sort,@Param("order")String order);
+	//浏览所有经销商设备总数
+	int getAllCompanyInfoListTotal(@Param("sort")String sort,@Param("order")String order);
 
 	public boolean save(Company company);
 
@@ -35,7 +38,7 @@ public interface ICompanyDao
 
 	String getCompanyRecordIdByCompanyId(String companyId);
 
-	int deleteCompany(String companyId);
+	int deleteCompany(String company_Id);
 
 	int addNewCompany(Company newcompany);
 }

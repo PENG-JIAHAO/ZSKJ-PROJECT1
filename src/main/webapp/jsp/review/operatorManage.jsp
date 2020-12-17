@@ -17,7 +17,7 @@
 
             function tabDefault() {
                 $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
-                allEquipmentListTab(0);
+                allEquipmentListTab();
             }
 
             function OperatorInfo(beforeId,afterId) {
@@ -156,17 +156,14 @@
                 </form>
             </div><!-- /.modal-dialog -->
         </div>
-
-        <c:set var="msgs" value="${requestScope.msg}"/>
-        <c:if test="${msgs!=null && msgs.equals('成功创建')}">
-            <c:out value="<script language='javascript'>alert('添加成功！')</script>"/>
-        </c:if>
+        <c:set var="msg" value="${request.getAttribute('msg')}"/>
+        <c:out value="${msg}"></c:out>
     </body>
 
     <script>
-        function allEquipmentListTab(reviewState){
+        function allEquipmentListTab(){
         $("#allEquipmentListTab").bootstrapTable({
-            url:'${context}/review/getAllDataCompany?reviewState='+reviewState,
+            url:'${context}/review/getAllDataCompany',
             striped: true,
             sortable: true,
             pagination: true,

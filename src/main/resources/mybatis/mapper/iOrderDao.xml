@@ -22,13 +22,6 @@
 			  	       #{receiptPath},#{createDate},#{endDate})
 	</insert>
 	
-	<insert id="insertWaybill" parameterType="com.isscollege.gdce.domain.WaybillInfo">
-		INSERT INTO tbl_waybill_info
-		  	(waybillId,waybillCompanyId,createTime,endTime,orderId,waybillState) 
-		VALUES 
-		 	(#{waybillId},#{waybillCompanyId},#{createTime},#{endTime},#{orderId},#{waybillState})
-	</insert>
-	
 	<update id="updateReceiptPath" parameterType="com.isscollege.gdce.domain.Order">
 		UPDATE tbl_order_info 
 		SET receiptPath = #{receiptPath},orderState = 1 

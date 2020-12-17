@@ -1,7 +1,6 @@
 package com.isscollege.gdce.controller;
 
 import java.io.*;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,16 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.isscollege.gdce.util.FileUtil;
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,14 +28,10 @@ import com.isscollege.gdce.domain.LogisticsPrice;
 import com.isscollege.gdce.domain.Order;
 import com.isscollege.gdce.domain.Product;
 import com.isscollege.gdce.domain.User;
-import com.isscollege.gdce.domain.WaybillInfo;
-import com.isscollege.gdce.model.ILogisticsModel;
 import com.isscollege.gdce.model.IOrderModel;
 import com.isscollege.gdce.model.IReviewModel;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Controller
 @RequestMapping("/order")
@@ -49,8 +40,6 @@ public class OrderController
     private static final Logger LOGGER = Logger.getLogger(OrderController.class);
     @Autowired
     private IOrderModel ordermodel;
-    @Autowired
-    private ILogisticsModel logisticsmodel;
     @Autowired
     private IReviewModel reviewmodel;
 
@@ -275,16 +264,16 @@ public class OrderController
         return "order/orderDetail";
     }
 
-
+/*
     // 确认物流发货，生成运单
     @RequestMapping("/createWayBill")
     public String createWayBill(Model model, HttpServletRequest request, String orderId, String companyName)
     {
-		/*if (ordermodel.queryOrderIdById(orderId) != null)
+		*//*if (ordermodel.queryOrderIdById(orderId) != null)
 		{
 			model.addAttribute("error", "该订单已经存在！！");
 			return "redirect:/order/getLogisticName?"+orderId;
-		}*/
+		}*//*
         String startingplace = request.getParameter("startingplace");
         String destination = request.getParameter("destination");
 
@@ -320,9 +309,9 @@ public class OrderController
             return "order/confirm";
         }
         return "order/waybillProduce";
-    }
+    }*/
 
-    protected void setWayBillConfirm(Order order, WaybillInfo waybill, List<LogisticsPrice> logisticspricelist)
+/*    protected void setWayBillConfirm(Order order, WaybillInfo waybill, List<LogisticsPrice> logisticspricelist)
     {
         SimpleDateFormat dateformatContractIdTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String wayBillCreateTime = dateformatContractIdTime.format(System.currentTimeMillis());
@@ -338,9 +327,10 @@ public class OrderController
         String l = logisticspricelist.get(0).getWaybillCompanyId();
         waybill.setWaybillId(t + l.substring(l.length() - 4, l.length()));
         waybill.setWaybillState("0");
-    }
+    }*/
 
     // 发起物流时，将物流公司名称传过去。
+/*
     @RequestMapping("/getLogisticName")
     public String getLogisticName(String orderId, Model model)
     {
@@ -352,8 +342,9 @@ public class OrderController
         model.addAttribute("orderId", orderId);
         return "order/waybillProduce";
     }
+*/
 
-    // 查询单价计算总价格
+  /*  // 查询单价计算总价格
     @RequestMapping(value = "queryprice", produces = "text/javascript;charset=utf-8;")
     public void queryPrice(HttpServletRequest request, HttpServletResponse response)
     {
@@ -376,5 +367,5 @@ public class OrderController
         {
             LOGGER.error("io流异常", e);
         }
-    }
+    }*/
 }

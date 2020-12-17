@@ -4,32 +4,31 @@
 <html>
 <script type="text/javascript">
 
+    <%--公司基础信息--%>
     function ComDetails(beforeId,afterId) {
         window.location.href = "${context}/review/ComDetails?beforeId=" + beforeId+"&afterId="+afterId ;
     }
 
-    function changCom(companyId,state){
-        window.location.href = "${context}/review/changeCom?companyId=" +companyId+ "&state=" +state+ "&page=${page}";
-    }
-
+    <%--页面默认显示表格--%>
     function tabDefault() {
         $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
-        mftTable(1,1);
+        companyTable(0,1);
     }
 
+    <%--页面换分组显示--%>
     function tabChange(){
         $('.nav-pills li').click(function () {
             var _id=$(this).attr('data-id');
             $('.tabs-contents').find('#'+_id).addClass('active').siblings().removeClass('active');
             switch (_id) {
                 case "tabContent1":
-                    mftTable(1,1);
+                    companyTable(0,1);
                     break;
                 case  "tabContent2":
-                    mftTable(0,2);
+                    companyTable(1,2);
                     break;
                 case "tabContent3":
-                    mftTable(2,3);
+                    companyTable(2,3);
                     break;
             }
         });
@@ -66,25 +65,26 @@
 <%--<c:set var="company" target="${Company }" value="${company}"></c:set>--%>
 <%--<c:set var="clientuser" target="${User }" value="${requestScope.user}"></c:set>--%>
 
+<%--浏览信息分组按钮--%>
 <ul id="checktab" class="nav nav-pills">
     <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">经销商分组1</a></li>
-    <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >经销商分组2</a></li>
+    <li data-id="tabContent2"><a href="#" onclick="tabChange()" data-toggle="tab" >经销商分组2</a></li>
     <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">经销商分组3</a></li>
 </ul>
 
-<!-- 运营商管理主界面  -->
+<!-- 经销商管理主界面  -->
 </br>
 <div class="tabs-contents">
     <div class="tab-content" id="tabContent1" style="margin:-10px 10px 5px">
-        <table class="table table-hover" id="mftTab1">
+        <table class="table table-hover" id="companyTable1">
         </table>
     </div>
-    <div class="tab-content" id="tabContent2">
-        <table class="table table-hover" id="mftTab2">
+    <div class="tab-content" id="tabContent2" style="margin:-10px 10px 5px">
+        <table class="table table-hover" id="companyTable2">
         </table>
     </div>
-    <div class="tab-content" id="tabContent3">
-        <table class="table table-hover" id="mftTab3">
+    <div class="tab-content" id="tabContent3" style="margin:-10px 10px 5px">
+        <table class="table table-hover" id="companyTable3">
         </table>
     </div>
 </div>
@@ -101,7 +101,7 @@
             <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" >
-                        <span style="font-size:14px;color:black; font-family:微软雅黑">运营商基本信息</span>
+                        <span style="font-size:14px;color:black; font-family:微软雅黑">经销商基本信息</span>
                     </a>
                 </ul>
                 <table  class="table table-hover table-condensed" align="center" style="text-align: center">
@@ -215,13 +215,16 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+
+
 </body>
 <script>
 
-    function getEquipment(reviewState) {
-        $('#reviewProductTabInfo1').bootstrapTable('destroy');
-        $('#reviewProductTabInfo1').bootstrapTable({
-            url:'${context}/review/getDataCompany?reviewState='+reviewState,
+    <%--浏览经销商设备表--%>
+    function getEquipment(companyId,tabNum) {
+        $('#equipmentTabInfo'+tabNum).bootstrapTable('destroy');
+        $('#equipmentTabInfo'+tabNum).bootstrapTable({
+            url:'${context}/review/getEquipment?companyId='+companyId,
             striped: true,
             sortable: true,
             pagination: true,
@@ -230,7 +233,7 @@
             searchOnEnterKey:false,
             strictSearch:true,
             sidePagination: "server",
-            sortName: "RecordId",
+            sortName: "id",
             sortOrder: "desc",
             pageNumber: 1,
             pageSize: 7,
@@ -249,13 +252,13 @@
 
             },
             columns: [{
-                field: 'companyId',
+                field: 'equipment_id',
                 title: '设备编号',
                 valign: 'middle',
                 align: 'center'
             },{
-                field:'reviewState',
-                title:'状态',
+                field:'company_Id',
+                title:'公司编号',
                 sortable: true,
                 order:'asc',
                 valign: 'middle',
@@ -267,8 +270,6 @@
                 align: 'center',
                 formatter: function (value, row, index) {
                     var id = row.id;
-                    var path = row.adsImgPath;
-                    if (row.reviewState === 1) {
                         return ' <button type="button" class="btn btn-default" onclick=ComDetails(912202011,245116621)>设备信息</button>\n' +
                             '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>操作</button>' +
                             ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
@@ -288,16 +289,17 @@
                             '   </div><!-- /.modal-dialog -->\n' +
                             '</div>\n';
 
-                    }
+
                 }
             }]
         })
 
     }
 
-    function mftTable(reviewState,tabNum){
-        $("#mftTab"+tabNum).bootstrapTable({
-            url:'${context}/review/getDataCompany?reviewState='+reviewState,
+    <%--经销商浏览表--%>
+    function companyTable(groupNum,tabNum){
+        $("#companyTable"+tabNum).bootstrapTable({
+            url:'${context}/review/getCompanyInfo?groupNum='+groupNum,
             striped: true,
             sortable: true,
             pagination: true,
@@ -310,7 +312,7 @@
             sortName:'id',
             sortOrder:'asc',
             pageNumber:1,
-            pageSize:5,
+            pageSize:10,
             pageList:[5,10],
             queryParamsType:'limit',
             queryParams: function (params) {
@@ -334,109 +336,89 @@
             onLoadError: function (status) {
 
             },
-            onPageChange: function (number, size) {
-                $('#adsTab'+tabNum).bootstrapTable('removeAll')//页面改变时清空表数据
-            },
             columns:[{
-                field:'companyName',
-                title:'统一简称',
+                field:'company_name',
+                title:'经销商简称',
                 sortable: true,
                 order:'asc',
                 valign: 'middle',
                 align: 'center'
             },{
-                field: 'companyId',
-                title: '运营编号',
+                field: 'company_Id',
+                title: '经销商编号',
                 valign: 'middle',
                 align: 'center'
             },{
-                field: 'phoneNumber',
-                title: '电话',
+                field: 'person_name',
+                title: '联系人',
                 valign: 'middle',
                 align: 'center'
             }, {
-                field: 'legalPerson',
-                title: '联系人',
+                field: 'person_phone',
+                title: '联系人电话',
                 valign: 'middle',
                 align:'center'
-            },{
-                field: 'reviewState',
-                title: '在线数量',
-                valign: 'middle',
-                align: 'center',
-                formatter: function (value, row, index) {
-                    if (row.reviewState===1){
-                        return '在线';
-                    }else if (row.reviewState===3){
-                        return '欠费';
-                    }else if (row.reviewState===2){
-                        return '欠费'
-                    }else if (row.reviewState===0){
-                        return '离线'
-                    }
-                }
             },{
                 field: 'operate',
                 title: '操作',
                 valign: 'middle',
                 align: 'center',
                 formatter: function (value, row, index){
-                    var id=row.id;
-                    var path=row.adsImgPath;
-                    if (row.reviewState===1){
+                    var id=row["company_Id"];
+                    if(tabNum===1){
                         return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
-                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo1" onclick=getEquipment('+id+',1)>设备</button>' +
+                            ' <div class="modal fade" id="ShowInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
                             '       <div class="modal-content">\n' +
                             '           <div class="modal-header">\n' +
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">运营商设备：</p>\n' +
+                            '               <p style="float:left;">设备使用商设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                            '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                            '               <table class="table table-hover" id="equipmentTabInfo1">\n' +
                             '               </table>\n' +
                             '           </div>\n' +
                             '       </div><!-- /.modal-contxent -->\n' +
                             '   </div><!-- /.modal-dialog -->\n' +
                             '</div>\n';
                     }
-                    else if (row.reviewState===0){
+                    else if (tabNum===2){
                         return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
-                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo2" onclick=getEquipment('+id+',2)>设备</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
                             '       <div class="modal-content">\n' +
                             '           <div class="modal-header">\n' +
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">运营商设备：</p>\n' +
+                            '               <p style="float:left;">设备使用商设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                            '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                            '               <table class="table table-hover" id="equipmentTabInfo2">\n' +
                             '               </table>\n' +
                             '           </div>\n' +
                             '       </div><!-- /.modal-contxent -->\n' +
                             '   </div><!-- /.modal-dialog -->\n' +
                             '</div>\n';
                     }
-                    else {
+                    else{
                         return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=getEquipment(1)>设备</button>' +
-                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo3" onclick=getEquipment('+id+',3)>设备</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
                             '       <div class="modal-content">\n' +
                             '           <div class="modal-header">\n' +
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">运营商设备：</p>\n' +
+                            '               <p style="float:left;">设备使用商设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                            '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                            '               <table class="table table-hover" id="equipmentTabInfo3">\n' +
                             '               </table>\n' +
                             '           </div>\n' +
                             '       </div><!-- /.modal-contxent -->\n' +

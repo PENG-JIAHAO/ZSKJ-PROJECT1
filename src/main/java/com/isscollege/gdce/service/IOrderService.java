@@ -5,7 +5,6 @@ import java.util.List;
 import com.isscollege.gdce.domain.Company;
 import com.isscollege.gdce.domain.Order;
 import com.isscollege.gdce.domain.Product;
-import com.isscollege.gdce.domain.WaybillInfo;
 
 public interface IOrderService
 {
@@ -47,8 +46,6 @@ public interface IOrderService
 	// 根据订单编号查询 CompanyId
 	Order queryCompanyIdByOrderId(String orderId);
 
-	// 运单
-	boolean insertWayBill(WaybillInfo waybill);
 
 	void updateOrderStatus(String orderId, int orderState);
 

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import com.isscollege.gdce.domain.Company;
 import com.isscollege.gdce.domain.Order;
 import com.isscollege.gdce.domain.Product;
-import com.isscollege.gdce.domain.WaybillInfo;
 
 public interface IOrderDao
 {
@@ -48,8 +47,6 @@ public interface IOrderDao
 	// 在数据库中插入成功生成的订单
 	boolean insertOrder(Order order);
 
-	// 运单生成存入数据库
-	boolean insertWaybill(WaybillInfo waybill);
 
 	void updateOrderStatus(@Param("orderId") String orderId, @Param("orderState") int orderState);
 

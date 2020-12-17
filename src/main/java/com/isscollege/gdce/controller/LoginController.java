@@ -124,8 +124,6 @@ public class LoginController
             // 使用用户的企业机构代码获取用户公司对象
             String accountName = null;
 
-            accountName = loginModel.queryCompanyByCompanyID(loginUser.getCompanyId()).getAccountantName();
-
             Company company = loginModel.queryCompanyByCompanyID(loginUser.getCompanyId());
 
             session.setAttribute("company", loginModel.queryCompanyByCompanyID(loginUser.getCompanyId()));
@@ -226,13 +224,6 @@ public class LoginController
             PageHelper.startPage(param, 10);
             List<Product> allProductInfoList = reviewModel.getAllProductInfo();
             PageInfo<Product> info = new PageInfo<>(allProductInfoList);
-            model.addAttribute("pageinfo", info);
-        }
-        else if (permission.equals(ADVERTISEMENT_AUDIT))
-        {
-            PageHelper.startPage(param, 10);
-            List<Advertisement> allAdsList = reviewModel.getAllAdsInfo();
-            PageInfo<Advertisement> info = new PageInfo<>(allAdsList);
             model.addAttribute("pageinfo", info);
         }
         return "review/review";

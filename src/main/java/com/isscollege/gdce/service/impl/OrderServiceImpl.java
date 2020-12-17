@@ -10,7 +10,6 @@ import com.isscollege.gdce.dao.IOrderDao;
 import com.isscollege.gdce.domain.Company;
 import com.isscollege.gdce.domain.Order;
 import com.isscollege.gdce.domain.Product;
-import com.isscollege.gdce.domain.WaybillInfo;
 import com.isscollege.gdce.service.IOrderService;
 
 @Service(value = "orderService")
@@ -97,11 +96,6 @@ public class OrderServiceImpl implements IOrderService
 		return dao.queryCompanyIdByOrderId(orderId);
 	}
 
-	@Override
-	public boolean insertWayBill(WaybillInfo waybill)
-	{
-		return dao.insertWaybill(waybill);
-	}
 
 	@Override
 	public String queryOrderIdById(String orderid)

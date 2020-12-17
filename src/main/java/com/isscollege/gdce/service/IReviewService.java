@@ -15,13 +15,6 @@ public interface IReviewService
 	/*改动*/
 	void updateProductRecordID(String recordId, int productId);
 
-	List<Advertisement> queryAdvertisementByReviewState(int page, int size);
-	List<Advertisement> queryAdvertisementByReviewStatenotpass(int page, int size);
-
-	void updateAdvertisementReviewState(int advertisementId, int curStats);
-
-	void updateAdvertisementRecordId(int adId, String recordId);
-
 	List<Company> queryCompanyByReviewState(int page, int size);
 
 	List<Company> queryCompanyByState(int reviewState,int page, int size);
@@ -47,7 +40,6 @@ public interface IReviewService
 
     User queryUserByCompanyId(String companyId);
 
-	List<Advertisement> queryAdvertisementByState(int reviewState,int page,int size);
 
 	List<News> getAllNewsInfo();
 
@@ -55,9 +47,6 @@ public interface IReviewService
 
 	List<Product> getAllProductInfo();
 
-	List<Advertisement> getAllAdsInfo();
-
-	List<Advertisement> getAdsInfoList(int reviewState,int offset, int limit, String sort, String order);
 
 	int getAdsInfoListTotal(int reviewState,String sort,String order);
 
@@ -69,11 +58,23 @@ public interface IReviewService
 
 	int getNewsListTotal(int reviewState,String sort,String order);
 
-	List<Company> getCompanyList(int reviewState,int offset, int limit, String sort, String order);
+	//浏览经销商表
+	List<Company> getCompanyInfo(int groupNum,int offset, int limit, String sort, String order);
 
-	List<Company> getAllCompanyList(int offset, int limit, String sort, String order);
+	//浏览经销商设备表
+	List<equipment> getCompanyEquipment(String company_Id,int offset, int limit, String sort, String order);
 
-	int getCompanyListTotal(int reviewState,String sort,String order);
+	//浏览所以经销商表
+	List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order);
+
+	//浏览经销商数量
+	int getCompanyListTotal(int groupNum,String sort,String order);
+
+	//浏览经销商设备数量
+	int getCompanyEquipmentListTotal(String company_Id,String sort,String order);
+
+	//浏览所以经销商设备数量
+	int getAllCompanyListTotal(String sort,String order);
 
 	//获取记录信息
 	List<OperateRecord> selectOperateRecordByRecordID(String rid);
@@ -88,7 +89,7 @@ public interface IReviewService
 
 	News queryNewsByID(int Id);
 
-	boolean deleteCompany(String companyId);
+	boolean deleteCompany(String company_Id);
 
 	boolean addNewCompany(Company newcompany);
 

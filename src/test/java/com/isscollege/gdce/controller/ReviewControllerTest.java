@@ -1,11 +1,9 @@
 package com.isscollege.gdce.controller;
 
 
-import com.isscollege.gdce.domain.Advertisement;
 import com.isscollege.gdce.domain.News;
 import com.isscollege.gdce.domain.OperateRecord;
 import com.isscollege.gdce.domain.User;
-import com.isscollege.gdce.model.IAdvertisementModel;
 import com.isscollege.gdce.model.IReviewModel;
 import com.isscollege.gdce.util.RIDUtil;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -28,13 +26,12 @@ public class ReviewControllerTest
 
     private ReviewController reviewController = null;
     private IReviewModel reviewModel = null;
-    private IAdvertisementModel advertisementModel = null;
     private MockHttpServletRequest request = null;
     private MockHttpServletResponse response = null;
     private MockHttpSession session = null;
     private Logger LOGGER = null;
 
-    @Before
+/*    @Before
     public void setUp() throws Exception
     {
         reviewController = new ReviewController();
@@ -45,7 +42,7 @@ public class ReviewControllerTest
         advertisementModel = EasyMock.createMock(IAdvertisementModel.class);
         ReflectionTestUtils.setField(reviewController, "reviewModel", reviewModel);
         ReflectionTestUtils.setField(reviewController, "advertisementModel", advertisementModel);
-    }
+    }*/
 
    @Test
     public void should_changePro_success_when_data_is_valid_and_state_is_not_zero() throws Exception
@@ -122,16 +119,16 @@ public class ReviewControllerTest
         assertEquals("productReview?page=" + request.getParameter("page"),
                 response.getHeader("Location"));
     }
-
+/*
     @Test
     public void should_changeAdv_continue_when_user_is_none()
     {
         session.setAttribute("currentUser", null);
         reviewController.changeAdv(1, 1, response, request, session);
         assertEquals("advertisementReview?page=null", response.getHeader("Location"));
-    }
+    }*/
 
-    @Test
+/*    @Test
     public void should_changeAdv_success_when_user_is_not_none() throws Exception
     {
         User user = new User("user", "word", true);
@@ -160,7 +157,7 @@ public class ReviewControllerTest
         assertNotNull(operateRecord.getCreateDate());
         assertEquals("", operateRecord.getComment());
         assertEquals("advertisementReview?page=null", response.getHeader("Location"));
-    }
+    }*/
 
     @Test
     public void should_changeNew_is_success_when_data_is_valid()throws Exception

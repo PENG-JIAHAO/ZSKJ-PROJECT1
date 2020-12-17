@@ -34,60 +34,78 @@ insert  into `system_users`(`id`,`NAME`,`PASSWORD`,`LEVEL`,`permission`,`company
 (10,'mft1','123',1,'6','',0,0,'张超','广告位审核','15296325610','zc@163.com'),
 (11,'opt1','123',1,'7','',0,0,'张超','广告位审核','15296325610','zc@163.com');
 
+-- -----------------------------------------------------
+-- Table `ZSKJ-PROJECT1-DB-TEST`.`[设备保养记录表]equipment_protect_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `equipment_protect_info`;
+CREATE TABLE IF NOT EXISTS `equipment_protect_info` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `equipment_id` VARCHAR(30) NOT NULL COMMENT '设备编号',
+  `dry_remain` INT NULL COMMENT '干燥过滤器剩余量',
+  `dry_replaced_times` INT NULL COMMENT '干燥过滤器已更换次数',
+  `pump_remain` INT NULL COMMENT '真空泵剩余量',
+  `pump_maintain_times` INT NULL COMMENT '真空泵已保养次数',
+  `refrigerant_add` INT NULL COMMENT '制冷剂累计补充量',
+  `refrigerant_add_times` INT NULL COMMENT '制冷剂补充累计次数',
+  `compressor_times` INT NULL COMMENT '压缩机累计次数',
+  `compressor_used` INT NULL COMMENT '压缩机累计时间',
+  `protect_times` INT NULL COMMENT '保养功能（清洗）累计次数',
+  `protect_used` INT NULL COMMENT '保养功能（清洗）累计时间',
+  `shop_id` VARCHAR(20) NOT NULL COMMENT '店铺编号',
+  `company_Id` VARCHAR(20) NOT NULL COMMENT '公司（经销商）编号',
+  PRIMARY KEY (`equipment_id`),
+  UNIQUE INDEX(`id`),
+  FOREIGN KEY (`shop_id`) REFERENCES `shop_info` (`shop_id`),
+  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-/*Table structure for table `table_accountant_info` */
+insert  into `equipment_protect_info`(`id`,`company_Id`,`dry_remain`,`dry_replaced_times`,`pump_remain`,`pump_maintain_times`,`refrigerant_add`,`equipment_id`,`shop_id`,
+                                  `compressor_times`,`compressor_used`,protect_times,protect_used,refrigerant_add_times) values
+(1,'91130302MA07RJW223',99,5,99,5,99,'66636676572','85737897YHHG134',5,99,5,99,5),
+(2,'911308037825919000',99,5,99,5,99,'66353523572','87965234KJHG124',5,99,5,99,5),
+(3,'911302435EGGR13414',99,5,99,5,99,'6dbfb76572','JHG12475693478',5,99,5,99,5),
+(4,'911308012345355232',99,5,99,5,99,'43634576572','HH87636536GGFH34',5,99,5,99,5),
+(5,'566387738883466626',99,5,99,5,99,'57574576572','789845254532DFG2',5,99,5,99,5),
+(6,'214535325GDGAG4355',99,5,99,5,99,'36684564365','SDFHJ12343254546',5,99,5,99,5),
+(7,'75766646747BBH2412',99,5,99,5,99,'24436573652','4678678465RRE234',5,99,5,99,5),
+(8,'88455757147HHGSW12',99,5,99,5,99,'58793454657','WETRGT7778897987',5,99,5,99,5);
 
-DROP TABLE IF EXISTS `table_accountant_info`;
+-- -----------------------------------------------------
+-- Table `ZSKJ-PROJECT1-DB-TEST`.`[经销商]company_info`
+-- -----------------------------------------------------
+SET foreign_key_checks = 0;
+DROP TABLE IF EXISTS `company_info`;
+SET foreign_key_checks = 1;
+CREATE TABLE IF NOT EXISTS `company_info` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `company_Id` VARCHAR(40) NOT NULL COMMENT '公司（经销商）编号',
+  `company_name` VARCHAR(30) NOT NULL COMMENT '公司（经销商）名称',
+  `company_address` VARCHAR(60) NOT NULL COMMENT '公司（经销商）地址',
+  `person_name` VARCHAR(10) NOT NULL COMMENT '联系人姓名',
+  `person_phone` VARCHAR(20) NOT NULL COMMENT '联系人电话',
+  `person_email` VARCHAR(20) NOT NULL COMMENT '联系人邮箱',
+  `groupNum` INT NULL DEFAULT 0 COMMENT  '分组',
+  `auto_urged_state` TINYINT(1) NULL DEFAULT 0 COMMENT '自动催缴状态（true-是 false-否）',
+  `auto_lock_state` TINYINT(1) NULL DEFAULT 0 COMMENT '自动锁机状态（true-是 false-否）',
+  `auto_urged_times` INT NULL DEFAULT 99 COMMENT '自动催缴设置多少次提示',
+  `auto_lock_times` INT NULL DEFAULT 99 COMMENT '自动锁机设置多少次锁机',
+  PRIMARY KEY (`company_Id`),
+  UNIQUE INDEX (`company_Id`),
+  UNIQUE INDEX (`company_name`),
+  UNIQUE INDEX (`id`))
+ENGINE = InnoDB  AUTO_INCREMENT=9  DEFAULT  CHARACTER SET =utf8;
 
-CREATE TABLE `table_accountant_info` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(10) NOT NULL COMMENT '会计姓名',
-  `phone` varchar(11) NOT NULL COMMENT '会计电话',
-  `email` varchar(30) NOT NULL COMMENT '会计邮箱',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+insert  into `company_info`(`id`,`company_Id`,`company_name`,`company_address`,`person_name`,`person_phone`,`person_email`,`auto_urged_state`,`auto_lock_state`,`auto_urged_times`,`auto_lock_times`,`groupNum`) values
+(1,'4567891025','阿里巴巴有限公司','广东省东莞市东城区旗峰公园','马云','12345678910','123456@163.com',0,0,0,0,0),
+(2,'9113080378','腾讯游戏有限公司','广东省东莞市东城区旗峰公园','马化腾','12345678910','123456@163.com',0,0,0,0,0),
+(3,'9113024350','华为手机有限公司','广东省东莞市东城区旗峰公园','AAA','12345678910','123456@163.com',0,0,0,0,1),
+(4,'9117863343','中盛(东莞)科技有限公司','广东省东莞市东城区旗峰公园','BBB','12345678910','123456@163.com',0,0,0,0,1),
+(5,'5663877388','格力科技有限公司','广东省东莞市东城区旗峰公园','CCC','12345678910','123456@163.com',0,0,0,0,2),
+(6,'2145353250','百度网络有限公司','广东省东莞市东城区旗峰公园','DDD','12345678910','123456@163.com',0,0,0,0,2),
+(7,'7576664674','谷歌网络有限公司','广东省东莞市东城区旗峰公园','EEE','12345678910','123456@163.com',0,0,0,0,0),
+(8,'8845575714','小米科技有限公司','广东省东莞市东城区旗峰公园','FFF','12345678910','123456@163.com',0,0,0,0,0);
 
-/*Data for the table `table_accountant_info` */
 
-insert  into `table_accountant_info`(`id`,`NAME`,`phone`,`email`) values 
-(1,'张伟','3684761','hbcdrd@cgdc.com.cn'),
-(2,'李刚','8984511','1072349216@qq.com'),
-(3,'袁飞宇','4951210','baqxb@163.com'),
-(4,'吴中天','4616541','lftbyk@sing.com'),
-(5,'白薇','6548545','1031354913@qq.com'),
-(6,'昌文','3562965','53236542@qq.com'),
-(7,'田少军','6455112','65584353@qq.com');
-
-/*Table structure for table `tbl_ads` */
-
-DROP TABLE IF EXISTS `tbl_ads`;
-
-CREATE TABLE `tbl_ads` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `companyId` varchar(30) NOT NULL COMMENT '企业机构代码',
-  `POSITION` int(1) NOT NULL COMMENT '广告位 1-4',
-  `email` varchar(30) NOT NULL COMMENT '邮箱',
-  `adsImgPath` varchar(45) NOT NULL COMMENT '广告图片存放路径（/imgs/ads/企业机构代码+时间戳）',
-  `adsURL` varchar(100) NOT NULL COMMENT '广告超链地址',
-  `note` varchar(200) NOT NULL COMMENT '备注',
-  `releaseDate` varchar(20) NOT NULL COMMENT '广告投放时间',
-  `endDate` varchar(20) NOT NULL COMMENT '广告截止时间',
-  `price` double(10,2) NOT NULL COMMENT '广告费用',
-  `reviewState` int(3) NOT NULL COMMENT '0-待审核 1-通过 2-未通过',
-  `recordID` varchar(20) NOT NULL COMMENT '记录编号',
-  `submitDate` varchar(20) NOT NULL COMMENT '提交审核时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
-/*Data for the table `tbl_ads` */
-
-insert  into `tbl_ads`(`id`,`companyId`,`POSITION`,`email`,`adsImgPath`,`adsURL`,`note`,`releaseDate`,`endDate`,`price`,`reviewState`,`recordID`, `submitDate`) values
-(1,'916402210275456045',1,'lftbyk@sing.com','1.jpg','http://fuel.powerec.net/newsCenter.jspx','','2019-01-04','2019-01-30',3000.00,1,'AR201901041145140810','2019-01-04'),
-(2,'916402210275456045',1,'lftbyk@sing.com','2.jpg','http://fuel.powerec.net/newsCenter.jspx','','2019-02-01','2019-02-28',2800.00,0,'AR201902011145140810','2019-02-01'),
-(3,'916402210275456045',2,'lftbyk@sing.com','3.jpg','http://fuel.powerec.net/newsCenter.jspx','','2019-01-04','2019-01-29',2700.00,0,'AR201901041145140810','2019-01-04'),
-(4,'914113306672048026',1,'lftbyk@sing.com','4.jpg','http://fuel.powerec.net/newsCenter.jspx','','2019-01-05','2019-01-25',2000.00,0,'AR201901051145140893','2019-01-05'),
-(5,'911308037825919000',1,'hbcdrd@cgdc.com.cn','5.jpg','http://fuel.powerec.net/newsCenter.jspx','','2019-01-04','2019-01-30',2600.00,0,'AR201901041145140893','2019-01-04'),
-(6,'911308037825919000',1,'hbcdrd@cgdc.com.cn','6.jpg','http://fuel.powerec.net/newsCenter.jspx','','2019-01-11','2019-01-31',2650.00,1,'AR201901111145140893','2019-01-11');
 
 /*Table structure for table `tbl_company_info` */
 
@@ -165,25 +183,45 @@ insert  into `tbl_contract_info`(`id`,`contractId`,`buyerCompanyId`,`sellerCompa
 (18,107142930,'911308037825919000','914113306672048026',10,1,1,'2019-01-07 14:29:30','2019-01-08 14:29:30'),
 (19,107143201,'911308037825919000','914113306672048026',24,1,1,'2019-01-07 14:32:01','2019-01-08 14:32:01');
 
-/*Table structure for table `tbl_logistics_info` */
+-- -----------------------------------------------------
+-- Table `ZSKJ-PROJECT1-DB-TEST`.`[设备使用记录表]equipment_use_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `equipment_use_info`;
+CREATE TABLE IF NOT EXISTS `equipment_use_info` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `equipment_id` VARCHAR(30) NOT NULL COMMENT '设备编号',
+  `used_first_time` VARCHAR(20) NULL COMMENT '设备初始使用时间',
+  `used_last_time` VARCHAR(20) NULL COMMENT '设备最近一次使用时间',
+  `login_state` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '设备在线状态（true-在线 false-离线）',
+  `lock_state` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '设备锁机状态（true-上锁 false-未锁）',
+  `equipment_notpay_number` INT NULL DEFAULT 0 COMMENT '设备未结算次数',
+  `equipment_hadpay_number` INT NULL DEFAULT 0 COMMENT '已结算次数',
+  `equipment_notpay_price` INT NULL DEFAULT 0 COMMENT '未结算单价',
+  `equipment_hadpay_price` INT NULL DEFAULT 0 COMMENT '已结算单价',
+  `equipment_notpay_allprice` INT NULL DEFAULT 0 COMMENT '未结算总额',
+  `equipment_hadpay_allprice` INT NULL DEFAULT 0 COMMENT '已结算总额',
+  `equipment_allprice` INT NULL DEFAULT 0 COMMENT '未结算加已结算的总额',
+  `equipment_usetime` INT NULL DEFAULT 0 COMMENT '累计使用次数',
+  `shop_id` VARCHAR(20) NOT NULL COMMENT '店铺编号',
+  `company_Id` VARCHAR(20) NOT NULL COMMENT '公司（经销商）编号',
+  PRIMARY KEY (`equipment_id`),
+  UNIQUE INDEX(`id`),
+  FOREIGN KEY (`shop_id`) REFERENCES `shop_info` (`shop_id`),
+  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `tbl_logistics_info`;
+insert  into `equipment_use_info`(`id`,`company_Id`,`used_first_time`,`used_last_time`,`login_state`,`lock_state`,`equipment_notpay_number`,`equipment_id`,`shop_id`,
+                                  `equipment_hadpay_number`,`equipment_notpay_price`,equipment_hadpay_price,equipment_notpay_allprice,equipment_hadpay_allprice,
+                                  equipment_allprice,equipment_usetime) values
+(1,'91130302MA07RJW223','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'66636676572','85737897YHHG134',0,0,0,0,0,0,0),
+(2,'911308037825919000','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'66353523572','87965234KJHG124',0,0,0,0,0,0,0),
+(3,'911302435EGGR13414','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'6dbfb76572','JHG12475693478',0,0,0,0,0,0,0),
+(4,'911308012345355232','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'43634576572','HH87636536GGFH34',0,0,0,0,0,0,0),
+(5,'566387738883466626','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'57574576572','789845254532DFG2',0,0,0,0,0,0,0),
+(6,'214535325GDGAG4355','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'36684564365','SDFHJ12343254546',0,0,0,0,0,0,0),
+(7,'75766646747BBH2412','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'24436573652','4678678465RRE234',0,0,0,0,0,0,0),
+(8,'88455757147HHGSW12','2020-12-10 08：28','2021-1-1 08：28',0,0,0,'58793454657','WETRGT7778897987',0,0,0,0,0,0,0);
 
-CREATE TABLE `tbl_logistics_info` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `waybillId` varchar(20) NOT NULL COMMENT '运单号（时间戳+物流商企业机构代码编号后四位：2018080110034455）',
-  `updateDate` varchar(20) NOT NULL COMMENT '更新时间',
-  `submitUser` varchar(5) NOT NULL COMMENT '提交人',
-  `location` varchar(20) NOT NULL COMMENT '地点',
-  `content` varchar(80) NOT NULL COMMENT '内容',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `tbl_logistics_info` */
-
-insert  into `tbl_logistics_info`(`id`,`waybillId`,`updateDate`,`submitUser`,`location`,`content`) values 
-(1,'20190104101857W223','2019-01-04','王国','宁波','交接'),
-(2,'20190104101857W223','2019-02-02','王国','上海','到达目的地');
 
 /*Table structure for table `tbl_news_info` */
 
@@ -341,56 +379,73 @@ insert  into `tbl_product_info`(`id`,`productId`,`productState`,`quantity`,`lowP
 (40,40,1,7.00,3500,135.00,1.40,'内蒙',25.00,'20-31','秦曹两港',26.00,24.00,'seller2',0,'AR202011291145140810','2020-11-29'),
 (41,41,1,10.00,3800,200.00,1.70,'山西',26.00,'22-28','秦皇岛',19.00,19.00,'seller2',0,'AR202011301145140810','2020-11-30');
 
-/*Table structure for table `tbl_static_logistics_price` */
+-- -----------------------------------------------------
+-- Table `ZSKJ-PROJECT1-DB-TEST`.`[设备使用商]shop_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `shop_info`;
+CREATE TABLE IF NOT EXISTS `shop_info` (
+  `id` INT NOT NULL,
+  `shop_id` VARCHAR(20) NOT NULL COMMENT '店铺编号',
+  `shop_name` VARCHAR(40) NOT NULL COMMENT '店铺名称',
+  `shop_address` VARCHAR(50) NOT NULL COMMENT '店铺地址',
+  `person_name` VARCHAR(10) NOT NULL COMMENT '联系人姓名',
+  `person_phone` VARCHAR(20) NOT NULL COMMENT '联系人电话',
+  `person_email` VARCHAR(20) NOT NULL COMMENT '联系人邮箱',
+  `auto_urged_state` TINYINT(1) NULL DEFAULT 0 COMMENT '自动催缴状态（true-是 false-否）',
+  `auto_lock_state` TINYINT(1) NULL DEFAULT 0 COMMENT '自动锁机状态（true-是 false-否）',
+  `auto_urged_times` INT(4) NULL DEFAULT 999 COMMENT '自动催缴设置多少次提示',
+  `auto_lock_times` INT(4) NULL DEFAULT 999 COMMENT '自动锁机设置多少次锁机',
+  `company_Id` VARCHAR(20) NOT NULL COMMENT '公司（经销商）编号',
+  PRIMARY KEY (`shop_id`),
+  UNIQUE INDEX (`shop_name`),
+  UNIQUE INDEX (`shop_id`),
+  UNIQUE INDEX (`id`),
+  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `tbl_static_logistics_price`;
+insert  into `shop_info`(`id`,`company_Id`,`shop_name`,`shop_address`,`person_name`,`person_phone`,`person_email`,`auto_urged_state`,`auto_lock_state`,`auto_urged_times`,`auto_lock_times`,`shop_id`) values
+(1,'91130302MA07RJW223','阿里巴巴4S店','广东省东莞市东城区旗峰公园','马云','12345678910','123456@163.com',0,0,0,0,'85737897YHHG134'),
+(2,'911308037825919000','腾讯游戏4S店','广东省东莞市东城区旗峰公园','马化腾','12345678910','123456@163.com',0,0,0,0,'87965234KJHG124'),
+(3,'911302435EGGR13414','华为手机4S店','广东省东莞市东城区旗峰公园','AAA','12345678910','123456@163.com',0,0,0,0,'JHG12475693478'),
+(4,'911308012345355232','中盛(东莞)4S店','广东省东莞市东城区旗峰公园','BBB','12345678910','123456@163.com',0,0,0,0,'HH87636536GGFH34'),
+(5,'566387738883466626','格力科技洗车行','广东省东莞市东城区旗峰公园','CCC','12345678910','123456@163.com',0,0,0,0,'789845254532DFG2'),
+(6,'214535325GDGAG4355','百度网络洗车行','广东省东莞市东城区旗峰公园','DDD','12345678910','123456@163.com',0,0,0,0,'SDFHJ12343254546'),
+(7,'75766646747BBH2412','谷歌网络洗车行','广东省东莞市东城区旗峰公园','EEE','12345678910','123456@163.com',0,0,0,0,'4678678465RRE234'),
+(8,'88455757147HHGSW12','小米科技洗车行','广东省东莞市东城区旗峰公园','FFF','12345678910','123456@163.com',0,0,0,0,'WETRGT7778897987');
 
-CREATE TABLE `tbl_static_logistics_price` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `waybillCompanyId` varchar(30) NOT NULL COMMENT '企业机构代码',
-  `startingPlace` varchar(20) NOT NULL COMMENT '起始地',
-  `destination` varchar(20) NOT NULL COMMENT '目的地',
-  `weight` varchar(10) NOT NULL COMMENT '重量（>=3000）万吨',
-  `price` int(4) NOT NULL COMMENT '价格',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------
+-- Table `ZSKJ-PROJECT1-DB-TEST`.`[设备基础信息]equipment_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `equipment_info`;
+CREATE TABLE IF NOT EXISTS `equipment_info` (
+  `id` INT NOT NULL,
+  `equipment_id` VARCHAR(100) NOT NULL COMMENT '设备编号',
+  `equipment_serialnum` VARCHAR(50) NOT NULL COMMENT '设备序列号',
+  `equipment_typecode` VARCHAR(30) NOT NULL COMMENT '设备大类编码',
+  `equipment_major` VARCHAR(30) NOT NULL COMMENT '设备组别',
+  `person_name` VARCHAR(10) NOT NULL COMMENT '组别负责人名称',
+  `person_phone` VARCHAR(20) NOT NULL COMMENT '组别负责人电话',
+  `shop_id` VARCHAR(20) NOT NULL COMMENT '店铺编号',
+  `company_Id` VARCHAR(20) NOT NULL COMMENT '公司（经销商）编号',
+  UNIQUE INDEX(`id`),
+  UNIQUE INDEX(`equipment_serialnum`),
+  PRIMARY KEY (`equipment_id`),
+  UNIQUE INDEX (`equipment_id`),
+  FOREIGN KEY (`shop_id`) REFERENCES `shop_info` (`shop_id`),
+  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-/*Data for the table `tbl_static_logistics_price` */
+insert  into `equipment_info`(`id`,`company_Id`,`equipment_serialnum`,`equipment_typecode`,`equipment_major`,`person_name`,`person_phone`,`equipment_id`,`shop_id`) values
+(1,'4567891025','1414-26426246-1415','78778787','AAA','张1','12345678910','66636676572','85737897YHHG134'),
+(2,'9113080378','1414-124646-1415','78778787','BBB','张2','12345678910','66353523572','87965234KJHG124'),
+(3,'9113024350','1414-24646-1415','78778787','AAA','张3','12345678910','6dbfb76572','JHG12475693478'),
+(4,'9117863343','1414-1246134-1415','78778787','BBB','张4','12345678910','43634576572','HH87636536GGFH34'),
+(5,'5663877388','1414-7978514-1415','78778787','CCC','张5','12345678910','57574576572','789845254532DFG2'),
+(6,'2145353250','1414-18634534-1415','78778787','DDD','张6','12345678910','36684564365','SDFHJ12343254546'),
+(7,'7576664674','1414-87684-1415','78778787','EEE','张7','12345678910','24436573652','4678678465RRE234'),
+(8,'8845575714','1414-168585-1415','78778787','FFF','张8','12345678910','58793454657','WETRGT7778897987');
 
-insert  into `tbl_static_logistics_price`(`id`,`waybillCompanyId`,`startingPlace`,`destination`,`weight`,`price`) values 
-(1,'91130302MA07RJW223','秦皇岛','广州','<=6',38),
-(2,'91130302MA07RJW223','秦皇岛','广州','>=6',36),
-(3,'91130302MA07RJW223','秦皇岛','福州','<=3',37),
-(4,'91130302MA07RJW223','秦皇岛','福州','>=3',35),
-(5,'91130302MA07RJW223','秦皇岛','宁波','<=2',38),
-(6,'91130302MA07RJW223','秦皇岛','宁波','>=2',35),
-(7,'91130302MA07RJW223','秦皇岛','上海','<=4',33),
-(8,'91130302MA07RJW223','秦皇岛','上海','>=4',30),
-(9,'91130302MA07RJW223','秦皇岛','张家港','<=3',35),
-(10,'91130302MA07RJW223','秦皇岛','张家港','>=3',32),
-(11,'91120222MA0699R67U','天津','上海','<=2',33),
-(12,'91120222MA0699R67U','天津','上海','>=2',35),
-(13,'91120222MA0699R67U','天津','镇江','<=2',44),
-(14,'91120222MA0699R67U','天津','镇江','>=2',40);
 
-/*Table structure for table `tbl_waybill_info` */
-
-DROP TABLE IF EXISTS `tbl_waybill_info`;
-
-CREATE TABLE `tbl_waybill_info` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `waybillId` varchar(20) NOT NULL COMMENT '运单号（时间戳+物流商企业机构代码编号后四位：2018080110034455）',
-  `waybillCompanyId` varchar(30) NOT NULL COMMENT '企业机构代码',
-  `createTime` varchar(20) NOT NULL COMMENT '创建时间',
-  `endTime` varchar(20) NOT NULL COMMENT '结束时间（用户收货后更新）',
-  `orderId` varchar(20) NOT NULL COMMENT '订单号(2018080110034455)',
-  `waybillState` varchar(2) NOT NULL COMMENT '运单状态（0-待发货 1-运输中 2-待签收 3-已签收）',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*Data for the table `tbl_waybill_info` */
-insert  into `tbl_waybill_info`(`id`,`waybillId`,`waybillCompanyId`,`createTime`,`endTime`,`orderId`,`waybillState`) values 
-(1,'20190104101857W223','91130302MA07RJW223','2019-01-04 10:18:57','2019-01-19 10:18:57','2019010410184393','3'),
-(2,'20190104105243W223','91130302MA07RJW223','2019-01-04 10:52:43','2019-01-19 10:52:43','2019010410528256','0');
 
 DROP TABLE IF EXISTS `tbl_operate_record`;
 

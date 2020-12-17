@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.isscollege.gdce.domain.*;
-import com.isscollege.gdce.model.IAdvertisementModel;
 import com.isscollege.gdce.model.INewsModel;
 import com.isscollege.gdce.model.IProductModel;
 import com.isscollege.gdce.util.RIDUtil;
@@ -32,8 +31,6 @@ public class ReviewController
     private INewsModel newsModel;
     @Autowired
     private IProductModel productModel;
-    @Autowired
-    private IAdvertisementModel advertisementModel;
     private int page = 1;
     private int size = 15;
     private String msg = "";
@@ -80,24 +77,121 @@ public class ReviewController
         }
         request.setAttribute("page", page);
 
-        List<Advertisement> advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
-        if (advertisements.size() == 0 && page != 1)
+        List<Company> companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+        if (companys.size() == 0 && page != 1)
         {
             page--;
             model.addAttribute("page", page);
-            advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
+            companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
 
         }
         if (request.getAttribute("totalPage") == null)
         {
-            int totalSize = reviewModel.queryAdvertisementByReviewState(0, 10000).size();
-            model.addAttribute("totalPage", totalSize % 6 == 0 ? totalSize / 6 : totalSize / 6 + 1);
+            int totalSize = reviewModel.queryCompanyByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 10 == 0 ? totalSize / 10 : totalSize / 10 + 1);
         }
-        model.addAttribute("operator3", advertisements);
+        model.addAttribute("operator3", companys);
         model.addAttribute("pageShow", "operator3");
 
         return "review/operatorManage";
     }
+
+    @RequestMapping("/manufacturers")
+    private String manufacturers(Model model, HttpServletRequest request) throws ServletException, IOException
+    {
+        // 管理员审核页面，从数据库获取每页（数据库分页查询）用户公司的信息，
+        // 详情点不了是因为第一次点的时候公司和id和用户的主外键没有关联上,关联上就好了
+        page = 1;
+        size = 0x7fffffff;
+
+        if (request.getParameter("page") != null)
+        {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        model.addAttribute("page", page);
+
+        List<Company> companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+        if (companys.size() == 0 && page != 1)
+        {
+            page--;
+            model.addAttribute("page", page);
+            companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+
+        }
+        if (request.getAttribute("totalPage") == null)
+        {
+            int totalSize = reviewModel.queryCompanyByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 10 == 0 ? totalSize / 10 : totalSize / 10 + 1);
+        }
+        model.addAttribute("companys", companys);
+        model.addAttribute("pageShow", "company");
+        return "review/manufacturers";
+    }
+
+    @RequestMapping("/manufacturersManage")
+    public String manufacturersManage(Model model, HttpServletRequest request) throws ServletException, IOException
+    {
+        page = 1;
+        size = 6;
+        if (request.getParameter("page") != null)
+        {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        request.setAttribute("page", page);
+        List<Company> companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+        if (companys.size() == 0 && page != 1)
+        {
+            page--;
+            model.addAttribute("page", page);
+            companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+
+        }
+        if (request.getAttribute("totalPage") == null)
+        {
+            int totalSize = reviewModel.queryCompanyByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 10 == 0 ? totalSize / 10 : totalSize / 10 + 1);
+        }
+        model.addAttribute("manufacturers2", companys);
+        model.addAttribute("pageShow", "manufacturers2");
+
+        return "review/manufacturersManage";
+    }
+
+    //浏览经销商表
+    @RequestMapping("/getCompanyInfo")
+    @ResponseBody
+    public Map<String, Object> getCompanyInfo(@RequestParam(value = "groupNum", defaultValue = "0") Integer groupNum, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getCompanyInfo(groupNum,offset, limit, sort, order));
+        map.put("total", reviewModel.getCompanyListTotal(groupNum, sort, order));
+        return map;
+    }
+
+    //浏览经销商设备信息
+    @RequestMapping("/getEquipment")
+    @ResponseBody
+    public Map<String, Object> getEquipment(@RequestParam(value = "companyId", defaultValue = "0") String companyId, int offset, int limit, String sort, String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getCompanyEquipment(companyId, offset, limit, sort, order));
+        map.put("total", reviewModel.getCompanyEquipmentTotal(companyId, sort, order));
+        return map;
+    }
+
+    //浏览所以经销商信息
+    @RequestMapping("/getAllCompanyInfo")
+    @ResponseBody
+    public Map<String, Object> getAllCompanyInfo(@RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getAllCompanyInfo(offset, limit, sort, order));
+        map.put("total", reviewModel.getAllCompanyListTotal(sort, order));
+        return map;
+    }
+
+
+
 
 
     @RequestMapping("/productReview")
@@ -155,37 +249,6 @@ public class ReviewController
         }
     }
 
-    @RequestMapping("/manufacturers")
-    private String manufacturers(Model model, HttpServletRequest request) throws ServletException, IOException
-    {
-        // 管理员审核页面，从数据库获取每页（数据库分页查询）用户公司的信息，
-        // 详情点不了是因为第一次点的时候公司和id和用户的主外键没有关联上,关联上就好了
-        page = 1;
-        size = 0x7fffffff;
-
-        if (request.getParameter("page") != null)
-        {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-        model.addAttribute("page", page);
-
-        List<Company> companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
-        if (companys.size() == 0 && page != 1)
-        {
-            page--;
-            model.addAttribute("page", page);
-            companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
-
-        }
-        if (request.getAttribute("totalPage") == null)
-        {
-            int totalSize = reviewModel.queryCompanyByReviewState(0, 10000).size();
-            model.addAttribute("totalPage", totalSize % 10 == 0 ? totalSize / 10 : totalSize / 10 + 1);
-        }
-        model.addAttribute("companys", companys);
-        model.addAttribute("pageShow", "company");
-        return "review/manufacturers";
-    }
 
     @RequestMapping("/getdatarecordcompany")
     @ResponseBody
@@ -232,6 +295,7 @@ public class ReviewController
         return "review/review";
     }
 
+/*
 	@RequestMapping("/changeCom")
 	public String changeCom(HttpServletRequest request, HttpSession session)
 	{
@@ -246,7 +310,9 @@ public class ReviewController
 
 		return "review/review";
 	}
+*/
 
+/*
 	//做公司审核操作记录
 	public void doComRecord(HttpServletRequest request, HttpSession session, int state, String companyId)
 	{
@@ -280,63 +346,11 @@ public class ReviewController
 
 		reviewModel.addOperateRecord(operateRecord);
 	}
-
-    @RequestMapping("/manufacturersManage")
-    public String manufacturersManage(Model model, HttpServletRequest request) throws ServletException, IOException
-    {
-        page = 1;
-        size = 6;
-        if (request.getParameter("page") != null)
-        {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-        request.setAttribute("page", page);
-
-        List<Advertisement> advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
-        if (advertisements.size() == 0 && page != 1)
-        {
-            page--;
-            model.addAttribute("page", page);
-            advertisements = reviewModel.queryAdvertisementByReviewState((page - 1) * 6, size);
-
-        }
-        if (request.getAttribute("totalPage") == null)
-        {
-            int totalSize = reviewModel.queryAdvertisementByReviewState(0, 10000).size();
-            model.addAttribute("totalPage", totalSize % 6 == 0 ? totalSize / 6 : totalSize / 6 + 1);
-        }
-        model.addAttribute("manufacturers2", advertisements);
-        model.addAttribute("pageShow", "manufacturers2");
-
-        return "review/manufacturersManage";
-    }
+*/
 
 
-    @RequestMapping("/changeAdv")
-    public void changeAdv(@RequestParam("adId") int adId, @RequestParam("state") int state, HttpServletResponse response, HttpServletRequest request, HttpSession session)
-    {
-        if (session.getAttribute("currentUser") instanceof User)
-        {
-            OperateRecord operateRecord = new OperateRecord();
-            operateRecord.setRecordID(advertisementModel.getAdsInfo(adId).getRecordID());
-            operateRecord.setUserName(((User) session.getAttribute(("currentUser"))).getName());
-            operateRecord.setOperateType(state);
-            operateRecord.setCreateDate(RIDUtil.getCreateDate());
-            operateRecord.setComment("");
-            reviewModel.updateAdvertisementReviewState(adId, state);
-            reviewModel.addOperateRecord(operateRecord);
-        }
-        try
-        {
-            response.sendRedirect("advertisementReview?page=" + request.getParameter("page"));
-        }
-        catch (IOException e)
-        {
-            LOGGER.error("io流异常", e);
-        }
-    }
 
-    // 查询company对象方法
+/*    // 查询company对象方法
     @RequestMapping("/equipmentDetails")
     private String equipmentDetails(String beforeId, String afterId, Model model, HttpServletRequest request)
             throws ServletException, IOException
@@ -348,9 +362,9 @@ public class ReviewController
         model.addAttribute("company", company);
         model.addAttribute("user", user);
         return "review/equipmentDetails";
-    }
+    }*/
 
-    // 查询company对象方法
+/*    // 查询company对象方法
     @RequestMapping("/OperatorInfo")
     private String OperatorInfo(String beforeId, String afterId, Model model, HttpServletRequest request)
             throws ServletException, IOException
@@ -362,9 +376,9 @@ public class ReviewController
         model.addAttribute("company", company);
         model.addAttribute("user", user);
         return "review/operatorInfo";
-    }
+    }*/
 
-    public Company checkUrl(Company company)
+/*    public Company checkUrl(Company company)
     {
 
         String companyCodePath = company.getCompanyCodePath();
@@ -399,7 +413,7 @@ public class ReviewController
             company.setTaxRegisterCodePath(taxRegisterCodePath.replaceAll("\\\\", "/"));
         }
         return company;
-    }
+    }*/
 
     // 查询news对象方法
     @RequestMapping("/news")
@@ -507,7 +521,6 @@ public class ReviewController
     @RequestMapping("/deleteCompany")
     public void deleteCompany(HttpServletRequest request, HttpServletResponse response)
     {
-
         String companyId = request.getParameter("companyId");
         String[] array = companyId.split(",");
         for(int i=0;i<array.length;i++)
@@ -516,7 +529,7 @@ public class ReviewController
         }
         try
         {
-           request.getRequestDispatcher("/review/operatorManage").forward(request, response);
+           request.getRequestDispatcher("/review/manufacturersManage").forward(request, response);
         } catch (ServletException | IOException e)
         {
             LOGGER.error("请求转发异常", e);
@@ -553,39 +566,6 @@ public class ReviewController
     }
 
 
-    //获取记录信息
-    @RequestMapping("/getDataRecord")
-    @ResponseBody
-    public Map<String, Object> getRecordAjax(@RequestParam(value = "productId", defaultValue = "0") Integer productId, int offset, int limit, String sort, String order)
-    {
-        String recordId = reviewModel.getProductRecordIdByProductId(productId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("rows", reviewModel.selectOperateRecordByRecordID(recordId));
-        map.put("total", reviewModel.getRecordInfoListTotal(recordId, sort, order));
-        return map;
-    }
-
-
-    @RequestMapping("/getDataCompany")
-    @ResponseBody
-    public Map<String, Object> getCompanyAjax(@RequestParam(value = "reviewState", defaultValue = "0") Integer reviewState, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
-    {
-        Map<String, Object> map = new HashMap<>();
-        map.put("rows", reviewModel.getCompanyList(reviewState,offset, limit, sort, order));
-        map.put("total", reviewModel.getCompanyListTotal(reviewState, sort, order));
-        return map;
-    }
-
-    @RequestMapping("/getAllDataCompany")
-    @ResponseBody
-    public Map<String, Object> getAllCompanyAjax(@RequestParam(value = "reviewState", defaultValue = "0") Integer reviewState, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
-    {
-        Map<String, Object> map = new HashMap<>();
-        map.put("rows", reviewModel.getAllCompanyList(offset, limit, sort, order));
-        map.put("total", reviewModel.getCompanyListTotal(reviewState, sort, order));
-        return map;
-    }
-
 
     @RequestMapping("/getdataNews")
     @ResponseBody
@@ -616,41 +596,22 @@ public class ReviewController
         return "operator1";
     }
 
-	//找公司审核记录
-	@RequestMapping("/findComReviewAdvice")
-	@ResponseBody
-	public List<OperateRecord> findComReviewAdvice(@RequestParam("companyId") String companyId){
-
-		Company company = new Company();
-		company = reviewModel.queryCompanyByCompanyID(companyId);
-		String recordId = company.getRecordID();
-
-		List<OperateRecord>  operateRecords = reviewModel.selectOperateRecordByRecordID(recordId);
-
-		Collections.reverse(operateRecords);
-
-		return operateRecords;
-	}
 
     public Company getCompanyInfo(HttpServletRequest request, HttpServletResponse response)
     {
-        String companyId = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyId"), "未填 ");
-        String companyName = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyName"), "未填 ");
-        String legalPerson = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("legalPerson"), "未填 ");
-        String legalPersonId = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("legalPersonId"), "未填 ");
-        String companyEmail = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyEmail"), "未填 ");
-        String phoneNumber = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("phoneNumber"), "未填 ");
-        String companyFax = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyFax"), "未填 ");
-        String postalCode = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("postalCode"), "未填 ");
+        String Company_Id = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("CompanyId"), "未填 ");
+        String Company_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("companyName"), "未填 ");
+        String Person_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonName"), "未填 ");
+        String Company_address = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("CompanyAddress"), "未填 ");
+        String Person_email = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonEmail"), "未填 ");
+        String Person_phone = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonPhone"), "未填 ");
         Company newcompany = new Company();
-        newcompany.setCompanyId(companyId);
-        newcompany.setCompanyName(companyName);
-        newcompany.setLegalPerson(legalPerson);
-        newcompany.setLegalPersonId(legalPersonId);
-        newcompany.setCompanyEmail(companyEmail);
-        newcompany.setPhoneNumber(phoneNumber);
-        newcompany.setCompanyFax(companyFax);
-        newcompany.setPostalCode(postalCode);
+        newcompany.setCompany_Id(Company_Id);
+        newcompany.setCompany_name(Company_name);
+        newcompany.setPerson_name(Person_name);
+        newcompany.setCompany_address(Company_address);
+        newcompany.setPerson_email(Person_email);
+        newcompany.setPerson_phone(Person_phone);
         return newcompany;
     }
 
@@ -664,22 +625,12 @@ public class ReviewController
             boolean addResult = reviewModel.addNewCompany(newcompany);
             msg += addResult ? "成功创建" : "创建失败";
             request.setAttribute("msg", msg);
-            response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().print("<script language='javascript'>alert('管理员添加成功！')</script>");
-        } catch (IOException e)
+            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
+        } catch (IOException | ServletException e)
         {
             LOGGER.error("页面写出异常", e);
         }
-       // response.setHeader("refresh", "0;" + request.getContextPath() + "/review/operatorManage");
-        try
-        {
-            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
-        } catch (ServletException | IOException e)
-        {
-            LOGGER.error("请求转发异常", e);
-        }
     }
-
 
 
 }

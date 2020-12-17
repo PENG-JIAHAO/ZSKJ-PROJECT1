@@ -3,15 +3,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.isscollege.gdce.dao.*;
-import com.isscollege.gdce.domain.OperateRecord;
+import com.isscollege.gdce.domain.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.isscollege.gdce.domain.Advertisement;
-import com.isscollege.gdce.domain.Company;
-import com.isscollege.gdce.domain.News;
-import com.isscollege.gdce.domain.Product;
-import com.isscollege.gdce.domain.User;
 import com.isscollege.gdce.service.IReviewService;
 
 @Service
@@ -24,41 +19,16 @@ public class ReviewServiceImpl implements IReviewService
 	@Autowired
 	private ICompanyDao companyDao;
 	@Autowired
-	private IAdvertisementDao advertisementDao;
-	@Autowired
 	private INewsDao newsDao;
 	@Autowired
 	private IUserDao iUserDao;
-
+	@Autowired
+	private IEquipmentDao equipmentDao;
 	@Autowired
 	private IOperateRecordDao operateRecordDao;
 
 	public ReviewServiceImpl()
 	{
-	}
-
-	@Override
-	public List<Advertisement> queryAdvertisementByReviewState(int page, int size)
-	{
-		return advertisementDao.queryAdvertisementByReviewState(page, size);
-	}
-	@Override
-	public List<Advertisement> queryAdvertisementByReviewStatenotpass(int page, int size)
-	{
-		return advertisementDao.queryAdvertisementByReviewStatenotpass(page, size);
-	}
-
-	@Override
-	public void updateAdvertisementReviewState(int advertisementId, int curStats)
-	{
-		advertisementDao.updateAdvertisementReviewState(advertisementId, curStats);
-	}
-
-
-	@Override
-	public void updateAdvertisementRecordId(int adId, String recordId)
-	{
-		advertisementDao.updateAdvertisementRecordId(adId, recordId);
 	}
 
 
@@ -133,7 +103,6 @@ public class ReviewServiceImpl implements IReviewService
 
 	}
 
-
 	@Override
 	public List<News> queryNewsByReviewState(int page, int size)
 	{
@@ -171,10 +140,6 @@ public class ReviewServiceImpl implements IReviewService
 		return iUserDao.queryUserByCompanyId(companyId);
 	}
 
-	@Override
-	public List<Advertisement> queryAdvertisementByState(int reviewState, int page, int size) {
-		return advertisementDao.queryAdvertisementByState(reviewState,page,size);
-	}
 
 	@Override
 	public List<News> getAllNewsInfo() {
@@ -192,18 +157,8 @@ public class ReviewServiceImpl implements IReviewService
 	}
 
 	@Override
-	public List<Advertisement> getAllAdsInfo() {
-		return advertisementDao.getAllAdsInfo();
-	}
-
-	@Override
-	public List<Advertisement> getAdsInfoList(int reviewState, int offset, int limit, String sort, String order) {
-		return advertisementDao.getAdsInfoList(reviewState, offset, limit, sort, order);
-	}
-
-	@Override
 	public int getAdsInfoListTotal(int reviewState, String sort, String order) {
-		return advertisementDao.getAdsInfoListTotal(reviewState, sort, order);
+		return 0;
 	}
 
 
@@ -222,20 +177,41 @@ public class ReviewServiceImpl implements IReviewService
 		return newsDao.getNewsListTotal(reviewState,sort,order);
 	}
 
+	//浏览经销商表
 	@Override
-	public List<Company> getCompanyList(int reviewState, int offset, int limit, String sort, String order) {
-		return companyDao.getCompanyList(reviewState, offset, limit, sort, order);
+	public List<Company> getCompanyInfo(int groupNum, int offset, int limit, String sort, String order) {
+		return companyDao.getCompanyInfo(groupNum, offset, limit, sort, order);
+	}
+
+	//浏览经销商设备表
+	@Override
+	public List<equipment> getCompanyEquipment(String groupNum, int offset, int limit, String sort, String order) {
+		return equipmentDao.getCompanyEquipment(groupNum, offset, limit, sort, order);
+	}
+
+
+	@Override
+	public List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order) {
+		return companyDao.getAllCompanyInfo(offset, limit, sort, order);
 	}
 
 	@Override
-	public List<Company> getAllCompanyList(int offset, int limit, String sort, String order) {
-		return companyDao.getAllCompanyList(offset, limit, sort, order);
+	public int getCompanyListTotal(int groupNum, String sort, String order) {
+		return companyDao.getCompanyInfoListTotal(groupNum, sort, order);
 	}
 
+
 	@Override
-	public int getCompanyListTotal(int reviewState, String sort, String order) {
-		return companyDao.getCompanyInfoListTotal(reviewState, sort, order);
+	public int getCompanyEquipmentListTotal(String company_Id,String sort,String order){
+		return equipmentDao.getCompanyEquipmentListTotal(company_Id,sort,order);
 	}
+
+
+	@Override
+	public int getAllCompanyListTotal(String sort, String order) {
+		return companyDao.getAllCompanyInfoListTotal(sort, order);
+	}
+
 
 	@Override
 	public List<OperateRecord> selectOperateRecordByRecordID(String rid) {
@@ -279,10 +255,10 @@ public class ReviewServiceImpl implements IReviewService
 
 
 	@Override
-	public boolean deleteCompany(String companyId)
+	public boolean deleteCompany(String company_Id)
 	{
 		boolean result = false;
-		result = (companyDao.deleteCompany(companyId) != 0);
+		result = (companyDao.deleteCompany(company_Id) != 0);
 		return result;
 	}
 

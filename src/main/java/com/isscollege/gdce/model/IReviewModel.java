@@ -3,15 +3,6 @@ package com.isscollege.gdce.model;
 import java.util.List;
 
 import com.isscollege.gdce.domain.*;
-import com.isscollege.gdce.domain.Advertisement;
-import com.isscollege.gdce.domain.Company;
-import com.isscollege.gdce.domain.News;
-import com.isscollege.gdce.domain.OperateRecord;
-import com.isscollege.gdce.domain.Product;
-import com.isscollege.gdce.domain.User;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.ibatis.annotations.Param;
-import org.apache.jute.Record;
 
 public interface IReviewModel
 {
@@ -20,14 +11,6 @@ public interface IReviewModel
 	List<Product> queryProductByState(int reviewState,int page,int size);
 	void updateProductReviewState(int productId, int proStats, int curStats);
 	/*改动*/void updateProductRecordID(String recordId, int productId);
-
-	List<Advertisement> queryAdvertisementByReviewState(int page, int size);
-	List<Advertisement> queryAdvertisementByReviewStatenotpass(int page, int size);
-
-	List<Advertisement> queryAdvertisementByState(int reviewState,int page,int size);
-
-	void updateAdvertisementReviewState(int advertisementId, int curStats);
-	void updateAdvertisementRecordId(int adId, String recordId);
 
 	List<Company> queryCompanyByReviewState(int page, int size);
 	List<Company> queryCompanyByReviewStatenotpass(int page, int size);
@@ -52,10 +35,6 @@ public interface IReviewModel
 
 	List<Product> getAllProductInfo();
 
-	List<Advertisement> getAllAdsInfo();
-
-	List<Advertisement> getAdsInfoList(int reviewState,int offset, int limit, String sort, String order);
-
 	int getAdsInfoListTotal(int reviewState,String sort,String order);
 
 	List<Product> getProductList(int reviewState,int offset, int limit, String sort,  String order);
@@ -75,17 +54,30 @@ public interface IReviewModel
 
 	int getNewsListTotal(int reviewState,String sort,String order);
 
-	List<Company> getCompanyList(int reviewState,int offset, int limit, String sort, String order);
+	//浏览经销商表
+	List<Company> getCompanyInfo(int groupNum,int offset, int limit, String sort, String order);
 
-	List<Company> getAllCompanyList(int offset, int limit, String sort, String order);
+	//浏览经销商设备表
+	List<equipment> getCompanyEquipment(String company_Id, int offset, int limit, String sort, String order);
 
-	int getCompanyListTotal(int reviewState,String sort,String order);
+	//浏览所以经销商表
+	List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order);
+
+	//浏览经销商数量
+	int getCompanyListTotal(int groupNum,String sort,String order);
+
+	//浏览经销商数量
+	int getCompanyEquipmentTotal(String company_Id,String sort,String order);
+
+	//浏览所以经销商数量
+	int getAllCompanyListTotal(String sort,String order);
 
 	int addOperateRecord(OperateRecord vr);
 
 	News queryNewsByID(int Id);
 
-	boolean deleteCompany(String companyId);
+	boolean deleteCompany(String company_Id);
 
 	boolean addNewCompany(Company newcompany);
+
 }

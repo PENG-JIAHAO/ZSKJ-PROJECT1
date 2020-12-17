@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.isscollege.gdce.domain.Company;
 import com.isscollege.gdce.domain.Order;
 import com.isscollege.gdce.domain.Product;
-import com.isscollege.gdce.domain.WaybillInfo;
 import com.isscollege.gdce.model.IOrderModel;
 import com.isscollege.gdce.service.IOrderService;
 
@@ -100,11 +99,6 @@ public class OrderModelImpl implements IOrderModel
 		return service.queryCompanyIdByOrderId(orderId);
 	}
 
-	@Override
-	public boolean insertWayBill(WaybillInfo waybill)
-	{
-		return service.insertWayBill(waybill);
-	}
 
 	@Override
 	public String queryOrderIdById(String orderid)

@@ -262,7 +262,7 @@ public class RegisterController
         }
     }
 
-    // 用户完善信息
+/*    // 用户完善信息
     @RequestMapping("/addcompany")
     protected void doRegist(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("openLicensePath") MultipartFile openLicensePath, @RequestParam("taxRegisterCodePath") MultipartFile taxRegisterCodePath, @RequestParam("companyCodePath") MultipartFile companyCodePath, @RequestParam("bankAccountCodePath") MultipartFile bankAccountCodePath, @RequestParam("legalPersonCodePath") MultipartFile legalPersonCodePath, @RequestParam("bussionLicenseCodePath") MultipartFile bussionLicenseCodePath) throws ServletException, IOException
     {
@@ -375,9 +375,9 @@ public class RegisterController
             response.getWriter().print("<script language='javascript'>alert('恭喜您，企业信息已完善,请重新登录！')</script>");
             response.setHeader("refresh", "1;" + request.getContextPath() + "/jsp/user/login.jsp");
         }
-    }
+    }*/
 
-    // 二次更新的图片覆盖
+/*    // 二次更新的图片覆盖
     @SuppressWarnings("rawtypes")
     private Map updataUploadFile(Company company, String userName, MultipartFile[] multipartFiles)
     {
@@ -454,7 +454,7 @@ public class RegisterController
         });
 
         return map;
-    }
+    }*/
 
 
     // 保存遍历的文件
@@ -521,9 +521,9 @@ public class RegisterController
 
     }
 
-    /*
+/*    *//*
      * 保存用户上传企业资质复印件照片
-     */
+     *//*
     @SuppressWarnings("rawtypes")
     private Map saveUploadFile(Company company, String userName, String rootPath, MultipartFile[] multipartFiles)
     {
@@ -540,7 +540,7 @@ public class RegisterController
             registerModel.saveEnterpriseQualification(company, company.getCompanyId());
         }
         return map;
-    }
+    }*/
 
     // 管理员方法
     public User getManagerInfo(HttpServletRequest request, HttpServletResponse response)

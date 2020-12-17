@@ -22,33 +22,6 @@ public class ReviewModelImpl implements IReviewModel
 	{
 	}
 
-	@Override
-	public List<Advertisement> queryAdvertisementByReviewState(int page, int size)
-	{
-		return service.queryAdvertisementByReviewState(page, size);
-	}
-	@Override
-	public List<Advertisement> queryAdvertisementByReviewStatenotpass(int page, int size)
-	{
-		return service.queryAdvertisementByReviewStatenotpass(page, size);
-	}
-
-	@Override
-	public List<Advertisement> queryAdvertisementByState(int reviewState, int page, int size) {
-		return service.queryAdvertisementByState(reviewState,page,size);
-	}
-
-	@Override
-	public void updateAdvertisementReviewState(int advertisementId, int curStats)
-	{
-		service.updateAdvertisementReviewState(advertisementId, curStats);
-	}
-
-	@Override
-	public void updateAdvertisementRecordId(int adId, String recordId)
-	{
-		service.updateAdvertisementRecordId(adId,recordId);
-	}
 
 	@Override
 	public List<Company> queryCompanyByReviewState(int page, int size)
@@ -157,15 +130,6 @@ public class ReviewModelImpl implements IReviewModel
 		return service.getAllProductInfo();
 	}
 
-	@Override
-	public List<Advertisement> getAllAdsInfo() {
-		return service.getAllAdsInfo();
-	}
-
-	@Override
-	public List<Advertisement> getAdsInfoList(int reviewState,int offset, int limit, String sort, String order) {
-		return service.getAdsInfoList(reviewState,offset, limit, sort, order);
-	}
 
 	@Override
 	public int getAdsInfoListTotal(int reviewState, String sort, String order) {
@@ -187,20 +151,39 @@ public class ReviewModelImpl implements IReviewModel
 		return service.getNewsListTotal(reviewState, sort, order);
 	}
 
+	//浏览经销商表
 	@Override
-	public List<Company> getCompanyList(int reviewState,int offset, int limit, String sort, String order) {
-		return service.getCompanyList(reviewState,offset, limit, sort, order);
+	public List<Company> getCompanyInfo(int groupNum,int offset, int limit, String sort, String order) {
+		return service.getCompanyInfo(groupNum,offset, limit, sort, order);
+	}
+
+	//浏览经销商设备表
+	@Override
+	public List<equipment> getCompanyEquipment(String company_Id,int offset, int limit, String sort, String order) {
+		return service.getCompanyEquipment(company_Id,offset, limit, sort, order);
+	}
+
+
+	@Override
+	public List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order) {
+		return service.getAllCompanyInfo(offset, limit, sort, order);
 	}
 
 	@Override
-	public List<Company> getAllCompanyList(int offset, int limit, String sort, String order) {
-		return service.getAllCompanyList(offset, limit, sort, order);
+	public int getCompanyListTotal(int groupNum, String sort, String order) {
+		return service.getCompanyListTotal(groupNum, sort, order);
 	}
 
 	@Override
-	public int getCompanyListTotal(int reviewState, String sort, String order) {
-		return service.getCompanyListTotal(reviewState, sort, order);
+	public 	int getCompanyEquipmentTotal(String company_Id,String sort,String order){
+		return service.getCompanyEquipmentListTotal(company_Id,sort,order);
 	}
+
+	@Override
+	public int getAllCompanyListTotal(String sort, String order) {
+		return service.getAllCompanyListTotal(sort, order);
+	}
+
 
 	@Override
 	public int getProductInfoListTotal(int reviewState,String sort, String order) {
@@ -239,9 +222,9 @@ public class ReviewModelImpl implements IReviewModel
 	}
 
 	@Override
-	public boolean deleteCompany(String companyId)
+	public boolean deleteCompany(String company_Id)
 	{
-		return service.deleteCompany(companyId);
+		return service.deleteCompany(company_Id);
 	}
 
 	@Override

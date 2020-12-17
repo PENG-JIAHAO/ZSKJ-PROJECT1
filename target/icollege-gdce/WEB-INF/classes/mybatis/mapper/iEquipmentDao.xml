@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isscollege.gdce.dao.IEquipmentDao">
+
+	<!--浏览经销商设备表-->
+	<select id="getCompanyEquipment" resultType="com.isscollege.gdce.domain.equipment">
+		SELECT *
+		FROM equipment_info
+		WHERE company_Id=#{company_Id}
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+
+	<!--浏览经销商设备总数表-->
+	<select id="getCompanyEquipmentListTotal" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM equipment_info
+		WHERE company_Id=#{company_Id}
+		ORDER By ${sort} ${order}
+	</select>
+
+</mapper>
