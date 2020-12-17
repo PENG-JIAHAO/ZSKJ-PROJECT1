@@ -15,7 +15,7 @@
 
         function tabDefault() {
             $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
-            optTable(1,1);
+            shopTable(0,1);
         }
 
         function tabChange(){
@@ -24,13 +24,13 @@
                 $('.tabs-contents').find('#'+_id).addClass('active').siblings().removeClass('active');
                 switch (_id) {
                     case "tabContent1":
-                        optTable(1,1);
+                        shopTable(0,1);
                         break;
-                    case  "tabContent2":
-                        optTable(0,2);
+                    case "tabContent2":
+                        shopTable(1,2);
                         break;
                     case "tabContent3":
-                        optTable(2,3);
+                        shopTable(2,3);
                         break;
                 }
             });
@@ -67,7 +67,7 @@
     <%--<c:set var="clientuser" target="${User }" value="${requestScope.user}"></c:set>--%>
         <%--分组按钮--%>
         <ul id="checktab" class="nav nav-pills">
-            <li class="active" data-id="tabContent1"><a href="#"  onclick="tabChange()" data-toggle="tab">设备使用商分组1</a></li>
+            <li class="active" data-id="tabContent1"><a href="#" onclick="tabChange()" data-toggle="tab">设备使用商分组1</a></li>
             <li data-id="tabContent2"><a href="#"  onclick="tabChange()" data-toggle="tab" >设备使用商分组2</a></li>
             <li data-id="tabContent3"><a href="#" onclick="tabChange()" data-toggle="tab">设备使用商分组3</a></li>
         </ul>
@@ -77,13 +77,13 @@
         <!--主界面(3个表格)-->
         <div class="tabs-contents">
             <div class="tab-content" id="tabContent1" style="margin:-10px 10px 5px">
-                <table class="table table-hover" id="mftTab1"></table>
+                <table class="table table-hover" id="shopTab1"></table>
             </div>
-            <div class="tab-content" id="tabContent2">
-                <table class="table table-hover" id="mftTab2"></table>
+            <div class="tab-content" id="tabContent2" style="margin:-10px 10px 5px">
+                <table class="table table-hover" id="shopTab2"></table>
             </div>
-            <div class="tab-content" id="tabContent3">
-                <table class="table table-hover" id="mftTab3"></table>
+            <div class="tab-content" id="tabContent3" style="margin:-10px 10px 5px">
+                <table class="table table-hover" id="shopTab3"></table>
             </div>
         </div>
 
@@ -211,10 +211,10 @@
     <script>
 
         <%--点击设备按钮--%>
-        function getEquipment(reviewState,tabNum) {
+        function getEquipment(shopId,tabNum) {
             $('#equipmentListTab'+tabNum).bootstrapTable('destroy');
             $('#equipmentListTab'+tabNum).bootstrapTable({
-                url:'${context}/review/getDataCompany?reviewState='+reviewState,
+                url:'${context}/review/getShopEquipment?shopId='+shopId,
                 striped: true,
                 sortable: true,
                 pagination: true,
@@ -242,13 +242,13 @@
 
                 },
                 columns: [{
-                    field: 'companyId',
+                    field: 'equipment_id',
                     title: '设备编号',
                     valign: 'middle',
                     align: 'center'
                 },{
-                    field:'reviewState',
-                    title:'状态',
+                    field:'shop_id',
+                    title:'店铺编号',
                     sortable: true,
                     order:'asc',
                     valign: 'middle',
@@ -288,9 +288,9 @@
         }
 
         <%--主页面--%>
-        function optTable(reviewState,tabNum){
-            $("#mftTab"+tabNum).bootstrapTable({
-                url:'${context}/review/getDataCompany?reviewState='+reviewState,
+        function shopTable(groupNum,tabNum){
+            $("#shopTab"+tabNum).bootstrapTable({
+                url:'${context}/review/getShopInfo?groupNum='+groupNum,
                 striped: true,
                 sortable: true,
                 pagination: true,
@@ -328,58 +328,38 @@
                 onLoadError: function (status) {
 
                 },
-                onPageChange: function (number, size) {
-                    $('#adsTab'+tabNum).bootstrapTable('removeAll')//页面改变时清空表数据
-                },
                 columns:[{
-                    field:'companyName',
-                    title:'统一简称',
+                    field:'shop_name',
+                    title:'店铺简称',
                     sortable: true,
                     order:'asc',
                     valign: 'middle',
                     align: 'center'
                 },{
-                    field: 'companyId',
-                    title: '运营编号',
+                    field: 'shop_id',
+                    title: '店铺编号',
                     valign: 'middle',
                     align: 'center'
                 },{
-                    field: 'phoneNumber',
-                    title: '电话',
+                    field: 'person_name',
+                    title: '联系人',
                     valign: 'middle',
                     align: 'center'
                 }, {
-                    field: 'legalPerson',
-                    title: '联系人',
+                    field: 'person_phone',
+                    title: '联系人电话',
                     valign: 'middle',
                     align:'center'
-                },{
-                    field: 'reviewState',
-                    title: '在线数量',
-                    valign: 'middle',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        if (row.reviewState===1){
-                            return '在线';
-                        }else if (row.reviewState===3){
-                            return '欠费';
-                        }else if (row.reviewState===2){
-                            return '欠费'
-                        }else if (row.reviewState===0){
-                            return '离线'
-                        }
-                    }
                 },{
                     field: 'operate',
                     title: '操作',
                     valign: 'middle',
                     align: 'center',
                     formatter: function (value, row, index){
-                        var id=row.id;
-                        var path=row.adsImgPath;
-                        if (row.reviewState===1){
+                        var id=row["shop_id"];
+                        if (tabNum===1){
                             return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo1" onclick=getEquipment(1,1)>设备</button>' +
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo1" onclick=getEquipment('+id+',1)>设备</button>' +
                                 ' <div class="modal fade" id="ShowInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                                 '   <div class="modal-dialog">\n' +
                                 '       <div class="modal-content">\n' +
@@ -397,9 +377,9 @@
                                 '   </div><!-- /.modal-dialog -->\n' +
                                 '</div>\n';
                         }
-                        else if (row.reviewState===0){
+                        else if (tabNum===2){
                             return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo2" onclick=getEquipment(1,2)>设备</button>' +
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo2" onclick=getEquipment('+id+',2)>设备</button>' +
                                 ' <div class="modal fade" id="ShowReviewInfo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                                 '   <div class="modal-dialog">\n' +
                                 '       <div class="modal-content">\n' +
@@ -419,7 +399,7 @@
                         }
                         else{
                             return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo3" onclick=getEquipment(1,3)>设备</button>' +
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo3" onclick=getEquipment('+id+',3)>设备</button>' +
                                 ' <div class="modal fade" id="ShowReviewInfo3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                                 '   <div class="modal-dialog">\n' +
                                 '       <div class="modal-content">\n' +
@@ -446,12 +426,13 @@
         }
         //父子表(子表)
         function ExpandRow(index, row, $detail) {
+            var shopId=row["shop_id"];
             var id = row.id;
             var childname = "plan_" + id;
             var equipmentListTab = $detail.html('<table id="' + childname + '"></table>').find('table');
             $(equipmentListTab).bootstrapTable('destroy');
             $(equipmentListTab).bootstrapTable({
-                url:'${context}/review/getDataCompany?reviewState='+1,
+                url:'${context}/review/getShopEquipment?shopId='+shopId,
                 striped: true,
                 sortable: true,
                 pagination: true,
@@ -476,13 +457,13 @@
 
                 },
                 columns: [{
-                    field: 'companyId',
+                    field: 'equipment_id',
                     title: '设备编号',
                     valign: 'middle',
                     align: 'center'
                 },{
-                    field:'reviewState',
-                    title:'状态',
+                    field:'shop_id',
+                    title:'店铺编码',
                     sortable: true,
                     order:'asc',
                     valign: 'middle',

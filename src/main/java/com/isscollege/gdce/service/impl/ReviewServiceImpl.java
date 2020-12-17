@@ -182,36 +182,47 @@ public class ReviewServiceImpl implements IReviewService
 	public List<Company> getCompanyInfo(int groupNum, int offset, int limit, String sort, String order) {
 		return companyDao.getCompanyInfo(groupNum, offset, limit, sort, order);
 	}
-
 	//浏览经销商设备表
 	@Override
 	public List<equipment> getCompanyEquipment(String groupNum, int offset, int limit, String sort, String order) {
 		return equipmentDao.getCompanyEquipment(groupNum, offset, limit, sort, order);
 	}
-
-
+	//浏览所有经销商表
 	@Override
 	public List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order) {
 		return companyDao.getAllCompanyInfo(offset, limit, sort, order);
 	}
-
+	//浏览经销商数量
 	@Override
 	public int getCompanyListTotal(int groupNum, String sort, String order) {
 		return companyDao.getCompanyInfoListTotal(groupNum, sort, order);
 	}
-
-
+	//浏览经销商设备数量
 	@Override
 	public int getCompanyEquipmentListTotal(String company_Id,String sort,String order){
 		return equipmentDao.getCompanyEquipmentListTotal(company_Id,sort,order);
 	}
-
-
+	//浏览所有经销商数量
 	@Override
 	public int getAllCompanyListTotal(String sort, String order) {
 		return companyDao.getAllCompanyInfoListTotal(sort, order);
 	}
-
+	//删除经销商
+	@Override
+	public boolean deleteCompany(String company_Id)
+	{
+		boolean result = false;
+		result = (companyDao.deleteCompany(company_Id) != 0);
+		return result;
+	}
+	//新增经销商
+	@Override
+	public boolean addNewCompany(Company newcompany)
+	{
+		boolean result = false;
+		result = (companyDao.addNewCompany(newcompany) != 0);
+		return result;
+	}
 
 	@Override
 	public List<OperateRecord> selectOperateRecordByRecordID(String rid) {
@@ -253,20 +264,54 @@ public class ReviewServiceImpl implements IReviewService
 		return newsDao.queryNewsByID(Id);
 	}
 
-
+	//浏览设备使用商表
 	@Override
-	public boolean deleteCompany(String company_Id)
+	public List<Shop> getShopInfo(int groupNum, int offset, int limit, String sort, String order) {
+		return companyDao.getShopInfo(groupNum, offset, limit, sort, order);
+	}
+	//浏览设备使用商设备表
+	@Override
+	public List<equipment> getShopEquipment(String groupNum, int offset, int limit, String sort, String order) {
+		return equipmentDao.getShopEquipment(groupNum, offset, limit, sort, order);
+	}
+	//浏览所有设备使用商表
+	@Override
+	public List<Shop> getAllShopInfo(int offset, int limit, String sort, String order) {
+		return companyDao.getAllShopInfo(offset, limit, sort, order);
+	}
+	//浏览设备使用商数量
+	@Override
+	public int getShopListTotal(int groupNum, String sort, String order) {
+		return companyDao.getShopInfoListTotal(groupNum, sort, order);
+	}
+	//浏览设备使用商设备数量
+	@Override
+	public int getShopEquipmentListTotal(String shop_id,String sort,String order){
+		return equipmentDao.getShopEquipmentListTotal(shop_id,sort,order);
+	}
+	//浏览所有设备使用商数量
+	@Override
+	public int getAllShopListTotal(String sort, String order) {
+		return companyDao.getAllShopInfoListTotal(sort, order);
+	}
+	//删除设备使用商
+	@Override
+	public boolean deleteShop(String shop_id)
 	{
 		boolean result = false;
-		result = (companyDao.deleteCompany(company_Id) != 0);
+		result = (companyDao.deleteShop(shop_id) != 0);
+		return result;
+	}
+	//新增经销商
+	@Override
+	public boolean addNewShop(Shop newshop)
+	{
+		boolean result = false;
+		result = (companyDao.addNewShop(newshop) != 0);
 		return result;
 	}
 
-	@Override
-	public boolean addNewCompany(Company newcompany)
-	{
-		boolean result = false;
-		result = (companyDao.addNewCompany(newcompany) != 0);
-		return result;
-	}
+
+
+
 }

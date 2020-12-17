@@ -17,7 +17,7 @@
 
             function tabDefault() {
                 $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
-                allEquipmentListTab();
+                allShopListTab();
             }
 
             function OperatorInfo(beforeId,afterId) {
@@ -34,17 +34,17 @@
             //删除按钮
             function deleteSelects()
             {
-                var obj=$('#allEquipmentListTab');
-                var companyId = $.map(obj.bootstrapTable('getSelections'), function (row) {
-                    return row.companyId;
+                var obj=$('#allShopListTab');
+                var shop_id = $.map(obj.bootstrapTable('getSelections'), function (row) {
+                    return  row.shop_id;
                 });
-                if(companyId.length==0)
+                if(shop_id.length==0)
                 {
                     alert("请选择删除项");
                 }else{
                     var r=confirm("是否确认删除？");
                     if(r==true){
-                        window.location.href="${context}/review/deleteCompany?companyId="+companyId;
+                        window.location.href="${context}/review/deleteShop?shop_id="+shop_id;
                     }
                 }
             }
@@ -67,7 +67,7 @@
                 <button type="button" class="btn btn-default" onclick="deleteSelects()">删除</button>
             </div>
             <div class="tab-content" id="tabContent1" style="margin:-10px 10px 5px">
-                <table class="table table-hover" id="allEquipmentListTab">
+                <table class="table table-hover" id="allShopListTab">
                 </table>
             </div>
         </div>
@@ -146,7 +146,7 @@
                                 <td></td>
                                 <td align="center" class="child2-button" >
                                     <label>
-                                        <input name="reset" id = "btnReset" class="btn btn-default" type="reset" value="返回">&nbsp;&nbsp;&nbsp;
+                                        <input name="reset" id = "btnReset" class="btn btn-default" data-dismiss="modal" type="reset" value="返回">&nbsp;&nbsp;&nbsp;
                                     </label>
                                 </td>
                             </tr>
@@ -161,9 +161,9 @@
     </body>
 
     <script>
-        function allEquipmentListTab(){
-        $("#allEquipmentListTab").bootstrapTable({
-            url:'${context}/review/getAllDataCompany',
+        function allShopListTab(){
+        $("#allShopListTab").bootstrapTable({
+            url:'${context}/review/getAllShopInfo',
             striped: true,
             sortable: true,
             pagination: true,
@@ -204,43 +204,27 @@
             columns:[{
                 checkbox: true
             },{
-                field:'companyName',
-                title:'统一简称',
+                field:'shop_name',
+                title:'店铺简称',
                 sortable: true,
                 order:'asc',
                 valign: 'middle',
                 align: 'center'
             },{
-                field: 'companyId',
-                title: '运营编号',
+                field: 'shop_id',
+                title: '店铺编号',
                 valign: 'middle',
                 align: 'center'
             },{
-                field: 'accountantName',
+                field: 'person_name',
                 title: '联系人',
                 valign: 'middle',
                 align: 'center'
             }, {
-                field: 'legalPerson',
-                title: '法人',
+                field: 'person_phone',
+                title: '联系人电话',
                 valign: 'middle',
                 align:'center'
-            },{
-                field: 'reviewState',
-                title: '在线数量',
-                valign: 'middle',
-                align: 'center',
-                formatter: function (value, row, index) {
-                    if (row.reviewState===1){
-                        return '在线';
-                    }else if (row.reviewState===3){
-                        return '欠费';
-                    }else if (row.reviewState===2){
-                        return '欠费'
-                    }else if (row.reviewState===0){
-                        return '离线'
-                    }
-                }
             }]
         });
     }

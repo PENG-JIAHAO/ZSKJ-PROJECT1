@@ -22,7 +22,6 @@ public class ReviewModelImpl implements IReviewModel
 	{
 	}
 
-
 	@Override
 	public List<Company> queryCompanyByReviewState(int page, int size)
 	{
@@ -156,34 +155,43 @@ public class ReviewModelImpl implements IReviewModel
 	public List<Company> getCompanyInfo(int groupNum,int offset, int limit, String sort, String order) {
 		return service.getCompanyInfo(groupNum,offset, limit, sort, order);
 	}
-
 	//浏览经销商设备表
 	@Override
 	public List<equipment> getCompanyEquipment(String company_Id,int offset, int limit, String sort, String order) {
 		return service.getCompanyEquipment(company_Id,offset, limit, sort, order);
 	}
-
-
+	//浏览所有经销商表
 	@Override
 	public List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order) {
 		return service.getAllCompanyInfo(offset, limit, sort, order);
 	}
-
+	//浏览经销商数量
 	@Override
 	public int getCompanyListTotal(int groupNum, String sort, String order) {
 		return service.getCompanyListTotal(groupNum, sort, order);
 	}
-
+	//浏览经销商设备数量
 	@Override
 	public 	int getCompanyEquipmentTotal(String company_Id,String sort,String order){
 		return service.getCompanyEquipmentListTotal(company_Id,sort,order);
 	}
-
+	//浏览所有经销商数量
 	@Override
 	public int getAllCompanyListTotal(String sort, String order) {
 		return service.getAllCompanyListTotal(sort, order);
 	}
-
+	//删除经销商
+	@Override
+	public boolean deleteCompany(String company_Id)
+	{
+		return service.deleteCompany(company_Id);
+	}
+	//新增经销商
+	@Override
+	public boolean addNewCompany(Company newcompany)
+	{
+		return service.addNewCompany(newcompany);
+	}
 
 	@Override
 	public int getProductInfoListTotal(int reviewState,String sort, String order) {
@@ -221,15 +229,51 @@ public class ReviewModelImpl implements IReviewModel
 		return service.queryNewsByID(Id);
 	}
 
+
+
+	//浏览设备使用商表
 	@Override
-	public boolean deleteCompany(String company_Id)
+	public List<Shop> getShopInfo(int groupNum,int offset, int limit, String sort, String order) {
+		return service.getShopInfo(groupNum,offset, limit, sort, order);
+	}
+	//浏览设备使用商设备表
+	@Override
+	public List<equipment> getShopEquipment(String shop_id,int offset, int limit, String sort, String order) {
+		return service.getShopEquipment(shop_id,offset, limit, sort, order);
+	}
+	//浏览所有设备使用商表
+	@Override
+	public List<Shop> getAllShopInfo(int offset, int limit, String sort, String order) {
+		return service.getAllShopInfo(offset, limit, sort, order);
+	}
+	//浏览设备使用商数量
+	@Override
+	public int getShopListTotal(int groupNum, String sort, String order) {
+		return service.getShopListTotal(groupNum, sort, order);
+	}
+	//浏览设备使用商设备数量
+	@Override
+	public 	int getShopEquipmentTotal(String company_Id,String sort,String order){
+		return service.getShopEquipmentListTotal(company_Id,sort,order);
+	}
+	//浏览所有设备使用商数量
+	@Override
+	public int getAllShopListTotal(String sort, String order) {
+		return service.getAllShopListTotal(sort, order);
+	}
+	//删除设备使用商
+	@Override
+	public boolean deleteShop(String shop_id)
 	{
-		return service.deleteCompany(company_Id);
+		return service.deleteShop(shop_id);
+	}
+	//新增设备使用商
+	@Override
+	public boolean addNewShop(Shop newShop)
+	{
+		return service.addNewShop(newShop);
 	}
 
-	@Override
-	public boolean addNewCompany(Company newcompany)
-	{
-		return service.addNewCompany(newcompany);
-	}
+
+
 }

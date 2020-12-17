@@ -397,8 +397,6 @@ public class ReviewController
 	}
 */
 
-
-
 /*    // 查询company对象方法
     @RequestMapping("/equipmentDetails")
     private String equipmentDetails(String beforeId, String afterId, Model model, HttpServletRequest request)
@@ -567,8 +565,6 @@ public class ReviewController
         }
     }
 
-
-
     @RequestMapping("/")
     public void reView(Model model, HttpServletRequest request, HttpServletResponse response)
     {
@@ -630,7 +626,90 @@ public class ReviewController
     }
 
 
+    //浏览设备使用商表
+    @RequestMapping("/getShopInfo")
+    @ResponseBody
+    public Map<String, Object> getShopInfo(@RequestParam(value = "groupNum", defaultValue = "0") Integer groupNum, @RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getShopInfo(groupNum,offset, limit, sort, order));
+        map.put("total", reviewModel.getShopListTotal(groupNum, sort, order));
+        return map;
+    }
 
+    //浏览设备使用商设备信息
+    @RequestMapping("/getShopEquipment")
+    @ResponseBody
+    public Map<String, Object> getShopEquipment(@RequestParam(value = "shopId", defaultValue = "0") String shopId, int offset, int limit, String sort, String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getShopEquipment(shopId, offset, limit, sort, order));
+        map.put("total", reviewModel.getShopEquipmentTotal(shopId, sort, order));
+        return map;
+    }
+
+    //浏览所以设备使用商信息
+    @RequestMapping("/getAllShopInfo")
+    @ResponseBody
+    public Map<String, Object> getAllShopInfo(@RequestParam(value = "offset", required = false) int offset, @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getAllShopInfo(offset, limit, sort, order));
+        map.put("total", reviewModel.getAllShopListTotal(sort, order));
+        return map;
+    }
+
+    //删除设备使用商
+    @RequestMapping("/deleteShop")
+    public void deleteShop(HttpServletRequest request, HttpServletResponse response)
+    {
+        String shop_id = request.getParameter("shop_id");
+        String[] array = shop_id.split(",");
+        for(int i=0;i<array.length;i++)
+        {
+            boolean result = reviewModel.deleteShop(array[i]);
+        }
+        try
+        {
+            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
+        } catch (ServletException | IOException e)
+        {
+            LOGGER.error("请求转发异常", e);
+        }
+    }
+    //新增设备使用商
+    public Shop getShopInfo(HttpServletRequest request, HttpServletResponse response)
+    {
+        String shop_id = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("shop_id"), "未填 ");
+        String shop_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("shop_name"), "未填 ");
+        String Person_name = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonName"), "未填 ");
+        String shop_address = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("shop_address"), "未填 ");
+        String Person_email = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonEmail"), "未填 ");
+        String Person_phone = org.apache.commons.lang3.StringUtils.defaultString(request.getParameter("PersonPhone"), "未填 ");
+        Shop newshop = new Shop();
+        newshop.setShop_id(shop_id);
+        newshop.setShop_name(shop_name);
+        newshop.setPerson_name(Person_name);
+        newshop.setShop_address(shop_address);
+        newshop.setPerson_email(Person_email);
+        newshop.setPerson_phone(Person_phone);
+        return newshop;
+    }
+    @RequestMapping("/addShop")
+    public void addShop(HttpServletRequest request, HttpServletResponse response)
+    {
+        try
+        {
+            Shop newshop = getShopInfo(request, response);
+            boolean addResult = reviewModel.addNewShop(newshop);
+            msg += addResult ? "成功创建" : "创建失败";
+            request.setAttribute("msg", msg);
+            request.getRequestDispatcher("/review/operatorManage").forward(request, response);
+        } catch (IOException | ServletException e)
+        {
+            LOGGER.error("页面写出异常", e);
+        }
+    }
 
 
 }

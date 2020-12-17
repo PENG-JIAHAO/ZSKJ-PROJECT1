@@ -15,7 +15,7 @@
         <script type="text/javascript">
             function tabDefault() {
                 $('.tabs-contents').find('#tabContent1').addClass('active').siblings().removeClass('active');
-                allCompanyListTab(0);
+                allCompanyListTab();
             }
 
             function deleteSelects()

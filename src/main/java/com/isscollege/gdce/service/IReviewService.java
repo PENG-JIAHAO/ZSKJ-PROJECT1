@@ -60,21 +60,21 @@ public interface IReviewService
 
 	//浏览经销商表
 	List<Company> getCompanyInfo(int groupNum,int offset, int limit, String sort, String order);
-
 	//浏览经销商设备表
 	List<equipment> getCompanyEquipment(String company_Id,int offset, int limit, String sort, String order);
-
 	//浏览所以经销商表
 	List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order);
-
 	//浏览经销商数量
 	int getCompanyListTotal(int groupNum,String sort,String order);
-
 	//浏览经销商设备数量
 	int getCompanyEquipmentListTotal(String company_Id,String sort,String order);
-
 	//浏览所以经销商设备数量
 	int getAllCompanyListTotal(String sort,String order);
+	//删除经销商
+	boolean deleteCompany(String company_Id);
+	//新增经销商
+	boolean addNewCompany(Company newcompany);
+
 
 	//获取记录信息
 	List<OperateRecord> selectOperateRecordByRecordID(String rid);
@@ -89,8 +89,24 @@ public interface IReviewService
 
 	News queryNewsByID(int Id);
 
-	boolean deleteCompany(String company_Id);
+	//浏览经销商表
+	List<Shop> getShopInfo(int groupNum,int offset, int limit, String sort, String order);
+	//浏览经销商设备表
+	List<equipment> getShopEquipment(String shop_id,int offset, int limit, String sort, String order);
+	//浏览所以经销商表
+	List<Shop> getAllShopInfo(int offset, int limit, String sort, String order);
+	//浏览经销商数量
+	int getShopListTotal(int groupNum,String sort,String order);
+	//浏览经销商设备数量
+	int getShopEquipmentListTotal(String shop_id,String sort,String order);
+	//浏览所以经销商设备数量
+	int getAllShopListTotal(String sort,String order);
+	//删除经销商
+	boolean deleteShop(String shop_id);
+	//新增经销商
+	boolean addNewShop(Shop newshop);
 
-	boolean addNewCompany(Company newcompany);
+
+
 
 }

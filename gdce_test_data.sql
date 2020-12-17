@@ -205,9 +205,7 @@ CREATE TABLE IF NOT EXISTS `equipment_use_info` (
   `shop_id` VARCHAR(20) NOT NULL COMMENT '店铺编号',
   `company_Id` VARCHAR(20) NOT NULL COMMENT '公司（经销商）编号',
   PRIMARY KEY (`equipment_id`),
-  UNIQUE INDEX(`id`),
-  FOREIGN KEY (`shop_id`) REFERENCES `shop_info` (`shop_id`),
-  FOREIGN KEY (`company_Id`) REFERENCES `company_info` (`company_Id`))
+  UNIQUE INDEX(`id`))
 ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 insert  into `equipment_use_info`(`id`,`company_Id`,`used_first_time`,`used_last_time`,`login_state`,`lock_state`,`equipment_notpay_number`,`equipment_id`,`shop_id`,
@@ -389,6 +387,7 @@ CREATE TABLE IF NOT EXISTS `shop_info` (
   `shop_name` VARCHAR(40) NOT NULL COMMENT '店铺名称',
   `shop_address` VARCHAR(50) NOT NULL COMMENT '店铺地址',
   `person_name` VARCHAR(10) NOT NULL COMMENT '联系人姓名',
+  `groupNum` INT NULL DEFAULT 0 COMMENT  '分组',
   `person_phone` VARCHAR(20) NOT NULL COMMENT '联系人电话',
   `person_email` VARCHAR(20) NOT NULL COMMENT '联系人邮箱',
   `auto_urged_state` TINYINT(1) NULL DEFAULT 0 COMMENT '自动催缴状态（true-是 false-否）',
@@ -402,15 +401,15 @@ CREATE TABLE IF NOT EXISTS `shop_info` (
   UNIQUE INDEX (`id`))
 ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-insert  into `shop_info`(`id`,`company_Id`,`shop_name`,`shop_address`,`person_name`,`person_phone`,`person_email`,`auto_urged_state`,`auto_lock_state`,`auto_urged_times`,`auto_lock_times`,`shop_id`) values
-(1,'91130302MA07RJW223','阿里巴巴4S店','广东省东莞市东城区旗峰公园','马云','12345678910','123456@163.com',0,0,0,0,'85737897YHHG134'),
-(2,'911308037825919000','腾讯游戏4S店','广东省东莞市东城区旗峰公园','马化腾','12345678910','123456@163.com',0,0,0,0,'87965234KJHG124'),
-(3,'911302435EGGR13414','华为手机4S店','广东省东莞市东城区旗峰公园','AAA','12345678910','123456@163.com',0,0,0,0,'JHG12475693478'),
-(4,'911308012345355232','中盛(东莞)4S店','广东省东莞市东城区旗峰公园','BBB','12345678910','123456@163.com',0,0,0,0,'HH87636536GGFH34'),
-(5,'566387738883466626','格力科技洗车行','广东省东莞市东城区旗峰公园','CCC','12345678910','123456@163.com',0,0,0,0,'789845254532DFG2'),
-(6,'214535325GDGAG4355','百度网络洗车行','广东省东莞市东城区旗峰公园','DDD','12345678910','123456@163.com',0,0,0,0,'SDFHJ12343254546'),
-(7,'75766646747BBH2412','谷歌网络洗车行','广东省东莞市东城区旗峰公园','EEE','12345678910','123456@163.com',0,0,0,0,'4678678465RRE234'),
-(8,'88455757147HHGSW12','小米科技洗车行','广东省东莞市东城区旗峰公园','FFF','12345678910','123456@163.com',0,0,0,0,'WETRGT7778897987');
+insert  into `shop_info`(`id`,`company_Id`,`shop_name`,`shop_address`,`person_name`,`person_phone`,`person_email`,`auto_urged_state`,`auto_lock_state`,`auto_urged_times`,`auto_lock_times`,`shop_id`,`groupNum`) values
+(1,'91130302MA07RJW223','阿里巴巴4S店','广东省东莞市东城区旗峰公园','马云','12345678910','123456@163.com',0,0,0,0,'85737897YHHG134',0),
+(2,'911308037825919000','腾讯游戏4S店','广东省东莞市东城区旗峰公园','马化腾','12345678910','123456@163.com',0,0,0,0,'87965234KJHG124',0),
+(3,'911302435EGGR13414','华为手机4S店','广东省东莞市东城区旗峰公园','AAA','12345678910','123456@163.com',0,0,0,0,'JHG12475693478',0),
+(4,'911308012345355232','中盛(东莞)4S店','广东省东莞市东城区旗峰公园','BBB','12345678910','123456@163.com',0,0,0,0,'HH87636536GGFH34',0),
+(5,'566387738883466626','格力科技洗车行','广东省东莞市东城区旗峰公园','CCC','12345678910','123456@163.com',0,0,0,0,'789845254532DFG2',1),
+(6,'214535325GDGAG4355','百度网络洗车行','广东省东莞市东城区旗峰公园','DDD','12345678910','123456@163.com',0,0,0,0,'SDFHJ12343254546',1),
+(7,'75766646747BBH2412','谷歌网络洗车行','广东省东莞市东城区旗峰公园','EEE','12345678910','123456@163.com',0,0,0,0,'4678678465RRE234',2),
+(8,'88455757147HHGSW12','小米科技洗车行','广东省东莞市东城区旗峰公园','FFF','12345678910','123456@163.com',0,0,0,0,'WETRGT7778897987',2);
 
 -- -----------------------------------------------------
 -- Table `ZSKJ-PROJECT1-DB-TEST`.`[设备基础信息]equipment_info`

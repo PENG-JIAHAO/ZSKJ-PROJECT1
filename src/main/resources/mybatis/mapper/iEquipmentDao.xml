@@ -19,4 +19,22 @@
 		ORDER By ${sort} ${order}
 	</select>
 
+	<!--浏览设备使用商设备表-->
+	<select id="getShopEquipment" resultType="com.isscollege.gdce.domain.equipment">
+		SELECT *
+		FROM equipment_info
+		WHERE shop_id=#{shop_id}
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+
+	<!--浏览设备使用商设备总数表-->
+	<select id="getShopEquipmentListTotal" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM equipment_info
+		WHERE shop_id=#{shop_id}
+		ORDER By ${sort} ${order}
+	</select>
+
+
 </mapper>
