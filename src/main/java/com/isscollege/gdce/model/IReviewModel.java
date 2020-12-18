@@ -58,14 +58,18 @@ public interface IReviewModel
 	List<Company> getCompanyInfo(int groupNum,int offset, int limit, String sort, String order);
 	//浏览经销商设备表
 	List<equipment> getCompanyEquipment(String company_Id, int offset, int limit, String sort, String order);
+	//浏览所有设备表
+	List<equipment> getAllEquipment(int offset, int limit, String sort, String order);
 	//浏览所以经销商表
 	List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order);
 	//浏览经销商数量
 	int getCompanyListTotal(int groupNum,String sort,String order);
-	//浏览经销商数量
+	//浏览经销商设备数量
 	int getCompanyEquipmentTotal(String company_Id,String sort,String order);
 	//浏览所有经销商数量
 	int getAllCompanyListTotal(String sort,String order);
+	//浏览所有设备数量
+	int getAllEquipmentTotal(String sort,String order);
 	//删除经销商
 	boolean deleteCompany(String company_Id);
 	//新增经销商

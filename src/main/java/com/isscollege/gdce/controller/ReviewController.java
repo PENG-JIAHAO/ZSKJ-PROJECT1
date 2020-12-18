@@ -157,6 +157,36 @@ public class ReviewController
         return "review/manufacturersManage";
     }
 
+    @RequestMapping("/mEquipmentManage")
+    public String mEquipmentManage(Model model, HttpServletRequest request) throws ServletException, IOException
+    {
+        page = 1;
+        size = 6;
+        if (request.getParameter("page") != null)
+        {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        request.setAttribute("page", page);
+        List<Company> companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+        if (companys.size() == 0 && page != 1)
+        {
+            page--;
+            model.addAttribute("page", page);
+            companys = reviewModel.queryCompanyByReviewState((page - 1) * 10, size);
+
+        }
+        if (request.getAttribute("totalPage") == null)
+        {
+            int totalSize = reviewModel.queryCompanyByReviewState(0, 10000).size();
+            model.addAttribute("totalPage", totalSize % 10 == 0 ? totalSize / 10 : totalSize / 10 + 1);
+        }
+        model.addAttribute("mEquipmentManage", companys);
+        model.addAttribute("pageShow", "mEquipmentManage");
+
+        return "review/mEquipmentManage";
+    }
+
+
     //浏览经销商表
     @RequestMapping("/getCompanyInfo")
     @ResponseBody
@@ -176,6 +206,17 @@ public class ReviewController
         Map<String, Object> map = new HashMap<>();
         map.put("rows", reviewModel.getCompanyEquipment(companyId, offset, limit, sort, order));
         map.put("total", reviewModel.getCompanyEquipmentTotal(companyId, sort, order));
+        return map;
+    }
+
+    //浏览所有设备信息
+    @RequestMapping("/getAllEquipment")
+    @ResponseBody
+    public Map<String, Object> getAllEquipment(@RequestParam(value = "offset", required = false) int offset,  @RequestParam(value = "limit", required = false) int limit, @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "order", required = false) String order)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rows", reviewModel.getAllEquipment(offset, limit, sort, order));
+        map.put("total", reviewModel.getAllEquipmentTotal(sort, order));
         return map;
     }
 

@@ -184,8 +184,13 @@ public class ReviewServiceImpl implements IReviewService
 	}
 	//浏览经销商设备表
 	@Override
-	public List<equipment> getCompanyEquipment(String groupNum, int offset, int limit, String sort, String order) {
-		return equipmentDao.getCompanyEquipment(groupNum, offset, limit, sort, order);
+	public List<equipment> getCompanyEquipment(String company_Id, int offset, int limit, String sort, String order) {
+		return equipmentDao.getCompanyEquipment(company_Id, offset, limit, sort, order);
+	}
+	//浏览所有设备表
+	@Override
+	public List<equipment> getAllEquipment(int offset, int limit, String sort, String order) {
+		return equipmentDao.getAllEquipment(offset, limit, sort, order);
 	}
 	//浏览所有经销商表
 	@Override
@@ -201,6 +206,11 @@ public class ReviewServiceImpl implements IReviewService
 	@Override
 	public int getCompanyEquipmentListTotal(String company_Id,String sort,String order){
 		return equipmentDao.getCompanyEquipmentListTotal(company_Id,sort,order);
+	}
+	//浏览所有设备数量
+	@Override
+	public int getAllEquipmentListTotal(String sort,String order){
+		return equipmentDao.getAllEquipmentListTotal(sort,order);
 	}
 	//浏览所有经销商数量
 	@Override

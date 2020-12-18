@@ -257,12 +257,33 @@
                 valign: 'middle',
                 align: 'center'
             },{
-                field:'company_Id',
-                title:'公司编号',
+                field:'login_state',
+                title:'设备在线状态',
                 sortable: true,
                 order:'asc',
                 valign: 'middle',
-                align: 'center'
+                align: 'center',
+                formatter:function (value) {
+                    if (value===0){
+                        return '离线';
+                    }else {
+                        return '在线';
+                    }
+                }
+            },{
+                field:'equipment_notpay_number',
+                title:'设备欠费状态',
+                sortable: true,
+                order:'asc',
+                valign: 'middle',
+                align: 'center',
+                formatter:function (value) {
+                    if (value===0){
+                        return '否';
+                    }else {
+                        return '是';
+                    }
+                }
             },{
                 field: 'operate',
                 title: '操作',
@@ -370,12 +391,12 @@
                             '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo1" onclick=getEquipment('+id+',1)>设备</button>' +
                             ' <div class="modal fade" id="ShowInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                             '   <div class="modal-dialog">\n' +
-                            '       <div class="modal-content">\n' +
+                            '       <div class="modal-content" style="width:800px">\n' +
                             '           <div class="modal-header">\n' +
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">设备使用商设备：</p>\n' +
+                            '               <p style="float:left;">设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
                             '               <table class="table table-hover" id="equipmentTabInfo1">\n' +
@@ -395,7 +416,7 @@
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">设备使用商设备：</p>\n' +
+                            '               <p style="float:left;">设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
                             '               <table class="table table-hover" id="equipmentTabInfo2">\n' +
@@ -415,7 +436,7 @@
                             '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                             '                   &times;\n' +
                             '               </button>\n' +
-                            '               <p style="float:left;">设备使用商设备：</p>\n' +
+                            '               <p style="float:left;">设备：</p>\n' +
                             '           </div>\n' +
                             '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
                             '               <table class="table table-hover" id="equipmentTabInfo3">\n' +

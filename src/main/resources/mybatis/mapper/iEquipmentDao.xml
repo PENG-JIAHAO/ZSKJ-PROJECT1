@@ -4,7 +4,7 @@
 
 	<!--浏览经销商设备表-->
 	<select id="getCompanyEquipment" resultType="com.isscollege.gdce.domain.equipment">
-		SELECT *
+		SELECT equipment_id,company_Id,login_state,equipment_notpay_number
 		FROM equipment_info
 		WHERE company_Id=#{company_Id}
 		ORDER By ${sort} ${order}
@@ -16,6 +16,21 @@
 		SELECT count(1)
 		FROM equipment_info
 		WHERE company_Id=#{company_Id}
+		ORDER By ${sort} ${order}
+	</select>
+
+	<!--浏览所有设备表-->
+	<select id="getAllEquipment" resultType="com.isscollege.gdce.domain.equipment">
+		SELECT *
+		FROM equipment_info
+		ORDER By ${sort} ${order}
+		limit ${offset} ,${limit}
+	</select>
+
+	<!--浏览所有设备总数表-->
+	<select id="getAllEquipmentListTotal" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM equipment_info
 		ORDER By ${sort} ${order}
 	</select>
 

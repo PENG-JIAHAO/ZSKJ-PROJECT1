@@ -160,6 +160,11 @@ public class ReviewModelImpl implements IReviewModel
 	public List<equipment> getCompanyEquipment(String company_Id,int offset, int limit, String sort, String order) {
 		return service.getCompanyEquipment(company_Id,offset, limit, sort, order);
 	}
+	//浏览所有设备表
+	@Override
+	public List<equipment> getAllEquipment(int offset, int limit, String sort, String order) {
+		return service.getAllEquipment(offset, limit, sort, order);
+	}
 	//浏览所有经销商表
 	@Override
 	public List<Company> getAllCompanyInfo(int offset, int limit, String sort, String order) {
@@ -174,6 +179,11 @@ public class ReviewModelImpl implements IReviewModel
 	@Override
 	public 	int getCompanyEquipmentTotal(String company_Id,String sort,String order){
 		return service.getCompanyEquipmentListTotal(company_Id,sort,order);
+	}
+	//浏览所有设备数量
+	@Override
+	public 	int getAllEquipmentTotal(String sort,String order){
+		return service.getAllEquipmentListTotal(sort,order);
 	}
 	//浏览所有经销商数量
 	@Override

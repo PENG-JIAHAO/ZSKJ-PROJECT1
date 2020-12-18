@@ -258,14 +258,16 @@
                     <div class="panel-heading" style="background-color: #212525; color: whitesmoke;">
                         <div class="img-left"><img src="${context }/imgs/jurisdiction.png" alt="" height="30px"></div>
                         <a class="panel-title collapsed click" data-toggle="collapse" data-parent="#panel-203847"
-                           href="#panel-element-12315">权限管理
+                           href="#panel-element-12315">设备管理
                             <div class="img-right"><img src="${context }/imgs/down.png" alt="" height="20px"></div>
                         </a>
                     </div>
                     <div id="panel-element-12315" class="panel-collapse collapse">
-                        <div class="panel-body" data-src="">
-                            <a href="#" class="guide">待定</a>
-                        </div>
+                        <c:if test="${per.indexOf('6')!=-1}">
+                            <div  id = "btn0" class="panel-body" data-src="${context }/review/mEquipmentManage">
+                                <a href="#" class="guide" >设备管理</a>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>

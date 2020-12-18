@@ -87,133 +87,141 @@
             </div>
         </div>
 
-        <%--信息查看按钮模态框--%>
-        <div class="modal fade" id="operatorInfoTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="width: 700px">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                    </div>
 
-                    <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab">
-                                <span style="font-size:14px;color:black; font-family:微软雅黑">设备使用商基本信息 </span>
-                            </a>
-                            </li>
-                        </ul>
-                        <table  class="table table-hover table-condensed" align="center" style="text-align: center">
-                            <tr>
-                                <td width="30%" align="right">编号:</td>
-                                <td align="left">${clientuser.name}</td>
-                            </tr>
-                            <tr>
-                                <td width="30%" align="right">经销商:</td>
-                                <td align="left">${company.companyName}</td>
-                            </tr>
-                            <tr>
-                                <td width="30%" align="right">联系人:</td>
-                                <td align="left">${company.legalPerson}</td>
-                            </tr>
-                            <tr>
-                                <td width="30%" align="right">地址:</td>
-                                <td align="left" >${company.companyAddress}</td>
-                            </tr>
-                            <tr>
-                                <td width="30%" align="right">联系电话:</td>
-                                <td align="left">${company.phoneNumber}</td>
-                            </tr>>
-                            <tr>
-                                <td width="30%" align="right">邮箱:</td>
-                                <td align="left">${company.companyEmail}</td>
-                            </tr>
-                        </table>
+    <%--详情查看模态框--%>
+    <div class="modal fade" id="shopInfoTable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" >
+                            <span style="font-size:14px;color:black; font-family:微软雅黑">经销商基本信息</span>
+                        </a>
+                    </ul>
+                    <table  class="table table-hover table-condensed" align="center" style="text-align: center">
+                        <tr>
+                            <td width="30%" align="right">编号:</td>
+                            <td align="left">${clientuser.name}</td>
+                        </tr>
+                        <tr>
 
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" >
-                                <span style="font-size:14px;color:black; font-family :微软雅黑">使用统计</span>
-                            </a>
-                            </li>
-                        </ul>
-                        <table width="730px" class="table table-hover table-condensed" align=center style="table-layout: fixed">
+                            <td width="30%" align="right">经销商:</td>
+                            <td align="left">${company.companyName}</td>
+                        </tr>
+                        <tr>
+
+                            <td width="30%" align="right">联系人:</td>
+                            <td align="left">${company.legalPerson}</td>
+                        </tr>
+                        <tr>
+
+                            <td width="30%" align="right">地址:</td>
+                            <td align="left" >${company.companyAddress}</td>
+                        </tr>
+                        <tr>
+
+                            <td width="30%" align="right">联系电话:</td>
+                            <td align="left">${company.phoneNumber}</td>
+                        </tr>
+                        <tr>
+
+                            <td width="30%" align="right">传真:</td>
+                            <td align="left">${company.companyFax}</td>
+                        </tr>
+                        <tr>
+
+                            <td width="30%" align="right">邮箱:</td>
+                            <td align="left">${company.companyEmail}</td>
+                        </tr>
+                    </table>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" >
+                            <span style="font-size:14px;color:black; font-family :微软雅黑">使用统计</span>
+                        </a>
+                        </li>
+                    </ul>
+                    <table width="730px" class="table table-hover table-condensed" align=center style="table-layout: fixed">
+                        <tr>
+                            <td width="80px" align="right">未结算次数:</td>
+                            <td width="100px" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">次</td>
+                            <td width="80" align="right">单价:</td>
+                            <td width="100" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">元</td>
+                            <td width="80" align="right">金额:</td>
+                            <td width="100" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">元</td>
+                        </tr>
+                        <tr>
+                            <td width="80px" align="right">已结算次数:</td>
+                            <td width="100px" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">次</td>
+                            <td width="80" align="right">单价:</td>
+                            <td width="100" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">元</td>
+                            <td width="80" align="right">金额:</td>
+                            <td width="100" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">元</td>
+                        </tr>
+                        <tr>
+                            <td width="80px" align="right">累计:</td>
+                            <td width="100px" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">次</td>
+                            <td width="80" align="right">总额:</td>
+                            <td width="100" align="left">${company.legalPerson}</td>
+                            <td width="10px" align="left">元</td>
+                        </tr>
+                    </table>
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" >
+                            <span style="font-size:14px;color:black; font-family:微软雅黑">自动催缴设置</span>
+                        </a>
+                        </li>
+                    </ul>
+                    <from>
+                        <table class="table table-hover table-condensed" align="center"
+                               style="text-align: center">
                             <tr>
-                                <td width="80px" align="right">未结算次数:</td>
+                                <td width="80px" align="right">是否自动:</td>
                                 <td width="100px" align="left">${company.legalPerson}</td>
-                                <td width="10px" align="left">次</td>
-                                <td width="80" align="right">单价:</td>
+                                <td width="80" align="right">设置:</td>
                                 <td width="100" align="left">${company.legalPerson}</td>
-                                <td width="10px" align="left">元</td>
+                                <td width="10px" align="left">次</td>
                                 <td width="80" align="right">金额:</td>
                                 <td width="100" align="left">${company.legalPerson}</td>
                                 <td width="10px" align="left">元</td>
                             </tr>
                             <tr>
-                                <td width="80px" align="right">已结算次数:</td>
+                                <td width="80px" align="right">是否锁机:</td>
                                 <td width="100px" align="left">${company.legalPerson}</td>
-                                <td width="10px" align="left">次</td>
-                                <td width="80" align="right">单价:</td>
+                                <td width="80" align="right">设置:</td>
                                 <td width="100" align="left">${company.legalPerson}</td>
-                                <td width="10px" align="left">元</td>
+                                <td width="10px" align="left">次</td>
                                 <td width="80" align="right">金额:</td>
                                 <td width="100" align="left">${company.legalPerson}</td>
                                 <td width="10px" align="left">元</td>
                             </tr>
-                            <tr>
-                                <td width="80px" align="right">累计:</td>
-                                <td width="100px" align="left">${company.legalPerson}</td>
-                                <td width="10px" align="left">次</td>
-                                <td width="80" align="right">总额:</td>
-                                <td width="100" align="left">${company.legalPerson}</td>
-                                <td width="10px" align="left">元</td>
-                            </tr>
                         </table>
+                    </from>
+                </div><!-- /.modal-body -->
+            </div><!-- /.modal-contxent -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" >
-                                <span style="font-size:14px;color:black; font-family:微软雅黑">自动催缴设置</span>
-                            </a>
-                            </li>
-                        </ul>
-                        <from>
-                            <table class="table table-hover table-condensed" align="center"
-                                   style="text-align: center">
-                                <tr>
-                                    <td width="80px" align="right">是否自动:</td>
-                                    <td width="100px" align="left">${company.legalPerson}</td>
-                                    <td width="80" align="right">设置:</td>
-                                    <td width="100" align="left">${company.legalPerson}</td>
-                                    <td width="10px" align="left">次</td>
-                                    <td width="80" align="right">金额:</td>
-                                    <td width="100" align="left">${company.legalPerson}</td>
-                                    <td width="10px" align="left">元</td>
-                                </tr>
-                                <tr>
-                                    <td width="80px" align="right">是否锁机:</td>
-                                    <td width="100px" align="left">${company.legalPerson}</td>
-                                    <td width="80" align="right">设置:</td>
-                                    <td width="100" align="left">${company.legalPerson}</td>
-                                    <td width="10px" align="left">次</td>
-                                    <td width="80" align="right">金额:</td>
-                                    <td width="100" align="left">${company.legalPerson}</td>
-                                    <td width="10px" align="left">元</td>
-                                </tr>
-                            </table>
-                        </from>
-                    </div><!-- /.modal-body -->
-                </div><!-- /.modal-contxent -->
-            </div><!-- /.modal-dialog -->
-        </div>
-
-</body>
+    </body>
 
     <script>
 
-        <%--点击设备按钮--%>
-        function getEquipment(shopId,tabNum) {
-            $('#equipmentListTab'+tabNum).bootstrapTable('destroy');
-            $('#equipmentListTab'+tabNum).bootstrapTable({
+        <%--浏览经销商设备表--%>
+        function getShopEquipment(shopId,tabNum) {
+            $('#equipmentTabInfo'+tabNum).bootstrapTable('destroy');
+            $('#equipmentTabInfo'+tabNum).bootstrapTable({
                 url:'${context}/review/getShopEquipment?shopId='+shopId,
                 striped: true,
                 sortable: true,
@@ -247,8 +255,8 @@
                     valign: 'middle',
                     align: 'center'
                 },{
-                    field:'shop_id',
-                    title:'店铺编号',
+                    field:'company_Id',
+                    title:'公司编号',
                     sortable: true,
                     order:'asc',
                     valign: 'middle',
@@ -260,27 +268,26 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         var id = row.id;
-                        var path = row.adsImgPath;
-                        if (row.reviewState === 1) {
-                            return ' <button type="button" class="btn btn-default" onclick=equipmentDetails(912202011,245116621)>设备信息</button>\n' +
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>操作</button>' +
-                                ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
-                                '   <div class="modal-dialog">\n' +
-                                '       <div class="modal-content">\n' +
-                                '           <div class="modal-header">\n' +
-                                '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
-                                '                   &times;\n' +
-                                '               </button>\n' +
-                                '               <p style="float:left;">店铺设备：</p>\n' +
-                                '           </div>\n' +
-                                '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                                '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
-                                '               </table>\n' +
-                                '           </div>\n' +
-                                '       </div><!-- /.modal-contxent -->\n' +
-                                '   </div><!-- /.modal-dialog -->\n' +
-                                '</div>\n';
-                        }
+                        return ' <button type="button" class="btn btn-default" onclick=ComDetails(912202011,245116621)>设备信息</button>\n' +
+                            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>操作</button>' +
+                            ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                            '   <div class="modal-dialog">\n' +
+                            '       <div class="modal-content">\n' +
+                            '           <div class="modal-header">\n' +
+                            '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
+                            '                   &times;\n' +
+                            '               </button>\n' +
+                            '               <p style="float:left;">运营商设备：</p>\n' +
+                            '           </div>\n' +
+                            '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
+                            '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                            '               </table>\n' +
+                            '           </div>\n' +
+                            '       </div><!-- /.modal-contxent -->\n' +
+                            '   </div><!-- /.modal-dialog -->\n' +
+                            '</div>\n';
+
+
                     }
                 }]
             })
@@ -299,7 +306,6 @@
                 searchOnEnterKey:false,
                 strictSearch:false,
                 showRefresh:true,
-                detailView: true,  //是否显示父子表
                 sidePagination:'server',
                 sortName:'id',
                 sortOrder:'asc',
@@ -356,10 +362,10 @@
                     valign: 'middle',
                     align: 'center',
                     formatter: function (value, row, index){
-                        var id=row["shop_id"];
+                        var shop_id=row["shop_id"];
                         if (tabNum===1){
-                            return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo1" onclick=getEquipment('+id+',1)>设备</button>' +
+                            return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#shopInfoTable">信息</button>\n'+
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo1" onclick=getShopEquipment('+shop_id+',1)>设备</button>' +
                                 ' <div class="modal fade" id="ShowInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                                 '   <div class="modal-dialog">\n' +
                                 '       <div class="modal-content">\n' +
@@ -367,10 +373,10 @@
                                 '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                                 '                   &times;\n' +
                                 '               </button>\n' +
-                                '               <p style="float:left;">设备使用商设备：</p>\n' +
+                                '               <p style="float:left;">设备：</p>\n' +
                                 '           </div>\n' +
-                                '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                                '               <table class="table table-hover" id="equipmentListTab1">\n' +
+                                '           <div class="modal-body" style="margin-bottom:20px;" id="ShowInfo1Content" >\n' +
+                                '               <table class="table table-hover" id="equipmentTabInfo1">\n' +
                                 '               </table>\n' +
                                 '           </div>\n' +
                                 '       </div><!-- /.modal-contxent -->\n' +
@@ -379,18 +385,18 @@
                         }
                         else if (tabNum===2){
                             return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo2" onclick=getEquipment('+id+',2)>设备</button>' +
-                                ' <div class="modal fade" id="ShowReviewInfo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo2" onclick=getShopEquipment('+id+',2)>设备</button>' +
+                                ' <div class="modal fade" id="ShowInfo2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                                 '   <div class="modal-dialog">\n' +
                                 '       <div class="modal-content">\n' +
                                 '           <div class="modal-header">\n' +
                                 '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                                 '                   &times;\n' +
                                 '               </button>\n' +
-                                '               <p style="float:left;">设备使用商设备：</p>\n' +
+                                '               <p style="float:left;">设备：</p>\n' +
                                 '           </div>\n' +
-                                '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                                '               <table class="table table-hover" id="equipmentListTab2">\n' +
+                                '           <div class="modal-body" style="margin-bottom:20px;" id="ShowInfo2Content" >\n' +
+                                '               <table class="table table-hover" id="equipmentTabInfo2">\n' +
                                 '               </table>\n' +
                                 '           </div>\n' +
                                 '       </div><!-- /.modal-contxent -->\n' +
@@ -399,97 +405,18 @@
                         }
                         else{
                             return' <button type="button" class="btn btn-default" data-toggle="modal" data-target="#operatorInfoTable">信息</button>\n'+
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo3" onclick=getEquipment('+id+',3)>设备</button>' +
-                                ' <div class="modal fade" id="ShowReviewInfo3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
+                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowInfo3" onclick=getShopEquipment('+id+',3)>设备</button>' +
+                                ' <div class="modal fade" id="ShowInfo3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
                                 '   <div class="modal-dialog">\n' +
                                 '       <div class="modal-content">\n' +
                                 '           <div class="modal-header">\n' +
                                 '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
                                 '                   &times;\n' +
                                 '               </button>\n' +
-                                '               <p style="float:left;">设备使用商设备：</p>\n' +
+                                '               <p style="float:left;">设备：</p>\n' +
                                 '           </div>\n' +
-                                '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                                '               <table class="table table-hover" id="equipmentListTab3">\n' +
-                                '               </table>\n' +
-                                '           </div>\n' +
-                                '       </div><!-- /.modal-contxent -->\n' +
-                                '   </div><!-- /.modal-dialog -->\n' +
-                                '</div>\n';
-                        }
-                    }
-                }],
-                onExpandRow: function (index, row, $detail) {
-                    ExpandRow(index, row, $detail);
-                }
-            });
-        }
-        //父子表(子表)
-        function ExpandRow(index, row, $detail) {
-            var shopId=row["shop_id"];
-            var id = row.id;
-            var childname = "plan_" + id;
-            var equipmentListTab = $detail.html('<table id="' + childname + '"></table>').find('table');
-            $(equipmentListTab).bootstrapTable('destroy');
-            $(equipmentListTab).bootstrapTable({
-                url:'${context}/review/getShopEquipment?shopId='+shopId,
-                striped: true,
-                sortable: true,
-                pagination: true,
-                showLoading: true,
-                sidePagination: "server",
-                sortName: "id",
-                sortOrder: "desc",
-                pageNumber: 1,
-                pageSize: 7,
-                pageList:[7,14],
-                queryParamsType: 'limit',
-                queryParams: function (params) {
-                    return params;
-                },
-                onSort: function (name, order) {
-
-                },
-                onLoadSuccess: function (data) {
-
-                },
-                onLoadError: function (status) {
-
-                },
-                columns: [{
-                    field: 'equipment_id',
-                    title: '设备编号',
-                    valign: 'middle',
-                    align: 'center'
-                },{
-                    field:'shop_id',
-                    title:'店铺编码',
-                    sortable: true,
-                    order:'asc',
-                    valign: 'middle',
-                    align: 'center'
-                },{
-                    field: 'operate',
-                    title: '操作',
-                    valign: 'middle',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var id = row.id;
-                        var path = row.adsImgPath;
-                        if (row.reviewState === 1) {
-                            return ' <button type="button" class="btn btn-default" onclick=equipmentDetails(912202011,245116621)>设备信息</button>\n' +
-                                '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowReviewInfo1" onclick=info(912202011245116621)>操作</button>' +
-                                ' <div class="modal fade" id="ShowReviewInfo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n' +
-                                '   <div class="modal-dialog">\n' +
-                                '       <div class="modal-content">\n' +
-                                '           <div class="modal-header">\n' +
-                                '               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">\n' +
-                                '                   &times;\n' +
-                                '               </button>\n' +
-                                '               <p style="float:left;">店铺设备：</p>\n' +
-                                '           </div>\n' +
-                                '           <div class="modal-body" style="margin-bottom:20px;" id="reviewTabContent" >\n' +
-                                '               <table class="table table-hover" id="reviewProductTabInfo1">\n' +
+                                '           <div class="modal-body" style="margin-bottom:20px;" id="ShowInfo3Content" >\n' +
+                                '               <table class="table table-hover" id="equipmentTabInfo2">\n' +
                                 '               </table>\n' +
                                 '           </div>\n' +
                                 '       </div><!-- /.modal-contxent -->\n' +
@@ -498,8 +425,8 @@
                         }
                     }
                 }]
-            })
-
+            });
         }
     </script>
+
 </html>
