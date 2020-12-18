@@ -166,26 +166,26 @@
 		</div>
 	</div>
 
-	<div class="cont" style="margin:30px auto; width:100%" >
+<%--	<div class="cont" style="margin:30px auto; width:100%" >
 		<div id="advertisement" style="border-collapse: collapse;
 				border: 0px solid gray; width:1140px; margin:auto;">
-				
+
 			<div class="adver" style="border-collapse: collapse;
 				border: 0px solid gray; border-right-width: 1px; float: left; width:33%">
 			<a href="#"><img src="${context}/imgs/ad/001.PNG" alt="picture" /></a>
 			</div>
-			
+
 			<div class="adver" style="border-collapse: collapse;
 				border: 0px solid gray; border-right-width: 1px; float: left; width:33%">
 				<a href="#"><img src="${context}/imgs/ad/002.PNG" alt="picture" /></a>
 			</div>
-			
+
 			<div class="adver" style="border-collapse: collapse;
-				border: 0px solid gray; border-right-width: 1px; float: left; width:33%">			
+				border: 0px solid gray; border-right-width: 1px; float: left; width:33%">
 				<a href="#"><img src="${context}/imgs/ad/003.PNG" alt="picture" /></a>
 			</div><br>
 		</div><br>
-	</div><br>
+	</div><br>--%>
 
 	<div class="jumbotron text-center" style="margin-bottom: 0">
 		<p>
